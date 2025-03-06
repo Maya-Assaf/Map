@@ -13,7 +13,7 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 // المسارات المحمية للمستخدمين المسجلين فقط
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::put('/edite', [AuthController::class, 'updateProfile']);
+    Route::put('/edit/{id}', [AuthController::class, 'updateProfile']);
     Route::get('/user/profile', [AuthController::class, 'getProfile']);
 
 
@@ -37,3 +37,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/zone/{id}', [ZoneController::class,'destroy']);
     Route::get('/zones/filter' , [ZoneController::class,'getZonesByLayers']);
 });
+
+
