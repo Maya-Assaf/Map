@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 // تسجيل و تسجيل الدخول
@@ -29,8 +30,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/locations/{id}/delete-image/{imageId}', [LocationController::class, 'deleteImage']);
     Route::delete('/locations/{id}/delete-reference/{referenceId}', [LocationController::class, 'deleteReference']);
 
-
-
-
-
+    Route::get('/zones' , [ZoneController::class , 'index']);
+    Route::post('/zones' , [ZoneController::class,'store']);
+    Route::get('/zone/{id}', [ZoneController::class,'show']);
+    Route::put('/zone/{id}' , [ZoneController::class,'update']);
+    Route::delete('/zone/{id}', [ZoneController::class,'destroy']);
+    Route::get('/zones/filter' , [ZoneController::class,'getZonesByLayers']);
 });

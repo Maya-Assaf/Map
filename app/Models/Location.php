@@ -22,6 +22,11 @@ class Location extends Model
         return $this->hasMany(LocationReference::class);
     }
 
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
+    }
+
     protected $fillable = [
         'name',
         'category',
