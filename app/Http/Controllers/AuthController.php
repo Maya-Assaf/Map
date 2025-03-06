@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
@@ -111,60 +113,79 @@ public function resetPassword(Request $request)
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Logout successful']);
     }
+ public function updateProfile(Request $request, $id)
+{
+    // Log the incoming request data
+    Log::info('Request Data (form-data):', $request->all());
 
-    public function updateProfile(Request $request)
-    {
-        $user = Auth::user();
+    // Find the user by ID
+    $user = User::find($id);
 
-        // قواعد التحقق تكون باستخدام sometimes لتطبيقها فقط على الحقول المرسلة في الطلب
-        $rules = [
-            'name'       => 'sometimes|string|max:255',
-            'email'      => 'sometimes|email|unique:users,email,' . $user->id,
-            'position'   => 'sometimes|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
-            'department' => 'sometimes|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
-            'layer'      => 'sometimes|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis',
-        ];
-
-        // إذا قام المستخدم بتحديث كلمة المرور، نضيف قواعد تحقق لها
-        if ($request->filled('password')) {
-            $rules['old_password'] = 'required|string';
-            $rules['password']     = 'required|string|min:6|confirmed';
-        }
-
-        $validatedData = $request->validate($rules);
-
-        // تحديث كلمة المرور في حال تم إرسالها
-        if ($request->filled('password')) {
-            if (!Hash::check($request->old_password, $user->password)) {
-                return response()->json(['message' => 'Old password does not match'], 403);
-            }
-            $user->password = Hash::make($validatedData['password']);
-        }
-
-        // تحديث الحقول المتدخلة فقط، وإلا تبقى القيمة القديمة كما هي
-        if ($request->has('name')) {
-            $user->name = $validatedData['name'];
-        }
-        if ($request->has('email')) {
-            $user->email = $validatedData['email'];
-        }
-        if ($request->has('position')) {
-            $user->position = $validatedData['position'];
-        }
-        if ($request->has('department')) {
-            $user->department = $validatedData['department'];
-        }
-        if ($request->has('layer')) {
-            $user->layer = $validatedData['layer'];
-        }
-
-        $user->save();
-
-        return response()->json([
-            'message' => 'Profile updated successfully',
-            'user'    => $user
-        ], 200);
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
     }
+
+    // Check if the user is trying to change their position
+    if ($request->has('position')) {
+        return response()->json(['message' => 'You are not allowed to change your position'], 403);
+    }
+
+    // Validation rules
+    $rules = [
+        'name'       => 'sometimes|string|max:255',
+        'email'      => 'sometimes|email|unique:users,email,' . $user->id,
+        'department' => 'sometimes|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
+        'layer'      => 'sometimes|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis',
+        'position'   => 'prohibited', // Add this rule to explicitly prohibit the position field
+    ];
+
+    // Add password validation rules if password is being updated
+    if ($request->filled('password')) {
+        $rules['old_password'] = 'required|string';
+        $rules['password']     = 'required|string|min:6|confirmed';
+    }
+
+    // Validate the request data
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+        // Log validation errors
+        Log::error('Validation Errors:', $validator->errors()->toArray());
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    // Get the validated data
+    $validatedData = $validator->validated();
+
+    // Log the validated data
+    Log::info('Validated Data:', $validatedData);
+
+    // Update password if provided
+    if ($request->filled('password')) {
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response()->json(['message' => 'Old password does not match'], 403);
+        }
+        $user->password = Hash::make($validatedData['password']);
+        unset($validatedData['password']); // Remove password from validated data to avoid double update
+        unset($validatedData['old_password']); // Remove old_password from validated data
+    }
+
+    // Log the user data before updating
+    Log::info('User Before Update:', $user->toArray());
+
+    // Update the user with the validated data
+    $user->update($validatedData);
+
+    // Log the user data after updating
+    Log::info('User After Update:', $user->toArray());
+
+    return response()->json([
+        'message' => 'Profile updated successfully',
+        'user'    => $user
+    ], 200);
+    }
+     
+
 
     public function getProfile()
     {
