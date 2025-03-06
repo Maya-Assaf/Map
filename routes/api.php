@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LayerController;
+use App\Http\Controllers\RolePermissionController;
 
 // تسجيل و تسجيل الدخول
 Route::post('/register', [AuthController::class, 'register']);
@@ -28,9 +31,28 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/locations/{id}/upload-files', [LocationController::class, 'uploadFiles']);
     Route::delete('/locations/{id}/delete-image/{imageId}', [LocationController::class, 'deleteImage']);
     Route::delete('/locations/{id}/delete-reference/{referenceId}', [LocationController::class, 'deleteReference']);
-
-
+   
+  
+Route::prefix('roles')->group(function () {
+    Route::post('/{role}/permissions', [RolePermissionController::class, 'assignPermissions']);
+    Route::delete('/{role}/permissions', [RolePermissionController::class, 'revokePermissions']);
+});
 
 
 
 });
+
+Route::middleware(['auth:sanctum'])->group(function () {
+   
+    Route::middleware('layer.access:public health')->group(function () {
+        Route::apiResource('zones', ExampleController::class);
+    });
+    Route::middleware('layer.access:data collection and analysis')->group(function () {
+        Route::apiResource('zones', ExampleController::class);
+    });
+    Route::middleware('layer.access:economic factor')->group(function () {
+        Route::apiResource('zones', ExampleController::class);
+    }); 
+      
+});
+

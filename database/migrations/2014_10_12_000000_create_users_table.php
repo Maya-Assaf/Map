@@ -21,6 +21,7 @@ return new class extends Migration
             // $table->string('position')->nullable();
             // $table->string('department')->nullable();
             // $table->string('layer')->nullable();
+            $table->foreignId('role_id')->default(6)->constrained()->onDelete('cascade'); 
             $table->enum('position', ['Head', 'CoHead', 'Senior leader', 'Junior leader', 'Volunteer']);
             $table->enum('department', ['IT&AI', 'Research', 'Design', 'Admin', 'Education', 'Media', 'Fundrising']);
             $table->enum('layer', ['public health', 'resources management', 'economic factor', 'urban planning', 'ecological factor', 'social factor', 'building code', 'Culture and heritage', 'technology and infrastructure', 'data collection and analysis']);
