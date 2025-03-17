@@ -48,7 +48,8 @@ class ZoneController extends Controller
     public function store(Request $request)
     {
         
-        //
+        // Authorize the action using the ZonePolicy
+        $this->authorize('create', Zone::class);
         // Validate the request data
         $request->validate([
             'name'         => 'required|string|max:255',
@@ -60,6 +61,9 @@ class ZoneController extends Controller
             'references.*' => 'nullable|mimes:pdf|max:10000'
         ]);
 
+        // Get the authenticated user
+        $user = Auth::user();
+
         // Create the zone including the optional description
         $zone = Zone::create([
             'name'        => $request->name,
@@ -67,7 +71,8 @@ class ZoneController extends Controller
             'latitude'    => $request->latitude,
             'longitude'   => $request->longitude,
             'radius'      => $request->radius,
-            'user_id'     => Auth::id()
+            'user_id'     => $user->id, // Use the authenticated user's ID
+            'layer'       => $user->layer, // Add the user's layer directly
         ]);
 
         // Process and store uploaded images in the public/imgs folder
@@ -90,9 +95,7 @@ class ZoneController extends Controller
             $zone->ZoneReferences()->create(['pdf_path' => 'refs/' . $filename]);
         }
     }
-    // Load the associated user to get the layer information
-    $zone->load('user');
-
+    
     return response()->json([
         'message'  => 'Zone added successfully',
         'zone' => [
@@ -102,8 +105,8 @@ class ZoneController extends Controller
             'latitude'    => $zone->latitude,
             'longitude'   => $zone->longitude,
             'radius'      => $zone->radius,
-            'user_id'     => Auth::id(),
-            'layer'       => $zone->user->layer ?? 'unknown',
+            'user_id'     => $user->id,
+            'layer'       => $user->layer, // Add the user's layer directly
             'images'      => $zone->images,      // List of image records
             'references'  => $zone->references,   // List of PDF reference records
         ]
@@ -145,6 +148,9 @@ class ZoneController extends Controller
             // Authorize the action using the ZonePolicy
             $this->authorize('update', $zone);
 
+            // Get the authenticated user
+            $user = Auth::user();
+
             // Validate the request data
             $request->validate([
                 'name'         => 'sometimes|string|max:255',
@@ -167,7 +173,7 @@ class ZoneController extends Controller
                     'latitude'    => $zone->latitude,
                     'longitude'   => $zone->longitude,
                     'radius'      => $zone->radius,
-                    'layer'       => $zone->user->layer ?? 'unknown',
+                    'layer'       => $user->layer, // Use the authenticated user's layer directly
                 ]
             ]);
      }
@@ -192,5 +198,33 @@ class ZoneController extends Controller
 
         return response()->json(['message' => 'Zone deleted successfully']);
 
+    }
+
+
+    public function getZonesByLayers(Request $request)
+{
+        // Get the layers from the request (default to an empty array if not provided)
+        $layers = $request->input('layers', []);
+
+        // Fetch zones with user information where the user's layer is in the provided layers
+        $zones = Zone::whereHas('user', function ($query) use ($layers) {
+            $query->whereIn('layer', $layers);
+        })->with('user')->get();
+
+        // Modify the data to include the user's `layer`
+        $zones = $zones->map(function ($zone) {
+            return [
+                'id'          => $zone->id,
+                'name'        => $zone->name,
+                'category'    => $zone->category,
+                'latitude'    => $zone->latitude,
+                'longitude'   => $zone->longitude,
+                'radius'      => $zone->radius,
+                'layer'       => $zone->user->layer ?? 'unknown', // Add `layer` from the user
+                'user_id'     => $zone->user_id,
+            ];
+        });
+
+        return response()->json($zones);
     }
 }

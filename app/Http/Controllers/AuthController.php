@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class AuthController extends Controller
 {
+    use HasApiTokens;
+
     // تسجيل مستخدم جديد
     public function register(Request $request)
     {
@@ -43,6 +48,9 @@ class AuthController extends Controller
     // تسجيل الدخول
     public function login(Request $request)
     {
+
+        
+
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -138,6 +146,7 @@ public function resetPassword(Request $request)
         'layer'      => 'sometimes|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis',
         'position'   => 'prohibited', // Add this rule to explicitly prohibit the position field
     ];
+    
 
     // Add password validation rules if password is being updated
     if ($request->filled('password')) {
