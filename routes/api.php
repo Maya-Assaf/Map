@@ -37,24 +37,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/zone/{id}', [ZoneController::class,'destroy']);
     Route::get('/zones/filter' , [ZoneController::class,'getZonesByLayers']);
 
-    Route::prefix('roles')->group(function () {
-    Route::post('/{role}/permissions', [RolePermissionController::class, 'assignPermissions']);
-    Route::delete('/{role}/permissions', [RolePermissionController::class, 'revokePermissions']);
+    // Route::prefix('roles')->group(function () {
+    // Route::post('/{role}/permissions', [RolePermissionController::class, 'assignPermissions']);
+    // Route::delete('/{role}/permissions', [RolePermissionController::class, 'revokePermissions']);
 });
 
 
    
-    Route::middleware('layer.access:public health')->group(function () {
-        Route::apiResource('zones', ExampleController::class);
-    });
-    Route::middleware('layer.access:data collection and analysis')->group(function () {
-        Route::apiResource('zones', ExampleController::class);
-    });
-    Route::middleware('layer.access:economic factor')->group(function () {
-        Route::apiResource('zones', ExampleController::class);
-    }); 
+    // Route::middleware('layer.access:public health')->group(function () {
+    //     Route::apiResource('zones', ExampleController::class);
+    // });
+    // Route::middleware('layer.access:data collection and analysis')->group(function () {
+    //     Route::apiResource('zones', ExampleController::class);
+    // });
+    // Route::middleware('layer.access:economic factor')->group(function () {
+    //     Route::apiResource('zones', ExampleController::class);
+    // }); 
       
-});
+// });
 
 
 

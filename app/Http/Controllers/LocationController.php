@@ -12,15 +12,22 @@ class LocationController extends Controller
     // إضافة موقع جديد
     public function store(Request $request)
 {
+    // Authorize the action using the ZonePolicy
+    $this->authorize('create', Location::class);
+    
     $request->validate([
         'name'         => 'required|string|max:255',
         'category'     => 'required|string|max:255',
         'latitude'     => 'required|numeric',
         'longitude'    => 'required|numeric',
         'description'  => 'nullable|string',
+        'sub_aspect'   => 'nullable|string',
         'images.*'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'references.*' => 'nullable|mimes:pdf|max:10000'
     ]);
+
+    // Get the authenticated user
+    $user = Auth::user();
 
     // Create the location including the optional description
     $location = Location::create([
@@ -29,7 +36,9 @@ class LocationController extends Controller
         'latitude'    => $request->latitude,
         'longitude'   => $request->longitude,
         'description' => $request->description,
-        'user_id'     => Auth::id()
+        'sub_aspect'  => $request->sub_aspect,
+        'user_id'     => $user->id, // Use the authenticated user's ID
+        'layer'       => $user->layer, // Add the user's layer directly
     ]);
 
     // Process and store uploaded images in the public/imgs folder
@@ -53,20 +62,18 @@ class LocationController extends Controller
         }
     }
 
-    // Load the associated user to get the layer information
-    $location->load('user');
-
     return response()->json([
         'message'  => 'Location added successfully',
         'location' => [
             'id'          => $location->id,
             'name'        => $location->name,
+            'sub_aspect'  => $location->sub_aspect,
             'category'    => $location->category,
             'latitude'    => $location->latitude,
             'longitude'   => $location->longitude,
             'description' => $location->description,
-            'user_id'     => Auth::id(),
-            'layer'       => $location->user->layer ?? 'unknown',
+            'user_id'     => $user->id, // Use the authenticated user's ID
+            'layer'       => $user->layer, // Add the user's layer directly
             'images'      => $location->images,      // List of image records
             'references'  => $location->references,   // List of PDF reference records
 
@@ -87,6 +94,7 @@ public function index() {
             'latitude'    => $location->latitude,
             'longitude'   => $location->longitude,
             'description' => $location->description,
+            'sub_aspect'  => $location->sub_aspect,
             'layer'       => $location->user->layer ?? 'unknown',
             'images'      => $location->images,      // Returns an array of image records
             'references'  => $location->references   // Returns an array of PDF reference records
@@ -100,22 +108,28 @@ public function index() {
 public function update(Request $request, $id)
 {
     $location = Location::with(['user'])->findOrFail($id);
+
+    // Authorize the action using the ZonePolicy
+    $this->authorize('update', $location);
+
+    // Get the authenticated user
     $user = Auth::user();
 
-    // Role-based authorization checks
-    if ($user->position === 'Volunteer' && $location->user_id !== $user->id) {
-        return response()->json(['message' => 'Unauthorized'], 403);
-    }
-
-    if (($user->position === 'Senior leader' || $user->position === 'Junior leader') &&
-        $location->user->position === 'Volunteer' &&
-        $location->user->layer !== $user->layer) {
-        return response()->json(['message' => 'Unauthorized'], 403);
-    }
+     // Validate the request data
+     $request->validate([
+        'name'         => 'sometimes|string|max:255',
+        'category'     => 'sometimes|string|max:255',
+        'description'  => 'sometimes|string|max:255',
+        'sub_aspect'   => 'sometimes|string|max:255',
+        'latitude'     => 'sometimes|numeric',
+        'longitude'    => 'sometimes|numeric',
+    ]);
 
     // Update the basic fields (remove image and reference processing)
-    $data = $request->only(['name', 'category', 'description']);
+    $data = $request->only(['name', 'category', 'description', 'latitude' , 'longitude' ]);
     $location->update($data);
+
+
 
     return response()->json([
         'message'  => 'Location updated successfully',
@@ -124,9 +138,10 @@ public function update(Request $request, $id)
             'name'        => $location->name,
             'category'    => $location->category,
             'description' => $location->description,
+            'sub_aspect'  => $location->sub_aspect,
             'latitude'    => $location->latitude,
             'longitude'   => $location->longitude,
-            'layer'       => $location->user->layer ?? 'unknown'
+            'layer'       => $user->layer, // Use the authenticated user's layer directly
         ]
     ]);
 }
@@ -137,17 +152,9 @@ public function update(Request $request, $id)
     public function destroy($id)
     {
         $location = Location::findOrFail($id);
-        $user = Auth::user();
-
-        if ($user->position === 'Volunteer' && $location->user_id !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        if (($user->position === 'Senior leader' || $user->position === 'Junior leader') &&
-            $location->user->position === 'Volunteer' &&
-            $location->user->layer !== $user->layer) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+    
+        // Authorize the action using the ZonePolicy
+        $this->authorize('delete', $location);
 
         $location->delete();
         return response()->json(['message' => 'Location deleted successfully']);
@@ -167,6 +174,7 @@ public function update(Request $request, $id)
                 'id' => $location->id,
                 'name' => $location->name,
                 'category' => $location->category,
+                'sub_aspect' => $location->sub_aspect,
                 'latitude' => $location->latitude,
                 'longitude' => $location->longitude,
                 'layer' => $location->user->layer ?? 'unknown' // إضافة `layer` من المستخدم
@@ -344,6 +352,7 @@ public function show(Request $request, $id)
                     $location->id,
                     $location->name,
                     $location->category,
+                    $location->sub_aspect,
                     $location->latitude,
                     $location->longitude,
                     $location->user->layer ?? 'unknown',
