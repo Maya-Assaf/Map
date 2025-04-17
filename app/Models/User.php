@@ -37,6 +37,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function affectedLogs()
+      {
+    return $this->hasMany(Log::class, 'affected_user_id');
+      }
+
+    public function updatedLogs()
+      {
+    return $this->hasMany(Log::class, 'updated_by_user_id');
+      }
+
     /**
      * The attributes that should be cast.
      *

@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\LocationController;
 
 // تسجيل و تسجيل الدخول
 Route::post('/register', [AuthController::class, 'register']);
@@ -36,6 +37,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/zone/{id}' , [ZoneController::class,'update']);
     Route::delete('/zone/{id}', [ZoneController::class,'destroy']);
     Route::get('/zones/filter' , [ZoneController::class,'getZonesByLayers']);
+    Route::post('/updatePosition/{id}' , [UserController::class,'updatePosition']);
+
+
+
+
+
+
 
     // Route::prefix('roles')->group(function () {
     // Route::post('/{role}/permissions', [RolePermissionController::class, 'assignPermissions']);
@@ -43,7 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-   
+
     // Route::middleware('layer.access:public health')->group(function () {
     //     Route::apiResource('zones', ExampleController::class);
     // });
@@ -52,8 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // });
     // Route::middleware('layer.access:economic factor')->group(function () {
     //     Route::apiResource('zones', ExampleController::class);
-    // }); 
-      
+    // });
+
 // });
 
 
