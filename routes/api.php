@@ -8,6 +8,11 @@ use App\Http\Controllers\LocationController;
 
 // تسجيل و تسجيل الدخول
 Route::post('/register', [AuthController::class, 'register']);
+<<<<<<< HEAD
+=======
+Route::post('/verify-code', [AuthController::class, 'verifyCode']);
+Route::post('/resend-code', [AuthController::class, 'resendCode']);
+>>>>>>> 2523159 (add verification code)
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 

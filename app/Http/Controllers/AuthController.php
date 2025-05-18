@@ -10,6 +10,12 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
+>>>>>>> 2523159 (add verification code)
 
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,6 +26,7 @@ class AuthController extends Controller
     use HasApiTokens;
 
     // تسجيل مستخدم جديد
+<<<<<<< HEAD
     public function register(Request $request)
     {
         // dd($request->all());
@@ -60,22 +67,164 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->boolean('remember'); // الحصول على قيمة تذكرني
 
+=======
+    
+    
+public function register(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+        'position' => 'required|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
+        'department' => 'required|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
+        'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
+    ]);
+
+    $verificationCode = rand(100000, 999999); // 6-digit random code
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'position' => $request->position,
+        'department' => $request->department,
+        'layer' => $request->layer,
+        'is_verified' => false,
+    ]);
+
+    // Store verification code in cache with 10 minutes expiration
+    Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
+   
+
+    // Send email
+    Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Verify Your Email');
+    });
+
+    Log::info('User Registered Successfully:', ['user' => $user]);
+
+    return response()->json(['message' => 'User registered successfully. Please check your email for the verification code.'], 201);
+}
+
+//v
+public function verifyCode(Request $request)
+{
+    // Custom validation rules
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email|exists:users,email',
+        'verification_code' => 'required|string|size:6', // Example: 6 digits code
+    ]);
+
+    // If validation fails, return error response
+    if ($validator->fails()) {
+        return response()->json([
+            'errors' => $validator->errors()
+        ], 422); // 422 Unprocessable Entity
+    }
+
+    // Find the user by email
+    $user = User::where('email', $request->email)->first();
+
+    // Retrieve the verification code from cache
+    $cachedCode = Cache::get('verification_code_' . $user->id);
+
+    // Check if the verification code matches
+    if ($cachedCode && $cachedCode == $request->verification_code) {
+        // Code is valid, mark the user as verified
+        $user->is_verified = true;
+        $user->save();
+
+        // Remove the verification code from cache
+        Cache::forget('verification_code_' . $user->id);
+
+        return response()->json([
+            'message' => 'Verification successful!'
+        ], 200); // Success
+    }
+
+    // If verification fails
+    return response()->json([
+        'message' => 'Invalid verification code.'
+    ], 400); // Bad request
+}
+
+public function resendCode(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email|exists:users,email',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if ($user->is_verified) {
+        return response()->json(['message' => 'User already verified.'], 400);
+    }
+
+    $newCode = rand(100000, 999999);
+
+    // Store the new code in the cache with a new expiration time
+    Cache::put('verification_code_' . $user->id, $newCode, 60); // 1 minutes expiration
+
+    Mail::raw('Your new verification code is: ' . $newCode, function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Resend Verification Code');
+    });
+
+    return response()->json(['message' => 'A new verification code has been sent to your email.'], 200);
+}
+
+
+
+    // تسجيل الدخول
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'remember' => 'sometimes|boolean'
+        ]);
+    
+        $credentials = $request->only('email', 'password');
+        $remember = $request->boolean('remember');
+    
+>>>>>>> 2523159 (add verification code)
         if (!Auth::attempt($credentials, $remember)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
+<<<<<<< HEAD
 
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
+=======
+    
+        $user = Auth::user();
+    
+        if (!$user->is_verified) {
+            Auth::logout();
+            return response()->json([
+                'message' => 'Please verify your email before logging in.'
+            ], 403);
+        }
+    
+        $token = $user->createToken('auth_token')->plainTextToken;
+    
+>>>>>>> 2523159 (add verification code)
         return response()->json([
             'message' => 'Login successful',
             'access_token' => $token,
             'user' => $user
         ]);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 2523159 (add verification code)
 
     public function forgotPassword(Request $request)
 {
