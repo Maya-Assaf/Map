@@ -24,12 +24,8 @@ class User extends Authenticatable
         'password',
         'position',
         'department',
-<<<<<<< HEAD
-        'layer'
-=======
         'layer',
         'is_verified'
->>>>>>> 2523159 (add verification code)
     ];
 
     /**

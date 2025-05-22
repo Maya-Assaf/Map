@@ -10,12 +10,9 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
->>>>>>> 2523159 (add verification code)
 
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,48 +23,6 @@ class AuthController extends Controller
     use HasApiTokens;
 
     // تسجيل مستخدم جديد
-<<<<<<< HEAD
-    public function register(Request $request)
-    {
-        // dd($request->all());
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'position' => 'required|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
-            'department' => 'required|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
-            'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'position' => $request->position,
-            'department' => $request->department,
-            'layer' => $request->layer,
-        ]);
-
-        Log::info('User Registered Successfully:', ['user' => $user]);
-        return response()->json(['message' => 'User registered successfully'], 201);
-    }
-
-    // تسجيل الدخول
-    public function login(Request $request)
-    {
-
-        
-
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'remember' => 'sometimes|boolean' // التأكد من صحة "تذكرني"
-        ]);
-
-        $credentials = $request->only('email', 'password');
-        $remember = $request->boolean('remember'); // الحصول على قيمة تذكرني
-
-=======
     
     
 public function register(Request $request)
@@ -189,18 +144,11 @@ public function resendCode(Request $request)
         $credentials = $request->only('email', 'password');
         $remember = $request->boolean('remember');
     
->>>>>>> 2523159 (add verification code)
         if (!Auth::attempt($credentials, $remember)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-<<<<<<< HEAD
-
-        $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-=======
     
         $user = Auth::user();
     
@@ -213,18 +161,13 @@ public function resendCode(Request $request)
     
         $token = $user->createToken('auth_token')->plainTextToken;
     
->>>>>>> 2523159 (add verification code)
         return response()->json([
             'message' => 'Login successful',
             'access_token' => $token,
             'user' => $user
         ]);
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 2523159 (add verification code)
 
     public function forgotPassword(Request $request)
 {
