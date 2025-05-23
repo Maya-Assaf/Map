@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Exception;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\PreRegisteredUser;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
 
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
@@ -30,11 +32,28 @@ public function register(Request $request)
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|unique:users',
-        'password' => 'required|string|min:6|confirmed',
-        'position' => 'required|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
-        'department' => 'required|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
-        'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
+        'password' => 'required|string|min:6|confirmed'
+        // 'position' => 'required|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
+        // 'department' => 'required|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
+        // 'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
     ]);
+
+    // Check if user already exists
+    if (User::where('email', $request->email)->exists()) {
+        return response()->json(['message' => 'User already registered with this email.'], 409);
+    }
+
+     // Check datasheet for employee details
+     $employeeData = PreRegisteredUser::where('email', $request->email)->first();
+
+     if ($employeeData) {
+         // Employee found in datasheet - use their data
+         $position = $employeeData->position;
+         $department = $employeeData->department;
+       
+         
+         Log::info('Employee found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
+     }
 
     $verificationCode = rand(100000, 999999); // 6-digit random code
 
@@ -42,8 +61,8 @@ public function register(Request $request)
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'position' => $request->position,
-        'department' => $request->department,
+        'position' => $position,
+        'department' => $department,
         'layer' => $request->layer,
         'is_verified' => false,
     ]);
@@ -60,7 +79,39 @@ public function register(Request $request)
 
     Log::info('User Registered Successfully:', ['user' => $user]);
 
-    return response()->json(['message' => 'User registered successfully. Please check your email for the verification code.'], 201);
+    $responseMessage = 'User registered successfully. Please check your email for the verification code.';
+    return response()->json([
+        'message' => $responseMessage,
+        'user_data' => [
+            'position' => $position,
+            'department' => $department
+        ]
+    ], 201);
+}
+
+// Alternative method: Check employee data before registration
+public function checkEmployee(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email'
+    ]);
+
+    $employeeData = PreRegisteredUser::where('email', $request->email)->first();
+
+    if ($employeeData) {
+        return response()->json([
+            'found' => true,
+            'data' => [
+                'position' => $employeeData->position,
+                'department' => $employeeData->department
+            ]
+        ]);
+    }
+
+    return response()->json([
+        'found' => false,
+        'message' => 'Email not found in company database. Please provide your details manually.'
+    ]);
 }
 
 //v
@@ -129,6 +180,50 @@ public function resendCode(Request $request)
 
     return response()->json(['message' => 'A new verification code has been sent to your email.'], 200);
 }
+
+    // Method to import datasheet (CSV/Excel) to database
+    public function importDatasheet(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,txt'
+        ]);
+
+        $file = $request->file('file');
+        $path = $file->getRealPath();
+        
+        if (($handle = fopen($path, 'r')) !== FALSE) {
+            $header = fgetcsv($handle, 1000, ','); // Get header row
+            $imported = 0;
+            $errors = [];
+            
+            while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+                try {
+                    $row = array_combine($header, $data);
+                    
+                    PreRegisteredUser::updateOrCreate(
+                        ['Email' => $row['email']],
+                        [
+                            'Your Position' => $row['position'],
+                            'DEPARTMENT' => $row['department'],
+                        ]
+                    );
+                    $imported++;
+                } catch (Exception $e) {
+                    $errors[] = "Error importing row: " . implode(',', $data) . " - " . $e->getMessage();
+                }
+            }
+            fclose($handle);
+            
+            return response()->json([
+                'message' => "Successfully imported {$imported} records.",
+                'errors' => $errors
+            ]);
+        }
+        
+        return response()->json(['message' => 'Failed to read file.'], 400);
+    }
+
+
 
 
 

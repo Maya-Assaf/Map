@@ -7,6 +7,7 @@ use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\LocationController;
 
 // تسجيل و تسجيل الدخول
+Route::post('/check-employee', [AuthController::class, 'checkEmployee']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/verify-code', [AuthController::class, 'verifyCode']);
 Route::post('/resend-code', [AuthController::class, 'resendCode']);
@@ -52,7 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::delete('/{role}/permissions', [RolePermissionController::class, 'revokePermissions']);
 });
 
-
+    // Admin-only routes
+    Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+        Route::post('/admin/import-datasheet', [AuthController::class, 'importDatasheet']);
+    });
 
     // Route::middleware('layer.access:public health')->group(function () {
     //     Route::apiResource('zones', ExampleController::class);
