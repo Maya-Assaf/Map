@@ -32,10 +32,10 @@ public function register(Request $request)
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|unique:users',
-        'password' => 'required|string|min:6|confirmed'
+        'password' => 'required|string|min:6|confirmed',
         // 'position' => 'required|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
         // 'department' => 'required|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
-        // 'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
+        'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
     ]);
 
     // Check if user already exists
@@ -46,14 +46,15 @@ public function register(Request $request)
      // Check datasheet for employee details
      $employeeData = PreRegisteredUser::where('email', $request->email)->first();
 
-     if ($employeeData) {
-         // Employee found in datasheet - use their data
-         $position = $employeeData->position;
-         $department = $employeeData->department;
-       
-         
-         Log::info('Employee found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
-     }
+     if (!$employeeData) {
+        // الموظف غير موجود في البيانات المسبقة، يمنع التسجيل
+        return response()->json(['message' => 'Employee data not found. Registration is not allowed.'], 422);
+    }
+
+    $position = $employeeData->position;
+    $department = $employeeData->department;
+
+    Log::info('Employee found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
 
     $verificationCode = rand(100000, 999999); // 6-digit random code
 
@@ -67,21 +68,21 @@ public function register(Request $request)
         'is_verified' => false,
     ]);
 
-    // Store verification code in cache with 10 minutes expiration
-    Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
+    // // Store verification code in cache with 10 minutes expiration
+    // Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
    
 
-    // Send email
-    Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
-        $message->to($user->email)
-                ->subject('Verify Your Email');
-    });
+    // // Send email
+    // Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
+    //     $message->to($user->email)
+    //             ->subject('Verify Your Email');
+    // });
 
     Log::info('User Registered Successfully:', ['user' => $user]);
 
-    $responseMessage = 'User registered successfully. Please check your email for the verification code.';
+    // $responseMessage = 'User registered successfully. Please check your email for the verification code.';
     return response()->json([
-        'message' => $responseMessage,
+        'message' => 'User registered successfully.',
         'user_data' => [
             'position' => $position,
             'department' => $department
@@ -238,21 +239,29 @@ public function resendCode(Request $request)
     
         $credentials = $request->only('email', 'password');
         $remember = $request->boolean('remember');
+
+         $user = User::where('email', $request->email)->first();
+            if (!$user || !Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
     
-        if (!Auth::attempt($credentials, $remember)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
+        // if (!Auth::attempt($credentials, $remember)) {
+        //     throw ValidationException::withMessages([
+        //         'email' => ['The provided credentials are incorrect.'],
+        //     ]);
+        // }
     
-        $user = Auth::user();
+        // $user = Auth::user();
     
-        if (!$user->is_verified) {
-            Auth::logout();
-            return response()->json([
-                'message' => 'Please verify your email before logging in.'
-            ], 403);
-        }
+        // if (!$user->is_verified) {
+        //     Auth::logout();
+        //     return response()->json([
+        //         'message' => 'Please verify your email before logging in.'
+        //     ], 403);
+        // }
     
         $token = $user->createToken('auth_token')->plainTextToken;
     
