@@ -21,8 +21,10 @@ return new class extends Migration
             // $table->string('position')->nullable();
             // $table->string('department')->nullable();
             // $table->string('layer')->nullable();
-            $table->enum('position', ['Head', 'CoHead', 'Senior leader', 'Junior leader', 'Volunteer']);
-            $table->enum('department', ['IT&AI', 'Research', 'Design', 'Admin', 'Education', 'Media', 'Fundrising']);
+            // $table->enum('position', ['Head', 'CoHead', 'Senior leader', 'Junior leader', 'Volunteer']);
+            $table->string('position',100)->nullable();
+            // $table->enum('department', ['IT&AI', 'Research', 'Design', 'Admin', 'Education', 'Media', 'Fundrising']);
+            $table->string('department', 100);
             $table->enum('layer', ['public health', 'resources management', 'economic factor', 'urban planning', 'ecological factor', 'social factor', 'building code', 'Culture and heritage', 'technology and infrastructure', 'data collection and analysis']);
             $table->timestamps();
         });
