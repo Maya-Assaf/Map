@@ -35,7 +35,7 @@ public function register(Request $request)
         'password' => 'required|string|min:6|confirmed',
         // 'position' => 'required|in:Head,CoHead,Senior leader,Junior leader,Volunteer',
         // 'department' => 'required|in:IT&AI,Research,Design,Admin,Education,Media,Fundrising',
-        'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
+        // 'layer' => 'required|in:public health,resources management,economic factor,urban planning,ecological factor,social factor,building code,Culture and heritage,technology and infrastructure,data collection and analysis'
     ]);
 
     // Check if user already exists
@@ -53,6 +53,7 @@ public function register(Request $request)
 
     $position = $employeeData->position;
     $department = $employeeData->department;
+    $layer = $employeeData->layer;
 
     Log::info('Employee found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
 
@@ -64,7 +65,7 @@ public function register(Request $request)
         'password' => Hash::make($request->password),
         'position' => $position,
         'department' => $department,
-        'layer' => $request->layer,
+        'layer' => $layer,
         'is_verified' => false,
     ]);
 
@@ -85,7 +86,8 @@ public function register(Request $request)
         'message' => 'User registered successfully.',
         'user_data' => [
             'position' => $position,
-            'department' => $department
+            'department' => $department,
+            'layer' => $layer
         ]
     ], 201);
 }
@@ -104,7 +106,8 @@ public function checkEmployee(Request $request)
             'found' => true,
             'data' => [
                 'position' => $employeeData->position,
-                'department' => $employeeData->department
+                'department' => $employeeData->department,
+                'layer' => $employeeData->layer
             ]
         ]);
     }
@@ -206,6 +209,7 @@ public function resendCode(Request $request)
                         [
                             'Your Position' => $row['position'],
                             'DEPARTMENT' => $row['department'],
+                            'Layer' => $row['layer']
                         ]
                     );
                     $imported++;

@@ -19,22 +19,22 @@ class LocationPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
-    {
-        //
-         // Head and CoHead can create locations in any layer
-         if (in_array($user->position, ['Head', 'CoHead'])) {
-            return true;
-        }
+    // public function create(User $user)
+    // {
+    //     //
+    //      // Head and CoHead can create locations in any layer
+    //      if (in_array($user->position, ['Head', 'CoHead'])) {
+    //         return true;
+    //     }
 
-        // Senior Leader, Junior Leader, and Volunteer can create locations only in their layer
-        if (in_array($user->position, ['Senior leader', 'Junior leader', 'Volunteer'])) {
-            // Ensure the location being created belongs to the user's layer
-            return $user->layer === $user->layer; 
-        }
-         // Default deny for any other roles
-         return false;
-    }
+    //     // Senior Leader, Junior Leader, and Volunteer can create locations only in their layer
+    //     if (in_array($user->position, ['Senior leader', 'Junior leader', 'Volunteer'])) {
+    //         // Ensure the location being created belongs to the user's layer
+    //         return $user->layer === $user->layer; 
+    //     }
+    //      // Default deny for any other roles
+    //      return false;
+    // }
 
     /**
      * Determine whether the user can update the model.

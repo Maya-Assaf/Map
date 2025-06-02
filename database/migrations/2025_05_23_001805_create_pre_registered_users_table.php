@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('department');
-            $table->string('position',100)->nullable();
+            $table->string('position',100);
+            $table->string('layer')->default('other');
             $table->timestamps();
         });
     }

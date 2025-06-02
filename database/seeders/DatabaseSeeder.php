@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LocationSeeder::class,
             PreRegisteredUsersSeeder::class,
+            LocationDataSeeder::class,
            
            
            
