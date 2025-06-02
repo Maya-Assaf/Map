@@ -6,24 +6,28 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Aspect;
+use App\Models\SubAspect;
+use App\Models\Category;
 
 class LocationController extends Controller
 {
     // إضافة موقع جديد
     public function store(Request $request)
 {
-    // Authorize the action using the ZonePolicy
-    $this->authorize('create', Location::class);
+    // Authorize the action using the LocationPolicy
+    // $this->authorize('create', Location::class);
     
     $request->validate([
-        'name'         => 'required|string|max:255',
-        'category'     => 'required|string|max:255',
-        'latitude'     => 'required|numeric',
-        'longitude'    => 'required|numeric',
-        'description'  => 'nullable|string',
-        'sub_aspect'   => 'nullable|string',
-        'images.*'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'references.*' => 'nullable|mimes:pdf|max:10000'
+        'name'          => 'required|string|max:255',
+        'aspect_id'     => 'required|exists:aspects,id',
+        'sub_aspect_id' => 'required|exists:sub_aspects,id',
+        'category_id'   => 'required|exists:categories,id',
+        'latitude'      => 'required|numeric',
+        'longitude'     => 'required|numeric',
+        'description'   => 'nullable|string',
+        'images.*'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'references.*'  => 'nullable|mimes:pdf|max:10000'
     ]);
 
     // Get the authenticated user
@@ -31,14 +35,14 @@ class LocationController extends Controller
 
     // Create the location including the optional description
     $location = Location::create([
-        'name'        => $request->name,
-        'category'    => $request->category,
-        'latitude'    => $request->latitude,
-        'longitude'   => $request->longitude,
-        'description' => $request->description,
-        'sub_aspect'  => $request->sub_aspect,
-        'user_id'     => $user->id, // Use the authenticated user's ID
-        'layer'       => $user->layer, // Add the user's layer directly
+        'name'           => $request->name,
+        'aspect_id'      => $request->aspect_id,
+        'sub_aspect_id'  => $request->sub_aspect_id,
+        'category_id'    => $request->category_id,
+        'latitude'       => $request->latitude,
+        'longitude'      => $request->longitude,
+        'description'    => $request->description,
+        'user_id'        => $user->id, // Use the authenticated user's ID
     ]);
 
     // Process and store uploaded images in the public/imgs folder
@@ -64,38 +68,25 @@ class LocationController extends Controller
 
     return response()->json([
         'message'  => 'Location added successfully',
-        'location' => [
-            'id'          => $location->id,
-            'name'        => $location->name,
-            'sub_aspect'  => $location->sub_aspect,
-            'category'    => $location->category,
-            'latitude'    => $location->latitude,
-            'longitude'   => $location->longitude,
-            'description' => $location->description,
-            'user_id'     => $user->id, // Use the authenticated user's ID
-            'layer'       => $user->layer, // Add the user's layer directly
-            'images'      => $location->images,      // List of image records
-            'references'  => $location->references,   // List of PDF reference records
-
-        ]
+        'location' => $location->load('images', 'references'),
     ], 201);
 }
 
 
 public function index() {
-    $locations = Location::with(['user', 'images', 'references'])->get();
+    $locations = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category'])->get();
 
     // Modify the data to include layer, description, images, and references
     $locations = $locations->map(function ($location) {
         return [
             'id'          => $location->id,
             'name'        => $location->name,
-            'category'    => $location->category,
+            'aspect'      => $location->aspect->name ?? 'unknown',
+            'sub_aspect'  => $location->subAspect->name ?? 'unknown',
+            'category'    => $location->category->name ?? 'unknown',
             'latitude'    => $location->latitude,
             'longitude'   => $location->longitude,
             'description' => $location->description,
-            'sub_aspect'  => $location->sub_aspect,
-            'layer'       => $location->user->layer ?? 'unknown',
             'images'      => $location->images,      // Returns an array of image records
             'references'  => $location->references   // Returns an array of PDF reference records
         ];
@@ -109,7 +100,7 @@ public function update(Request $request, $id)
 {
     $location = Location::with(['user'])->findOrFail($id);
 
-    // Authorize the action using the ZonePolicy
+    // Authorize the action using the LocationPolicy
     $this->authorize('update', $location);
 
     // Get the authenticated user
@@ -118,15 +109,17 @@ public function update(Request $request, $id)
      // Validate the request data
      $request->validate([
         'name'         => 'sometimes|string|max:255',
-        'category'     => 'sometimes|string|max:255',
+        'aspect_id'      => 'sometimes|exists:aspects,id',
+        'sub_aspect_id'  => 'sometimes|exists:sub_aspects,id',
+        'category_id'    => 'sometimes|exists:categories,id',
         'description'  => 'sometimes|string|max:255',
-        'sub_aspect'   => 'sometimes|string|max:255',
         'latitude'     => 'sometimes|numeric',
         'longitude'    => 'sometimes|numeric',
     ]);
 
     // Update the basic fields (remove image and reference processing)
-    $data = $request->only(['name', 'category', 'description', 'latitude' , 'longitude' ]);
+    $data = $request->only(['name', 'aspect_id', 'sub_aspect_id',
+        'category_id', 'description', 'latitude' , 'longitude' ]);
     $location->update($data);
 
 
@@ -136,12 +129,12 @@ public function update(Request $request, $id)
         'location' => [
             'id'          => $location->id,
             'name'        => $location->name,
-            'category'    => $location->category,
+            'aspect'      => optional($location->aspect)->name,
+            'sub_aspect'  => optional($location->subAspect)->name,
+            'category'    => optional($location->category)->name,
             'description' => $location->description,
-            'sub_aspect'  => $location->sub_aspect,
             'latitude'    => $location->latitude,
             'longitude'   => $location->longitude,
-            'layer'       => $user->layer, // Use the authenticated user's layer directly
         ]
     ]);
 }
@@ -153,7 +146,7 @@ public function update(Request $request, $id)
     {
         $location = Location::findOrFail($id);
     
-        // Authorize the action using the ZonePolicy
+        // Authorize the action using the LocationPolicy
         $this->authorize('delete', $location);
 
         $location->delete();
@@ -306,7 +299,7 @@ public function deleteReference($id, $referenceId)
 public function show(Request $request, $id)
 {
     // Retrieve the location along with its relationships.
-    $location = Location::with(['user', 'images', 'references'])->findOrFail($id);
+    $location = Location::with(['user', 'images', 'references' , 'aspect' , 'subAspect', 'category'])->findOrFail($id);
 
     return response()->json([
         'message'  => 'Location retrieved successfully',
@@ -374,22 +367,42 @@ public function show(Request $request, $id)
         // Validate query parameters (optional)
         $request->validate([
             'name' => 'sometimes|string',
+            'aspect' => 'sometimes|string',
+            'sub_aspect' => 'sometimes|string',
             'category' => 'sometimes|string',
         ]);
 
         // Start the query on the Location model
         $query = Location::query();
 
-        // If a name parameter is provided, filter by name using a case-insensitive LIKE search
-        if ($request->filled('name')) {
-            $query->where('name', 'like', '%' . $request->name . '%');
-        }
+        // بحث باسم الموقع
+    if ($request->filled('name')) {
+        $query->where('name', 'like', '%' . $request->name . '%');
+    }
 
-        // If a category parameter is provided, filter by category using a case-insensitive LIKE search
-        if ($request->filled('category')) {
-            $query->where('category', 'like', '%' . $request->category . '%');
-        }
-            // Debugging: Check generated SQL query
+   
+
+    // بحث باسم  (aspect)
+    if ($request->filled('aspect')) {
+        $query->whereHas('aspect', function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->aspect . '%');
+        });
+    }
+
+    // بحث باسم  (sub_aspect)
+    if ($request->filled('sub_aspect')) {
+        $query->whereHas('subAspect', function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->sub_aspect . '%');
+        });
+    }
+
+     // بحث باسم  (category) عن طريق العلاقة
+    if ($request->filled('category')) {
+        $query->whereHas('category', function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->category . '%');
+        });
+    }
+
 
 
         // Execute the query and get the results
@@ -497,4 +510,24 @@ public function show(Request $request, $id)
             'monthly_growth_rate'       => $monthlyGrowth,
         ]);
     }
+
+     public function getAspects()
+    {
+        return Aspect::all();
+    }
+
+    // إرجاع SubAspects حسب الـ Aspect المحدد
+    public function getSubAspects($aspectId)
+    {
+        return SubAspect::where('aspect_id', $aspectId)->get();
+    }
+
+    // إرجاع Categories حسب الـ SubAspect المحدد
+    public function getCategories($subAspectId)
+    {
+        return Category::where('sub_aspect_id', $subAspectId)->get();
+    }
+
+
+    
 }

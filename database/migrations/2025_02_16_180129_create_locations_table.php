@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('category');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('aspect_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('sub_aspect_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
             $table->timestamps();
