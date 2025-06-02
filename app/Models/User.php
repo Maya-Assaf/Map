@@ -28,7 +28,8 @@ class User extends Authenticatable
         'position',
         'department',
         'layer',
-        'is_verified'
+        'is_verified',
+        'profile_image'
     ];
 
     /**
