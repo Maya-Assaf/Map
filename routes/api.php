@@ -18,7 +18,7 @@ Route::post('/reset-password' , [AuthController::class , 'resetPassword']);
 // المسارات المحمية للمستخدمين المسجلين فقط
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::put('/profile/edit/{id}', [UserController::class, 'updateProfile']);
+    Route::post('/profile/edit/{id}', [UserController::class, 'updateProfile']);
 
     Route::get('/user/profile', [UserController::class, 'getProfile']);
 

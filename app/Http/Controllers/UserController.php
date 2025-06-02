@@ -46,11 +46,14 @@ class UserController extends Controller
         $user = Auth::user();
         return response()->json([
             'user' => [
-                'name'       => $user->name,
-                'email'      => $user->email,
-                'position'   => $user->position,
-                'department' => $user->department,
-                'layer'      => $user->layer,
+                'name'          => $user->name,
+                'email'         => $user->email,
+                'position'      => $user->position,
+                'department'    => $user->department,
+                'layer'         => $user->layer,
+                'profile_image' => $user->profile_image 
+                ? asset($user->profile_image)
+                : null,
             ]
         ]);
     }
@@ -77,15 +80,17 @@ class UserController extends Controller
         }
     }
 
-    // Validation rules
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
-    ]);
+    $rules = [
+        'name' => 'nullable|string|max:255',
+        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
 
      if ($request->filled('password')) {
         $rules['current_password'] = 'required|string';
         $rules['password'] = 'required|string|min:8|confirmed';
     }
+
+
 
     $validator = Validator::make($request->all(), $rules);
 
@@ -93,16 +98,24 @@ class UserController extends Controller
         return response()->json(['errors' => $validator->errors()], 422);
     }
 
-
-
-
+    // تعديل الاسم إذا أُرسل
+   if ($request->filled('name')) {
     $user->name = $request->name;
+}
     if ($request->filled('password')) {
         if (!Hash::check($request->current_password, $user->password)) {
             return response()->json(['message' => 'كلمة المرور الحالية غير صحيحة.'], 403);
         }
 
         $user->password = Hash::make($request->password);
+    }
+
+     // رفع صورة الملف الشخصي
+    if ($request->hasFile('profile_image')) {
+        $image = $request->file('profile_image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('profile_images'), $imageName);
+        $user->profile_image = 'profile_images/' . $imageName;
     }
 
     $user->save();
