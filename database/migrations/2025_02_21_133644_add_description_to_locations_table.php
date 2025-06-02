@@ -9,7 +9,7 @@ class AddDescriptionToLocationsTable extends Migration
     public function up()
     {
         Schema::table('locations', function (Blueprint $table) {
-            $table->text('description')->nullable()->after('category');
+            $table->text('description')->nullable()->after('category_id');
         });
     }
 

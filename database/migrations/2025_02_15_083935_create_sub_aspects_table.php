@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('locations', function (Blueprint $table) {
-            //
-            $table->string('sub_aspect')->nullable()->after('name');
+        Schema::create('sub_aspects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->foreignId('aspect_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('locations', function (Blueprint $table) {
-            //
-            $table->dropColumn('sub_aspect');
-        });
+        Schema::dropIfExists('sub_aspect');
     }
 };

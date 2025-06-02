@@ -25,14 +25,30 @@ class Location extends Model
 
     protected $fillable = [
         'name',
-        'category',
         'user_id',
         'longitude',
         'latitude',
         'description',
-        'sub_aspect'
+        'aspect_id',
+        'sub_aspect_id',
+        'category_id'
     ];
 
+
+    public function aspect()
+        {
+            return $this->belongsTo(Aspect::class);
+        }
+
+    public function subAspect()
+        {
+            return $this->belongsTo(SubAspect::class);
+        }
+
+    public function category()
+        {
+            return $this->belongsTo(Category::class);
+        }
 
 
 }

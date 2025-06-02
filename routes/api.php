@@ -13,6 +13,7 @@ Route::post('/verify-code', [AuthController::class, 'verifyCode']);
 Route::post('/resend-code', [AuthController::class, 'resendCode']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/reset-password' , [AuthController::class , 'resetPassword']);
 
 // المسارات المحمية للمستخدمين المسجلين فقط
 Route::middleware('auth:sanctum')->group(function () {
@@ -33,7 +34,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/locations/{id}/upload-files', [LocationController::class, 'uploadFiles']);
     Route::delete('/locations/{id}/delete-image/{imageId}', [LocationController::class, 'deleteImage']);
     Route::delete('/locations/{id}/delete-reference/{referenceId}', [LocationController::class, 'deleteReference']);
-
+    Route::get('/aspects' , [LocationController::class , 'getAspects']);
+    Route::get('/sub-aspects/{aspectId}', [LocationController::class, 'getSubAspects']);
+    Route::get('/categories/{subAspectId}', [LocationController::class, 'getCategories']);
+    
     Route::get('/zones' , [ZoneController::class , 'index']);
     Route::post('/zones' , [ZoneController::class,'store']);
     Route::get('/zone/{id}', [ZoneController::class,'show']);
