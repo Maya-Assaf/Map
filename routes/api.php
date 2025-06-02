@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\AdminController;
 
 // تسجيل و تسجيل الدخول
 Route::post('/check-employee', [AuthController::class, 'checkEmployee']);
@@ -63,6 +64,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Admin-only routes
     Route::middleware(['auth:sanctum', 'admin'])->group(function () {
         Route::post('/admin/import-datasheet', [AuthController::class, 'importDatasheet']);
+        Route::get('/users', [AdminController::class, 'index']);      // عرض المستخدمين مع pagination + search
+        Route::post('/users', [AdminController::class, 'store']);     // إنشاء مستخدم جديد
+        Route::put('/users/{id}', [AdminController::class, 'update']); // تعديل مستخدم
+        Route::delete('/users/{id}', [AdminController::class, 'destroy']); // حذف مستخدم
     });
 
     // Route::middleware('layer.access:public health')->group(function () {

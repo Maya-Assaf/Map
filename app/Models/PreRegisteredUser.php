@@ -10,7 +10,7 @@ class PreRegisteredUser extends Model
     use HasFactory;
      
     protected $fillable = [
-        'email' , 'department' , 'position'
+        'email' , 'department' , 'position' , 'name' , 'layer' , 'status'
     ];
     
 }

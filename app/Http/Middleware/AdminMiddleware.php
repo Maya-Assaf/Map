@@ -26,11 +26,13 @@ class AdminMiddleware
         // Check if user has admin privileges
         $user = auth()->user();
         
-        if ($user->position !== 'Head') {
-            return response()->json([
-                'message' => 'Unauthorized. Admin access required.'
-            ], 403);
-        }
-        return $next($request);
+      // التحقق من ان المستخدم في قسم الادمن
+    if ($user->department !== 'ADMIN DEPARTMENT') {
+        return response()->json([
+            'message' => 'Unauthorized. Admin access required.'
+        ], 403);
     }
+
+    return $next($request);
+}
 }
