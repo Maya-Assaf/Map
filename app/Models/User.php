@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordBase;
 
 /**
  * @method \Laravel\Sanctum\NewAccessToken createToken(string $name, array $abilities = ['*'], \DateTimeInterface|null $expiresAt = null)
@@ -49,6 +50,12 @@ class User extends Authenticatable
       {
     return $this->hasMany(Log::class, 'updated_by_user_id');
       }
+
+
+      public function sendPasswordResetNotification($token)
+{
+    $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+}
 
     /**
      * The attributes that should be cast.
