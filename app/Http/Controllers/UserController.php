@@ -6,6 +6,8 @@ use App\Models\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -37,5 +39,65 @@ class UserController extends Controller
             'user' => $user
         ], 200);
 
+    }
+    //عرض معلومات المستخدم ضمن بروفايله
+    public function getProfile()
+    {
+        $user = Auth::user();
+        return response()->json([
+            'user' => [
+                'name'       => $user->name,
+                'email'      => $user->email,
+                'position'   => $user->position,
+                'department' => $user->department,
+                'layer'      => $user->layer,
+            ]
+        ]);
+    }
+    
+    //التعديل على ال بروفايل بس الاسم والايميل
+
+    public function updateProfile(Request $request, $id)
+{
+  
+
+    // Find the user by ID
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+
+   // منع تعديل أي حقول غير الاسم
+    $forbiddenFields = ['email', 'position', 'department', 'layer'];
+
+    foreach ($forbiddenFields as $field) {
+        if ($request->has($field)) {
+            return response()->json(['message' => "You are not allowed to change the field: $field ! You must ask request from the admin!"], 403);
+        }
+    }
+
+    // Validation rules
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+    ]);
+
+
+    // // Add password validation rules if password is being updated
+    // if ($request->filled('password')) {
+    //     $rules['old_password'] = 'required|string';
+    //     $rules['password']     = 'required|string|min:6|confirmed';
+    // }
+
+
+    $user->name = $request->name;
+    $user->save();
+
+    
+
+    return response()->json([
+        'message' => 'Name updated successfully',
+        'user'    => $user
+    ], 200);
     }
 }
