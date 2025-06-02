@@ -48,14 +48,14 @@ public function register(Request $request)
 
      if (!$employeeData) {
         // الموظف غير موجود في البيانات المسبقة، يمنع التسجيل
-        return response()->json(['message' => 'Employee data not found. Registration is not allowed.'], 422);
+        return response()->json(['message' => 'Voulnteer data not found. Registration is not allowed.'], 422);
     }
 
     $position = $employeeData->position;
     $department = $employeeData->department;
     $layer = $employeeData->layer;
 
-    Log::info('Employee found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
+    Log::info('Voulnteer found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
 
     $verificationCode = rand(100000, 999999); // 6-digit random code
 

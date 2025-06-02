@@ -29,9 +29,13 @@ class PreRegisteredUsersImport implements ToModel, WithHeadingRow
 
         
        return new PreRegisteredUser([
+            'name' => $row['name'],
             'email' => $row['email'],
             'position' => $row['your_position'] ?? null,
             'department' => $row['department'] ?? null,
+            'layer' => $row['Layer'] ?? 'other',
+            'status' => $row['status'],
+            
         ]);
     }
 }
