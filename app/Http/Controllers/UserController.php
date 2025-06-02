@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -82,21 +82,35 @@ class UserController extends Controller
         'name' => 'required|string|max:255',
     ]);
 
+     if ($request->filled('password')) {
+        $rules['current_password'] = 'required|string';
+        $rules['password'] = 'required|string|min:8|confirmed';
+    }
 
-    // // Add password validation rules if password is being updated
-    // if ($request->filled('password')) {
-    //     $rules['old_password'] = 'required|string';
-    //     $rules['password']     = 'required|string|min:6|confirmed';
-    // }
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+
 
 
     $user->name = $request->name;
+    if ($request->filled('password')) {
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'كلمة المرور الحالية غير صحيحة.'], 403);
+        }
+
+        $user->password = Hash::make($request->password);
+    }
+
     $user->save();
 
     
 
     return response()->json([
-        'message' => 'Name updated successfully',
+        'message' => 'Profile updated successfully',
         'user'    => $user
     ], 200);
     }

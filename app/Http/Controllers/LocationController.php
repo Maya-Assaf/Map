@@ -154,23 +154,24 @@ public function update(Request $request, $id)
     }
 
     public function getLocationsByLayers(Request $request) {
-        $layers = $request->input('layers', []);
-
+        $aspectNames = $request->input('layers', []);
+    
         // جلب المواقع مع معلومات المستخدم
-        $locations = Location::whereHas('user', function ($query) use ($layers) {
-            $query->whereIn('layer', $layers);
-        })->with('user')->get();
+        $locations = Location::whereHas('aspect', function ($query) use ($aspectNames) {
+            $query->whereIn('name', $aspectNames);
+        })->with(['aspect', 'subAspect', 'category', 'user'])->get();
 
         // تعديل البيانات لإضافة `layer` الخاص بالمستخدم
         $locations = $locations->map(function ($location) {
             return [
                 'id' => $location->id,
                 'name' => $location->name,
-                'category' => $location->category,
-                'sub_aspect' => $location->sub_aspect,
+                'aspect'      => optional($location->aspect)->name,
+                'sub_aspect'  => optional($location->subAspect)->name,
+                'category'    => optional($location->category)->name,
                 'latitude' => $location->latitude,
                 'longitude' => $location->longitude,
-                'layer' => $location->user->layer ?? 'unknown' // إضافة `layer` من المستخدم
+                'user_layer'  => optional($location->user)->layer,
             ];
         });
 
