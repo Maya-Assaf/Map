@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/locations', [LocationController::class, 'index']);
     Route::post('/locations', [LocationController::class, 'store']);
-    Route::get('/locations/filter', [LocationController::class, 'getLocationsByLayers']);
+    Route::get('/locations/filter', [LocationController::class, 'getLocationsByCategories']);
     Route::get('/locations/export/csv', [LocationController::class, 'exportCsv']);
     Route::get('/locations/search', [LocationController::class, 'search']);
     Route::get('/locations/statistics', [LocationController::class, 'statistics']);

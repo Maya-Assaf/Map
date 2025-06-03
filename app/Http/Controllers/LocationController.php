@@ -153,12 +153,12 @@ public function update(Request $request, $id)
         return response()->json(['message' => 'Location deleted successfully']);
     }
 
-    public function getLocationsByLayers(Request $request) {
-        $aspectNames = $request->input('layers', []);
+    public function getLocationsByCategories(Request $request) {
+        $categoryNames = $request->input('categories', []);
     
         // جلب المواقع مع معلومات المستخدم
-        $locations = Location::whereHas('aspect', function ($query) use ($aspectNames) {
-            $query->whereIn('name', $aspectNames);
+        $locations = Location::whereHas('category', function ($query) use ($categoryNames) {
+            $query->whereIn('name', $categoryNames);
         })->with(['aspect', 'subAspect', 'category', 'user'])->get();
 
         // تعديل البيانات لإضافة `layer` الخاص بالمستخدم
