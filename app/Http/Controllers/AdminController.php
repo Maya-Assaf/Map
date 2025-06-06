@@ -22,10 +22,13 @@ class AdminController extends Controller
                   ->orWhere('email', 'like', "%$search%");
             });
         }
+
+        //Akram Add user_id here for Delete process
         $perPage = $request->get('per_page', 10);
-        $users = $query->select('name', 'email', 'position', 'department', 'layer', 'status')
-                 ->paginate($perPage);
+        $users = $query->select('id', 'name', 'email', 'position', 'department', 'layer', 'status')
+         ->paginate($perPage);
         return response()->json($users);
+
     }
 
     public function update(Request $request, $id)
