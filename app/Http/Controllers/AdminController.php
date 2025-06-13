@@ -7,6 +7,7 @@ use App\Models\PreRegisteredUser;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash; 
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -74,6 +75,52 @@ class AdminController extends Controller
     ]);
 }
 
+
+/**
+ * Updates the position (role) of a pre-registered user.
+ *
+ * This endpoint securely updates the 'position' field for a specific user in the PreRegisteredUser table.
+ * It strictly validates that the provided position matches one of the predefined, allowed roles—
+ * including compound titles. On success, a confirmation message and the updated user data are returned.
+ *
+ * by Akram.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  int  $userid
+ * @return \Illuminate\Http\JsonResponse
+ */
+
+public function updatePregisterUserPosition(Request $request, $userid)
+{
+    $request->validate([
+        'NewPosition' => [
+            'required',
+            'string',
+            Rule::in([
+                'Co-Head',
+                'Co-Head, Senior Leader',
+                'Corrdinator',
+                'Corrdinator, Junior Leader',
+                'Head',
+                'Junior',
+                'Junior Leader',
+                'Junior Leader, Corrdinator',
+                'Senior Leader',
+                'Senior Leader, Co-Head',
+            ]),
+        ],
+    ]);
+
+    $user = PreRegisteredUser::findOrFail($userid);
+
+    $user->position = $request->NewPosition;
+    $user->save();
+
+    return response()->json([
+        'message' => 'Position updated successfully.',
+        'user' => $user
+    ], 200);
+}
 
    
 

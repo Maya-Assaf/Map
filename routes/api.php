@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/zone/{id}', [ZoneController::class,'destroy']);
     Route::get('/zones/filter' , [ZoneController::class,'getZonesByLayers']);
     Route::post('/updatePosition/{id}' , [UserController::class,'updatePosition']);
+    Route::post('/updatePregisterUserPosition/{id}' , [AdminController::class,'updatePregisterUserPosition']); // by Akram
 
 
 
