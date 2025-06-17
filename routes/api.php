@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 // تسجيل و تسجيل الدخول
 Route::post('/check-employee', [AuthController::class, 'checkEmployee']);
@@ -13,8 +14,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/verify-code', [AuthController::class, 'verifyCode']);
 Route::post('/resend-code', [AuthController::class, 'resendCode']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-Route::post('/reset-password' , [AuthController::class , 'resetPassword']);
+Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink']);
+Route::post('/reset-password' , [ResetPasswordController::class , 'resetPassword']);
 
 // المسارات المحمية للمستخدمين المسجلين فقط
 Route::middleware('auth:sanctum')->group(function () {
