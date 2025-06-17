@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_aspect');
+        Schema::dropIfExists('sub_aspects');
     }
 };
