@@ -85,9 +85,6 @@ class AdminController extends Controller
  *
  * by Akram.
  *
- * @param  \Illuminate\Http\Request  $request
- * @param  int  $userid
- * @return \Illuminate\Http\JsonResponse
  */
 
 public function updatePregisterUserPosition(Request $request, $userid)
