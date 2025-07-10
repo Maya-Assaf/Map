@@ -17,6 +17,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password' , [ResetPasswordController::class , 'resetPassword']);
 
+
+
 // Admin-only routes
     Route::middleware(['auth:sanctum', 'admin'])->group(function () {
         Route::post('/admin/import-datasheet', [AuthController::class, 'importDatasheet']);
@@ -53,7 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/sub-aspects/{aspectId}', [LocationController::class, 'getSubAspects']);
     Route::get('/categories/{subAspectId}', [LocationController::class, 'getCategories']);
     
-    Route::get('/zones' , [ZoneController::class , 'index']);
+    // Route::get('/zones' , [ZoneController::class , 'index']);
     Route::post('/zones' , [ZoneController::class,'store']);
     Route::get('/zone/{id}', [ZoneController::class,'show']);
     Route::put('/zone/{id}' , [ZoneController::class,'update']);
