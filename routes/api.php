@@ -17,6 +17,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password' , [ResetPasswordController::class , 'resetPassword']);
 
+// Admin-only routes
+    Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+        Route::post('/admin/import-datasheet', [AuthController::class, 'importDatasheet']);
+        Route::get('/users', [AdminController::class, 'index']);      // عرض المستخدمين مع pagination + search
+        Route::post('/users', [AdminController::class, 'store']);     // إنشاء مستخدم جديد
+        Route::put('/users/{id}', [AdminController::class, 'update']); // تعديل مستخدم
+        Route::delete('/users/{id}', [AdminController::class, 'destroy']); // حذف مستخدم
+        Route::get('/locations/exportcsv', [LocationController::class, 'exportCsv']); //تحميل ال markers كملف csv
+    });
+
 // المسارات المحمية للمستخدمين المسجلين فقط
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -30,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/locations', [LocationController::class, 'index']);
     Route::post('/locations', [LocationController::class, 'store']);
     Route::get('/locations/filter', [LocationController::class, 'getLocationsByCategories']);
-    Route::get('/locations/export/csv', [LocationController::class, 'exportCsv']);
+    
     Route::get('/locations/search', [LocationController::class, 'search']);
     Route::get('/locations/statistics', [LocationController::class, 'statistics']);
     Route::get('/locations/{id}', [LocationController::class, 'show']);
@@ -63,14 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::delete('/{role}/permissions', [RolePermissionController::class, 'revokePermissions']);
 });
 
-    // Admin-only routes
-    Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-        Route::post('/admin/import-datasheet', [AuthController::class, 'importDatasheet']);
-        Route::get('/users', [AdminController::class, 'index']);      // عرض المستخدمين مع pagination + search
-        Route::post('/users', [AdminController::class, 'store']);     // إنشاء مستخدم جديد
-        Route::put('/users/{id}', [AdminController::class, 'update']); // تعديل مستخدم
-        Route::delete('/users/{id}', [AdminController::class, 'destroy']); // حذف مستخدم
-    });
+    
 
     // Route::middleware('layer.access:public health')->group(function () {
     //     Route::apiResource('zones', ExampleController::class);

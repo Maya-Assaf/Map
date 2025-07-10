@@ -310,55 +310,52 @@ public function show(Request $request, $id)
 
 
     public function exportCsv()
-    {
-        $locations = Location::with(['user', 'images', 'references'])->get(); // Load locations with their relationships
+{
+    $locations = Location::with(['user', 'images', 'references'])->get();
 
-        $csvFileName = 'locations_export.csv';
-        $headers = [
-            "Content-Type" => "text/csv; charset=UTF-8",
-            "Content-Disposition" => "attachment; filename=$csvFileName"
-        ];
+    $csvFileName = 'locations_export.csv';
+    $headers = [
+        "Content-Type" => "text/csv; charset=UTF-8",
+        "Content-Disposition" => "attachment; filename=$csvFileName"
+    ];
 
-        return response()->streamDownload(function () use ($locations) {
-            $handle = fopen('php://output', 'w');
-
-            // Write BOM for UTF-8 support in Excel
-            fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
-
-            // Write headers (Columns)
-            fputcsv($handle, ['ID', 'Name', 'Category', 'Latitude', 'Longitude', 'Layer', 'Description', 'Images', 'References']);
-
-            // Write data rows
-            foreach ($locations as $location) {
-                // $images = $location->images->pluck('image_path')->implode(', ');
-                // $references = $location->references->pluck('pdf_path')->implode(', ');
-                $images = $location->images->map(function ($image) {
-                    return asset($image->image_path);
-                })->implode(" \n");
-
-                // Generate full URL paths for each reference file
-                $references = $location->references->map(function ($reference) {
-                    return asset($reference->pdf_path);
-                })->implode(" \n");
-
-
-                fputcsv($handle, [
-                    $location->id,
-                    $location->name,
-                    $location->category,
-                    $location->sub_aspect,
-                    $location->latitude,
-                    $location->longitude,
-                    $location->user->layer ?? 'unknown',
-                    $location->description,
-                    $images,
-                    $references,
-                ]);
-            }
-
-            fclose($handle);
-        }, $csvFileName, $headers);
+    if ($locations->isEmpty()) {
+        return response()->json(['message' => 'No locations found'], 404);
     }
+
+    return response()->streamDownload(function () use ($locations) {
+        $handle = fopen('php://output', 'w');
+
+        // Write BOM for UTF-8 support in Excel
+        fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+        // Write headers
+        fputcsv($handle, ['ID', 'Name', 'Category', 'Latitude', 'Longitude', 'Layer', 'Description', 'Images', 'References']);
+
+        foreach ($locations as $location) {
+            $images = $location->images->map(fn($image) => asset($image->image_path))->implode(', ');
+            $references = $location->references->map(fn($reference) => asset($reference->pdf_path))->implode(', ');
+
+            $row = [
+                $location->id,
+                $location->name,
+                $location->category->name ?? 'unknown',
+                $location->latitude,
+                $location->longitude,
+                $location->user->layer ?? 'unknown',
+                $location->description,
+                $images,
+                $references,
+            ];
+
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+    }, $csvFileName, $headers);
+}
+
+            
 
 
     public function search(Request $request)

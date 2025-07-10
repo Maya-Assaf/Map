@@ -69,21 +69,22 @@ public function register(Request $request)
         'is_verified' => false,
     ]);
 
-    // // Store verification code in cache with 10 minutes expiration
-    // Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
+    // Store verification code in cache with 10 minutes expiration
+    Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
    
 
-    // // Send email
-    // Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
-    //     $message->to($user->email)
-    //             ->subject('Verify Your Email');
-    // });
+    // Send email
+    Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Verify Your Email');
+    });
 
     Log::info('User Registered Successfully:', ['user' => $user]);
 
     // $responseMessage = 'User registered successfully. Please check your email for the verification code.';
     return response()->json([
-        'message' => 'User registered successfully.',
+        'message' => 'User registered successfully. Please verify your email to activate your account.',
+        'next_step' => 'verify_email',
         'user_data' => [
             'position' => $position,
             'department' => $department,
@@ -137,27 +138,35 @@ public function verifyCode(Request $request)
     // Find the user by email
     $user = User::where('email', $request->email)->first();
 
-    // Retrieve the verification code from cache
-    $cachedCode = Cache::get('verification_code_' . $user->id);
+    // // Retrieve the verification code from cache
+    // $cachedCode = Cache::get('verification_code_' . $user->id);
 
-    // Check if the verification code matches
-    if ($cachedCode && $cachedCode == $request->verification_code) {
-        // Code is valid, mark the user as verified
-        $user->is_verified = true;
-        $user->save();
+    // // Check if the verification code matches
+    // if ($cachedCode && $cachedCode == $request->verification_code) {
+    //     // Code is valid, mark the user as verified
+    //     $user->is_verified = true;
+    //     $user->save();
 
-        // Remove the verification code from cache
-        Cache::forget('verification_code_' . $user->id);
+    //     // Remove the verification code from cache
+    //     Cache::forget('verification_code_' . $user->id);
 
-        return response()->json([
+    //     return response()->json([
+    //         'message' => 'Verification successful!'
+    //     ], 200); // Success
+    // }
+
+    // // If verification fails
+    // return response()->json([
+    //     'message' => 'Invalid verification code.'
+    // ], 400); // Bad request
+
+    $user->is_verified = true;
+    $user->email_verified_at_ = now();
+    $user->save();
+
+     return response()->json([
             'message' => 'Verification successful!'
         ], 200); // Success
-    }
-
-    // If verification fails
-    return response()->json([
-        'message' => 'Invalid verification code.'
-    ], 400); // Bad request
 }
 
 public function resendCode(Request $request)
@@ -179,10 +188,10 @@ public function resendCode(Request $request)
 
     Mail::raw('Your new verification code is: ' . $newCode, function ($message) use ($user) {
         $message->to($user->email)
-                ->subject('Resend Verification Code');
+                ->subject('Send Verification Code');
     });
 
-    return response()->json(['message' => 'A new verification code has been sent to your email.'], 200);
+    return response()->json(['message' => 'A verification code has been sent to your email.'], 200);
 }
 
     // Method to import datasheet (CSV/Excel) to database
@@ -243,31 +252,23 @@ public function resendCode(Request $request)
     
         $credentials = $request->only('email', 'password');
         $remember = $request->boolean('remember');
+    
+        $user = User::where('email', $request->email)->first();
+    
+        //   if (!$user || !Hash::check($request->password, $user->password)) {
+        // throw ValidationException::withMessages([
+        //     'email' => ['The provided credentials are incorrect.'],
+        // ]);
+        //     }
 
-         $user = User::where('email', $request->email)->first();
-            if (!$user || !Hash::check($request->password, $user->password)) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
-    }
-
-    
-        // if (!Auth::attempt($credentials, $remember)) {
-        //     throw ValidationException::withMessages([
-        //         'email' => ['The provided credentials are incorrect.'],
-        //     ]);
-        // }
-    
-        // $user = Auth::user();
-    
+        // // هنا يتم التحقق من تفعيل البريد الإلكتروني قبل إنشاء التوكن
         // if (!$user->is_verified) {
-        //     Auth::logout();
         //     return response()->json([
         //         'message' => 'Please verify your email before logging in.'
         //     ], 403);
         // }
     
-        $token = $user->createToken('auth_token')->plainTextToken;
+       $token = $user->createToken('auth_token')->plainTextToken;
     
         return response()->json([
             'message' => 'Login successful',
