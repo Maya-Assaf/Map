@@ -197,8 +197,8 @@ public function update(Request $request, $id)
 
         // Validate request
         $request->validate([
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB per image
-            'references.*' => 'mimes:pdf|max:5120' // Max 5MB per PDF
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5000', // Max 2MB per image
+            'references.*' => 'mimes:pdf|max:15000' // Max 5MB per PDF
         ]);
 
         $uploadedImages = [];
