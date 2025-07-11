@@ -26,8 +26,8 @@ class LocationController extends Controller
         'latitude'      => 'required|numeric',
         'longitude'     => 'required|numeric',
         'description'   => 'nullable|string',
-        'images.*'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'references.*'  => 'nullable|mimes:pdf|max:10000'
+        'images.*'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        'references.*'  => 'nullable|mimes:pdf|max:15000'
     ]);
 
     // Get the authenticated user
