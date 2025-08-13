@@ -27,7 +27,7 @@ class LocationController extends Controller
         'longitude'     => 'required|numeric',
         'description'   => 'nullable|string',
         'images.*'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-        'references.*'  => 'nullable|mimes:pdf|max:15000'
+        'references.*'  => 'nullable|mimes:pdf,txt|max:15000'
     ]);
 
     // Get the authenticated user
@@ -198,7 +198,7 @@ public function update(Request $request, $id)
         // Validate request
         $request->validate([
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5000', // Max 2MB per image
-            'references.*' => 'mimes:pdf|max:15000' // Max 5MB per PDF
+            'references.*' => 'mimes:pdf,txt |max:15000' // Max 5MB per PDF
         ]);
 
         $uploadedImages = [];
