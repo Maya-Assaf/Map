@@ -55,18 +55,18 @@ class UserController extends Controller
                 'position'      => $user->position,
                 'department'    => $user->department,
                 'layer'         => $user->layer,
-                'profile_image' => $user->profile_image 
+                'profile_image' => $user->profile_image
                 ? asset($user->profile_image)
                 : null,
             ]
         ]);
     }
-    
+
     //التعديل على ال بروفايل بس الاسم والايميل
 
     public function updateProfile(Request $request, $id)
 {
-  
+
 
    if (Auth::id() != $id) {
             return response()->json(["message" => "You are not authorized to update this profile."], 403);
@@ -114,7 +114,7 @@ class UserController extends Controller
             $user->name = $request->name;
         }
 
-       
+
 
         // معالجة تغيير كلمة المرور
         if ($request->filled("password")) {
@@ -139,7 +139,7 @@ class UserController extends Controller
             $image = $request->file("profile_image");
             $imageName = time() . "_" . $image->getClientOriginalName();
             $image->move(public_path("profile_images"), $imageName);
-            $user->profile_image = "profile_images" . $imageName;
+            $user->profile_image = "profile_images/" . $imageName;
         }
 
         $user->save();

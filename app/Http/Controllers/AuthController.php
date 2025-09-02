@@ -55,6 +55,8 @@ class AuthController extends Controller
         $department = $employeeData->department;
         $layer = $employeeData->layer;
 
+        $employeeData->delete();
+
         Log::info('Voulnteer found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
 
         $verificationCode = rand(100000, 999999); // 6-digit random code
