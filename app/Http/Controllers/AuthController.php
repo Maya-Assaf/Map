@@ -269,7 +269,7 @@ class AuthController extends Controller
         } else {
             return response()->json([
                 'message' => 'Current password did not match with our records.',
-            ]);
+            ],401);
         }
     }
 
@@ -301,23 +301,12 @@ class AuthController extends Controller
             'remember' => 'sometimes|boolean'
         ]);
 
-        $credentials = $request->only('email', 'password');
-        $remember = $request->boolean('remember');
-
         $user = User::where('email', $request->email)->first();
-
-        //   if (!$user || !Hash::check($request->password, $user->password)) {
-        // throw ValidationException::withMessages([
-        //     'email' => ['The provided credentials are incorrect.'],
-        // ]);
-        //     }
-
-        // // هنا يتم التحقق من تفعيل البريد الإلكتروني قبل إنشاء التوكن
-        // if (!$user->is_verified) {
-        //     return response()->json([
-        //         'message' => 'Please verify your email before logging in.'
-        //     ], 403);
-        // }
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Invalid email or password',
+            ],401);
+        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
