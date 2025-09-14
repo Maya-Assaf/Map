@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         $positions = ['Head', 'CoHead', 'Senior leader', 'Junior leader', 'Volunteer'];
         $departments = ['IT & AI DEPARTMENT', 'RESEARCH DEPARTMENT', 'DESIGN DEPARTMENT', 'ADMIN DEPARTMENT', 'EDUCATION DEPARTMENT', 'MEDIA DEPARTMENT', 'FUNDRISING DEPARTMENT'];
@@ -33,6 +33,7 @@ class UserSeeder extends Seeder
             'position' => 'Head',
             'department' => 'ADMIN DEPARTMENT',
             'layer' => 'public health',
+            'is_verified' => true
         ]);
     }
     }

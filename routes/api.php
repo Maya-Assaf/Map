@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/change-password', [AuthController::class, 'changePassword']);
 
     Route::middleware(['is_verified_user', 'rest_password_user'])->group(function () {
-        Route::post('/profile/edit/{id}', [UserController::class, 'updateProfile']);
+        Route::post('/profile/edit', [UserController::class, 'updateProfile']);
 
         Route::get('/user/profile', [UserController::class, 'getProfile']);
 
