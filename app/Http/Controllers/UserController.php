@@ -78,19 +78,14 @@ class UserController extends Controller
         $rules = [
             "name" => "nullable|string|max:255",
             "email" => "nullable|string|email|max:255|unique:users,email," . $user->id,
-            "profile_image" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
+            "profile_image" => "nullable|image|mimes:jpeg,png,jpg,gif|max:5120",
         ];
 
         // قواعد التحقق لكلمة المرور الجديدة
         if ($request->filled("password")) {
             $rules["current_password"] = "required|string";
             $rules["password"] = "required|string|min:8|confirmed";
-        } elseif ($user->force_password_change) {
-            // إذا كان المستخدم مجبرًا على تغيير كلمة المرور ولم يقدم كلمة مرور جديدة
-            $rules["password"] = "required|string|min:8|confirmed";
-            $rules["current_password"] = "required|string"; // يجب أن يقدم كلمة المرور الحالية للتحقق
         }
-
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -110,13 +105,7 @@ class UserController extends Controller
             }
 
             $user->password = Hash::make($request->password);
-            $user->force_password_change = false; // إعادة تعيين هذا الحقل بعد تغيير كلمة المرور
-        } elseif ($user->force_password_change) {
-            // إذا كان المستخدم مجبرًا على تغيير كلمة المرور ولم يقدم كلمة مرور جديدة في الطلب الحالي
-            // هذا السيناريو يجب أن يتم التقاطه بواسطة قواعد التحقق أعلاه، ولكن هذا كإجراء احتياطي
-            return response()->json(["message" => "You must change your password."], status: 422);
         }
-
         // رفع صورة الملف الشخصي
         if ($request->hasFile("profile_image")) {
             if ($user->profile_image && file_exists(public_path($user->profile_image))) {

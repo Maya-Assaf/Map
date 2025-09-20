@@ -15,6 +15,8 @@ Route::post('/verify-code', [AuthController::class, 'verifyCode']);
 Route::post('/resend-code', [AuthController::class, 'resendCode']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink']);
+Route::post('/forgot-password-for-mob', [ResetPasswordController::class, 'sendCode']);
+Route::post('/verify-reset-code-for-mob', [ResetPasswordController::class, 'verifyCode']);
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
 
 
