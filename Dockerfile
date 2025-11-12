@@ -43,4 +43,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 # ✅ تشغيل migrate و seed أول مرة فقط
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan serve --host=0.0.0.0 --port=$PORT --force
