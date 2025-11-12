@@ -20,23 +20,20 @@ RUN apt-get update && apt-get install -y \
 # تثبيت Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# نسخ ملفات Composer أولاً
-COPY composer.json composer.lock ./
-
-# تثبيت الاعتمادات
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# نسخ باقي المشروع
+# نسخ كل ملفات المشروع
 COPY . .
 
-# صلاحيات مجلدات Laravel
+# تثبيت الاعتمادات بعد نسخ الملفات (عشان artisan يكون موجود)
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# إعداد الصلاحيات
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# تعيين متغير البيئة (لتجنب بعض التحذيرات)
+# تعيين متغير البيئة
 ENV PORT=8080
 
-# فتح المنفذ اللي Render بيستخدمه
+# فتح البورت اللي Render بيستخدمه
 EXPOSE 8080
 
-# تشغيل Laravel (مع migration + seeding)
+# تشغيل Laravel مع migration + seeding
 CMD php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT
