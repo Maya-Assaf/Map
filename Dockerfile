@@ -43,12 +43,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 # ✅ تشغيل migrate و seed أول مرة فقط
-CMD if [ ! -f /var/www/html/.first_run_done ]; then \
-      echo "🔹 Running initial migrate & seed..."; \
-      php artisan migrate --force && \
-      php artisan db:seed --force && \
-      touch /var/www/html/.first_run_done; \
-    else \
-      echo "✅ Database already initialized, skipping migrate/seed."; \
-    fi && \
-    php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
