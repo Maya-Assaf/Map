@@ -1,10 +1,10 @@
-# استخدم PHP 8.2
+# استخدم PHP 8.2 مع FPM
 FROM php:8.2-fpm
 
-# تحديد مجلد العمل
+# تعيين مجلد العمل
 WORKDIR /var/www/html
 
-# تثبيت المكتبات الأساسية وإضافات PHP المطلوبة
+# تثبيت المتطلبات
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -14,20 +14,27 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
- && docker-php-ext-configure gd --with-freetype --with-jpeg \
- && docker-php-ext-install gd pdo_mysql zip
+    libpq-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_pgsql zip
 
 # تثبيت Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# نسخ كل ملفات المشروع
+# نسخ ملفات composer أولاً
+COPY composer.json composer.lock ./
+
+# تثبيت الاعتمادات بدون post-scripts
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+
+# نسخ بقية ملفات المشروع
 COPY . .
 
-# تثبيت الاعتمادات بعد نسخ الملفات (عشان artisan يكون موجود)
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# تشغيل post-autoload بعد نسخ المشروع
+RUN composer dump-autoload && php artisan package:discover --ansi || true
 
-# إعداد الصلاحيات
-RUN chown -R www-data:www-data storage bootstrap/cache
+# ضبط الأذونات
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # تعيين متغير البيئة
 ENV PORT=8080
