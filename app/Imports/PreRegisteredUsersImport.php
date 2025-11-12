@@ -16,7 +16,7 @@ class PreRegisteredUsersImport implements ToModel, WithHeadingRow
          // Log every single row
     // Log::info('Row data: ', [
     //     'email' => $row['email'] ?? 'NULL',
-    //     'department' => $row['department'] ?? 'NULL', 
+    //     'department' => $row['department'] ?? 'NULL',
     //     'position' => $row['your_position'] ?? 'NULL',
     //     'all_keys' => array_keys($row),
     //     'all_values' => array_values($row)
@@ -27,15 +27,15 @@ class PreRegisteredUsersImport implements ToModel, WithHeadingRow
             return null; // Skip this row
         }
 
-        
+
        return new PreRegisteredUser([
             'name' => $row['name'],
             'email' => $row['email'],
             'position' => $row['your_position'] ?? null,
             'department' => $row['department'] ?? null,
-            'layer' => $row['Layer'] ?? 'other',
+            'layer' => $row['Layer'] ?? 'Other',
             'status' => $row['status'],
-            
+
         ]);
     }
 }
