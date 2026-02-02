@@ -8,18 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
-    
+
 
 
     protected $fillable = [
         'name',
         'user_id',
-        'longitude',
-        'latitude',
         'description',
         'aspect_id',
         'sub_aspect_id',
-        'category_id'
+        'category_id',
     ];
 
 
@@ -51,6 +49,9 @@ class Location extends Model
     {
         return $this->hasMany(LocationReference::class);
     }
+    public function locatable()
+    {
+        return $this->morphTo();
+    }
 
- 
 }

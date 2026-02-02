@@ -20,8 +20,7 @@ return new class extends Migration
             $table->foreignId('aspect_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('sub_aspect_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 11, 8);
+            $table->morphs('locatable');
             $table->timestamps();
         });
     }

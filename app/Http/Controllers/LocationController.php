@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LocationLine;
+use App\Models\LocationPoint;
+use App\Models\LocationPolygon;
+use App\Models\LocationSpace;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use Illuminate\Support\Facades\Auth;
@@ -14,138 +18,329 @@ class LocationController extends Controller
 {
     // إضافة موقع جديد
     public function store(Request $request)
-{
-    // Authorize the action using the LocationPolicy
-    // $this->authorize('create', Location::class);
-    
-    $request->validate([
-        'name'          => 'required|string|max:255',
-        'aspect_id'     => 'required|exists:aspects,id',
-        'sub_aspect_id' => 'required|exists:sub_aspects,id',
-        'category_id'   => 'required|exists:categories,id',
-        'latitude'      => 'required|numeric',
-        'longitude'     => 'required|numeric',
-        'description'   => 'nullable|string',
-        'images.*'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-        'references.*'  => 'nullable|mimes:pdf,txt|max:15000'
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'aspect_id' => 'required|exists:aspects,id',
+            'sub_aspect_id' => 'required|exists:sub_aspects,id',
+            'category_id' => 'required|exists:categories,id',
+            'type' => 'required|string|in:point,line,space,polygon',
+            'description' => 'nullable|string',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'references.*' => 'nullable|mimes:pdf,txt|max:15000'
+        ]);
 
-    // Get the authenticated user
-    $user = Auth::user();
+        // Get the authenticated user
+        $user = Auth::user();
 
-    // Create the location including the optional description
-    $location = Location::create([
-        'name'           => $request->name,
-        'aspect_id'      => $request->aspect_id,
-        'sub_aspect_id'  => $request->sub_aspect_id,
-        'category_id'    => $request->category_id,
-        'latitude'       => $request->latitude,
-        'longitude'      => $request->longitude,
-        'description'    => $request->description,
-        'user_id'        => $user->id, // Use the authenticated user's ID
-    ]);
+        if ($request->type == 'point') {
+            $request->validate([
+                'latitude' => 'required|numeric',
+                'longitude' => 'required|numeric',
+            ]);
+            $point = new LocationPoint();
+            $point->fill([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+            $point->save();
+            $location = $point->locatable()->create([
+                'name' => $request->name,
+                'aspect_id' => $request->aspect_id,
+                'sub_aspect_id' => $request->sub_aspect_id,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+                'user_id' => $user->id, // Use the authenticated user's ID
+            ]);
 
-    // Process and store uploaded images in the public/imgs folder
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            $filename = time() . '_' . $image->getClientOriginalName();
-            $destinationPath = public_path('imgs');
-            $image->move($destinationPath, $filename);
-            // Save relative path for later use (e.g. asset($imagePath))
-            $location->images()->create(['image_path' => 'imgs/' . $filename]);
+        } elseif ($request->type == 'line') {
+            $request->validate([
+                'latitude_a' => 'required|numeric',
+                'longitude_a' => 'required|numeric',
+                'latitude_b' => 'required|numeric',
+                'longitude_b' => 'required|numeric',
+            ]);
+            $line = new LocationLine();
+            $line->fill([
+                'latitude_a' => $request->latitude_a,
+                'longitude_a' => $request->longitude_a,
+                'latitude_b' => $request->latitude_b,
+                'longitude_b' => $request->longitude_b,
+            ]);
+            $line->save();
+            $location = $line->locatable()->create([
+                'name' => $request->name,
+                'aspect_id' => $request->aspect_id,
+                'sub_aspect_id' => $request->sub_aspect_id,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+                'user_id' => $user->id,
+            ]);
+        } elseif ($request->type == 'space') {
+            $request->validate([
+                'latitude' => 'required|numeric',
+                'longitude' => 'required|numeric',
+                'radius' => 'required|numeric',
+            ]);
+            $space = new LocationSpace();
+            $space->fill([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'radius' => $request->radius,
+            ]);
+            $space->save();
+            $location = $space->locatable()->create([
+                'name' => $request->name,
+                'aspect_id' => $request->aspect_id,
+                'sub_aspect_id' => $request->sub_aspect_id,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+                'user_id' => $user->id,
+            ]);
+        } elseif ($request->type == 'polygon') {
+
+            $request->validate([
+                'points' => 'required|array|min:3',
+                'points.*.latitude' => 'required|numeric',
+                'points.*.longitude' => 'required|numeric',
+            ]);
+
+            $polygon = LocationPolygon::create();
+
+            foreach ($request->points as $point) {
+                $polygon->points()->create([
+                    'latitude' => $point['latitude'],
+                    'longitude' => $point['longitude'],
+                ]);
+            }
+
+            $location = $polygon->locatable()->create([
+                'name' => $request->name,
+                'aspect_id' => $request->aspect_id,
+                'sub_aspect_id' => $request->sub_aspect_id,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+                'user_id' => $user->id,
+            ]);
         }
+
+
+        // Process and store uploaded images in the public/imgs folder
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $destinationPath = public_path('imgs');
+                $image->move($destinationPath, $filename);
+                // Save relative path for later use (e.g. asset($imagePath))
+                $location->images()->create(['image_path' => 'imgs/' . $filename]);
+            }
+        }
+
+        // Process and store uploaded PDF references in the public/refs folder
+        if ($request->hasFile('references')) {
+            foreach ($request->file('references') as $pdf) {
+                $filename = time() . '_' . $pdf->getClientOriginalName();
+                $destinationPath = public_path('refs');
+                $pdf->move($destinationPath, $filename);
+                $location->references()->create(['pdf_path' => 'refs/' . $filename]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Location added successfully',
+            'location' => $location->load('images', 'references', 'locatable'),
+        ], 201);
     }
 
-    // Process and store uploaded PDF references in the public/refs folder
-    if ($request->hasFile('references')) {
-        foreach ($request->file('references') as $pdf) {
-            $filename = time() . '_' . $pdf->getClientOriginalName();
-            $destinationPath = public_path('refs');
-            $pdf->move($destinationPath, $filename);
-            $location->references()->create(['pdf_path' => 'refs/' . $filename]);
-        }
+
+    public function index()
+    {
+        $locations = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category', 'locatable'])->get();
+
+        // Modify the data to include layer, description, images, and references
+        $locations = $locations->map(function ($location) {
+            return [
+                'id' => $location->id,
+                'name' => $location->name,
+                'aspect' => $location->aspect->name ?? 'unknown',
+                'sub_aspect' => $location->subAspect->name ?? 'unknown',
+                'category' => $location->category->name ?? 'unknown',
+                'description' => $location->description,
+                'images' => $location->images,      // Returns an array of image records
+                'references' => $location->references,   // Returns an array of PDF reference records
+                'locatable' => $location->locatable
+            ];
+        });
+
+        return response()->json($locations);
     }
 
-    return response()->json([
-        'message'  => 'Location added successfully',
-        'location' => $location->load('images', 'references'),
-    ], 201);
-}
 
+    public function update(Request $request, $id)
+    {
+        $location = Location::findOrFail($id);
+        $user = Auth::user();
 
-public function index() {
-    $locations = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category'])->get();
+        if ($location->user_id !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
-    // Modify the data to include layer, description, images, and references
-    $locations = $locations->map(function ($location) {
-        return [
-            'id'          => $location->id,
-            'name'        => $location->name,
-            'aspect'      => $location->aspect->name ?? 'unknown',
-            'sub_aspect'  => $location->subAspect->name ?? 'unknown',
-            'category'    => $location->category->name ?? 'unknown',
-            'latitude'    => $location->latitude,
-            'longitude'   => $location->longitude,
-            'description' => $location->description,
-            'images'      => $location->images,      // Returns an array of image records
-            'references'  => $location->references   // Returns an array of PDF reference records
-        ];
-    });
+        /*
+        |-----------------------------------------
+        | Validation (كلو optional)
+        |-----------------------------------------
+        */
+        $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'aspect_id' => 'sometimes|exists:aspects,id',
+            'sub_aspect_id' => 'sometimes|exists:sub_aspects,id',
+            'category_id' => 'sometimes|exists:categories,id',
+            'type' => 'sometimes|in:point,line,space,polygon',
+            'description' => 'sometimes|nullable|string',
 
-    return response()->json($locations);
-}
+            'images.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'references.*' => 'sometimes|mimes:pdf,txt|max:15000',
+        ]);
 
+        /*
+        |-----------------------------------------
+        | تحديث بيانات Location العامة
+        |-----------------------------------------
+        */
+        $location->update($request->only([
+            'name',
+            'aspect_id',
+            'sub_aspect_id',
+            'category_id',
+            'description',
+        ]));
 
-public function update(Request $request, $id)
-{
-    $location = Location::with(['user'])->findOrFail($id);
+        $type = $request->type ?? class_basename($location->locatable_type);
 
-    // Authorize the action using the LocationPolicy
-    $this->authorize('update', $location);
+        /*
+        |-----------------------------------------
+        | تحديث حسب النوع (فقط إذا وصلت بياناته)
+        |-----------------------------------------
+        */
+        if ($type === 'point' && ($request->has('latitude') || $request->has('longitude'))) {
 
-    // Get the authenticated user
-    $user = Auth::user();
+            $request->validate([
+                'latitude' => 'sometimes|numeric',
+                'longitude' => 'sometimes|numeric',
+            ]);
 
-     // Validate the request data
-     $request->validate([
-        'name'         => 'sometimes|string|max:255',
-        'aspect_id'      => 'sometimes|exists:aspects,id',
-        'sub_aspect_id'  => 'sometimes|exists:sub_aspects,id',
-        'category_id'    => 'sometimes|exists:categories,id',
-        'description'  => 'sometimes|string|max:255',
-        'latitude'     => 'sometimes|numeric',
-        'longitude'    => 'sometimes|numeric',
-    ]);
+            $point = $location->locatable;
 
-    // Update the basic fields (remove image and reference processing)
-    $data = $request->only(['name', 'aspect_id', 'sub_aspect_id',
-        'category_id', 'description', 'latitude' , 'longitude' ]);
-    $location->update($data);
+            $point->update($request->only(['latitude', 'longitude']));
 
+        } elseif ($type === 'line' && (
+                $request->has('latitude_a') ||
+                $request->has('longitude_a') ||
+                $request->has('latitude_b') ||
+                $request->has('longitude_b')
+            )) {
 
+            $request->validate([
+                'latitude_a' => 'sometimes|numeric',
+                'longitude_a' => 'sometimes|numeric',
+                'latitude_b' => 'sometimes|numeric',
+                'longitude_b' => 'sometimes|numeric',
+            ]);
 
-    return response()->json([
-        'message'  => 'Location updated successfully',
-        'location' => [
-            'id'          => $location->id,
-            'name'        => $location->name,
-            'aspect'      => optional($location->aspect)->name,
-            'sub_aspect'  => optional($location->subAspect)->name,
-            'category'    => optional($location->category)->name,
-            'description' => $location->description,
-            'latitude'    => $location->latitude,
-            'longitude'   => $location->longitude,
-        ]
-    ]);
-}
+            $line = $location->locatable;
 
+            $line->update($request->only([
+                'latitude_a',
+                'longitude_a',
+                'latitude_b',
+                'longitude_b',
+            ]));
+
+        } elseif ($type === 'space' && (
+                $request->has('latitude') ||
+                $request->has('longitude') ||
+                $request->has('radius')
+            )) {
+
+            $request->validate([
+                'latitude' => 'sometimes|numeric',
+                'longitude' => 'sometimes|numeric',
+                'radius' => 'sometimes|numeric',
+            ]);
+
+            $space = $location->locatable;
+
+            $space->update($request->only([
+                'latitude',
+                'longitude',
+                'radius',
+            ]));
+
+        } elseif ($type === 'polygon' && $request->has('points')) {
+
+            $request->validate([
+                'points' => 'array|min:3',
+                'points.*.latitude' => 'numeric',
+                'points.*.longitude' => 'numeric',
+            ]);
+
+            $polygon = $location->locatable;
+
+            // حذف النقاط القديمة واستبدالها
+            $polygon->points()->delete();
+
+            foreach ($request->points as $point) {
+                $polygon->points()->create([
+                    'latitude' => $point['latitude'],
+                    'longitude' => $point['longitude'],
+                ]);
+            }
+        }
+
+        /*
+        |-----------------------------------------
+        | صور جديدة (إضافة فقط)
+        |-----------------------------------------
+        */
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('imgs'), $filename);
+
+                $location->images()->create([
+                    'image_path' => 'imgs/' . $filename
+                ]);
+            }
+        }
+
+        /*
+        |-----------------------------------------
+        | مراجع جديدة (إضافة فقط)
+        |-----------------------------------------
+        */
+        if ($request->hasFile('references')) {
+            foreach ($request->file('references') as $pdf) {
+                $filename = time() . '_' . $pdf->getClientOriginalName();
+                $pdf->move(public_path('refs'), $filename);
+
+                $location->references()->create([
+                    'pdf_path' => 'refs/' . $filename
+                ]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Location updated successfully',
+            'location' => $location->load('images', 'references', 'locatable'),
+        ]);
+    }
 
 
     // حذف موقع معين
     public function destroy($id)
     {
         $location = Location::findOrFail($id);
-    
+
         // Authorize the action using the LocationPolicy
         $this->authorize('delete', $location);
 
@@ -153,25 +348,25 @@ public function update(Request $request, $id)
         return response()->json(['message' => 'Location deleted successfully']);
     }
 
-    public function getLocationsByCategories(Request $request) {
+    public function getLocationsByCategories(Request $request)
+    {
         $categoryNames = $request->input('categories', []);
-    
+
         // جلب المواقع مع معلومات المستخدم
         $locations = Location::whereHas('category', function ($query) use ($categoryNames) {
             $query->whereIn('name', $categoryNames);
-        })->with(['aspect', 'subAspect', 'category', 'user'])->get();
+        })->with(['aspect', 'subAspect', 'category', 'user', 'locatable'])->get();
 
         // تعديل البيانات لإضافة `layer` الخاص بالمستخدم
         $locations = $locations->map(function ($location) {
             return [
                 'id' => $location->id,
                 'name' => $location->name,
-                'aspect'      => optional($location->aspect)->name,
-                'sub_aspect'  => optional($location->subAspect)->name,
-                'category'    => optional($location->category)->name,
-                'latitude' => $location->latitude,
-                'longitude' => $location->longitude,
-                'user_layer'  => optional($location->user)->layer,
+                'aspect' => optional($location->aspect)->name,
+                'sub_aspect' => optional($location->subAspect)->name,
+                'category' => optional($location->category)->name,
+                'user_layer' => optional($location->user)->layer,
+                'locatable' => $location->locatable
             ];
         });
 
@@ -234,128 +429,124 @@ public function update(Request $request, $id)
     }
 
     public function deleteImage($id, $imageId)
-{
-    $location = Location::findOrFail($id);
-    $user = Auth::user();
+    {
+        $location = Location::findOrFail($id);
+        $user = Auth::user();
 
-    // تحقق من الصلاحيات
-    if ($user->position === 'Volunteer' && $location->user_id !== $user->id) {
-        return response()->json(['message' => 'Unauthorized'], 403);
+        // تحقق من الصلاحيات
+        if ($user->position === 'Volunteer' && $location->user_id !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        if (($user->position === 'Senior leader' || $user->position === 'Junior leader') &&
+            $location->user->position === 'Volunteer' &&
+            $location->user->layer !== $user->layer) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // البحث عن الصورة
+        $image = $location->images()->findOrFail($imageId);
+
+        // حذف الملف الفعلي من السيرفر
+        $imagePath = public_path($image->image_path);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        // حذف السجل من قاعدة البيانات
+        $image->delete();
+
+        return response()->json(['message' => 'Image deleted successfully']);
     }
 
-    if (($user->position === 'Senior leader' || $user->position === 'Junior leader') &&
-        $location->user->position === 'Volunteer' &&
-        $location->user->layer !== $user->layer) {
-        return response()->json(['message' => 'Unauthorized'], 403);
+
+    public function deleteReference($id, $referenceId)
+    {
+        $location = Location::findOrFail($id);
+        $user = Auth::user();
+
+        // تحقق من الصلاحيات
+        if ($user->position === 'Volunteer' && $location->user_id !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        if (($user->position === 'Senior leader' || $user->position === 'Junior leader') &&
+            $location->user->position === 'Volunteer' &&
+            $location->user->layer !== $user->layer) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // البحث عن الملف
+        $reference = $location->references()->findOrFail($referenceId);
+
+        // حذف الملف الفعلي من السيرفر
+        $referencePath = public_path($reference->pdf_path);
+        if (file_exists($referencePath)) {
+            unlink($referencePath);
+        }
+
+        // حذف السجل من قاعدة البيانات
+        $reference->delete();
+
+        return response()->json(['message' => 'Reference deleted successfully']);
     }
 
-    // البحث عن الصورة
-    $image = $location->images()->findOrFail($imageId);
 
-    // حذف الملف الفعلي من السيرفر
-    $imagePath = public_path($image->image_path);
-    if (file_exists($imagePath)) {
-        unlink($imagePath);
+    public function show(Request $request, $id)
+    {
+        // Retrieve the location along with its relationships.
+        $location = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category', 'locatable'])->findOrFail($id);
+
+        return response()->json([
+            'message' => 'Location retrieved successfully',
+            'location' => $location
+        ]);
     }
-
-    // حذف السجل من قاعدة البيانات
-    $image->delete();
-
-    return response()->json(['message' => 'Image deleted successfully']);
-}
-
-
-public function deleteReference($id, $referenceId)
-{
-    $location = Location::findOrFail($id);
-    $user = Auth::user();
-
-    // تحقق من الصلاحيات
-    if ($user->position === 'Volunteer' && $location->user_id !== $user->id) {
-        return response()->json(['message' => 'Unauthorized'], 403);
-    }
-
-    if (($user->position === 'Senior leader' || $user->position === 'Junior leader') &&
-        $location->user->position === 'Volunteer' &&
-        $location->user->layer !== $user->layer) {
-        return response()->json(['message' => 'Unauthorized'], 403);
-    }
-
-    // البحث عن الملف
-    $reference = $location->references()->findOrFail($referenceId);
-
-    // حذف الملف الفعلي من السيرفر
-    $referencePath = public_path($reference->pdf_path);
-    if (file_exists($referencePath)) {
-        unlink($referencePath);
-    }
-
-    // حذف السجل من قاعدة البيانات
-    $reference->delete();
-
-    return response()->json(['message' => 'Reference deleted successfully']);
-}
-
-
-public function show(Request $request, $id)
-{
-    // Retrieve the location along with its relationships.
-    $location = Location::with(['user', 'images', 'references' , 'aspect' , 'subAspect', 'category'])->findOrFail($id);
-
-    return response()->json([
-        'message'  => 'Location retrieved successfully',
-        'location' => $location
-    ]);
-}
 
 
     public function exportCsv()
-{
-    $locations = Location::with(['user', 'images', 'references'])->get();
+    {
+        $locations = Location::with(['user', 'images', 'references'])->get();
 
-    $csvFileName = 'locations_export.csv';
-    $headers = [
-        "Content-Type" => "text/csv; charset=UTF-8",
-        "Content-Disposition" => "attachment; filename=$csvFileName"
-    ];
+        $csvFileName = 'locations_export.csv';
+        $headers = [
+            "Content-Type" => "text/csv; charset=UTF-8",
+            "Content-Disposition" => "attachment; filename=$csvFileName"
+        ];
 
-    if ($locations->isEmpty()) {
-        return response()->json(['message' => 'No locations found'], 404);
-    }
-
-    return response()->streamDownload(function () use ($locations) {
-        $handle = fopen('php://output', 'w');
-
-        // Write BOM for UTF-8 support in Excel
-        fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
-
-        // Write headers
-        fputcsv($handle, ['ID', 'Name', 'Category', 'Latitude', 'Longitude', 'Layer', 'Description', 'Images', 'References']);
-
-        foreach ($locations as $location) {
-            $images = $location->images->map(fn($image) => asset($image->image_path))->implode(', ');
-            $references = $location->references->map(fn($reference) => asset($reference->pdf_path))->implode(', ');
-
-            $row = [
-                $location->id,
-                $location->name,
-                $location->category->name ?? 'unknown',
-                $location->latitude,
-                $location->longitude,
-                $location->user->layer ?? 'unknown',
-                $location->description,
-                $images,
-                $references,
-            ];
-
-            fputcsv($handle, $row);
+        if ($locations->isEmpty()) {
+            return response()->json(['message' => 'No locations found'], 404);
         }
 
-        fclose($handle);
-    }, $csvFileName, $headers);
-}
+        return response()->streamDownload(function () use ($locations) {
+            $handle = fopen('php://output', 'w');
 
-            
+            // Write BOM for UTF-8 support in Excel
+            fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+            // Write headers
+            fputcsv($handle, ['ID', 'Name', 'Category', 'Latitude', 'Longitude', 'Layer', 'Description', 'Images', 'References']);
+
+            foreach ($locations as $location) {
+                $images = $location->images->map(fn($image) => asset($image->image_path))->implode(', ');
+                $references = $location->references->map(fn($reference) => asset($reference->pdf_path))->implode(', ');
+
+                $row = [
+                    $location->id,
+                    $location->name,
+                    $location->category->name ?? 'unknown',
+                    $location->user->layer ?? 'unknown',
+                    $location->description,
+                    $images,
+                    $references,
+                ];
+
+                fputcsv($handle, $row);
+            }
+
+            fclose($handle);
+        }, $csvFileName, $headers);
+    }
 
 
     public function search(Request $request)
@@ -374,45 +565,42 @@ public function show(Request $request, $id)
         $query = Location::query();
 
         // بحث باسم الموقع
-    if ($request->filled('name')) {
-        $query->where('name', 'like', '%' . $request->name . '%');
-    }
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
 
-   
 
-    // بحث باسم  (aspect)
-    if ($request->filled('aspect')) {
-        $query->whereHas('aspect', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->aspect . '%');
-        });
-    }
+        // بحث باسم  (aspect)
+        if ($request->filled('aspect')) {
+            $query->whereHas('aspect', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->aspect . '%');
+            });
+        }
 
-    // بحث باسم  (sub_aspect)
-    if ($request->filled('sub_aspect')) {
-        $query->whereHas('subAspect', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->sub_aspect . '%');
-        });
-    }
+        // بحث باسم  (sub_aspect)
+        if ($request->filled('sub_aspect')) {
+            $query->whereHas('subAspect', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->sub_aspect . '%');
+            });
+        }
 
-     // بحث باسم  (category) عن طريق العلاقة
-    if ($request->filled('category')) {
-        $query->whereHas('category', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->category . '%');
-        });
-    }
-
+        // بحث باسم  (category) عن طريق العلاقة
+        if ($request->filled('category')) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->category . '%');
+            });
+        }
 
 
         // Execute the query and get the results
         $locations = $query->get();
 
         // Optionally, load the user relationship if you need additional user data like layer
-        $locations->load('user');
+        $locations->load('user', 'locatable');
 
         // Return the JSON response (you can customize the returned structure if needed)
         return response()->json(['locations' => $locations]);
     }
-
 
 
     public function Statistics()
@@ -453,10 +641,10 @@ public function show(Request $request, $id)
 
         // متوسط عدد المواقع لكل مستخدم
         $avgLocationsPerUser = Location::select(DB::raw('AVG(user_count) as avg_locations'))
-            ->from(function($query) {
+            ->from(function ($query) {
                 $query->select('user_id', DB::raw('COUNT(*) as user_count'))
-                      ->from('locations')
-                      ->groupBy('user_id');
+                    ->from('locations')
+                    ->groupBy('user_id');
             }, 'user_locations')
             ->value('avg_locations');
 
@@ -472,10 +660,10 @@ public function show(Request $request, $id)
 
         // عدد المواقع حسب النطاق الجغرافي: تقريب الإحداثيات (مثلاً تقريب latitude و longitude لمنطقة جغرافية)
         $geographicDistribution = Location::select(
-                DB::raw('ROUND(latitude, 1) as lat_group'),
-                DB::raw('ROUND(longitude, 1) as lng_group'),
-                DB::raw('COUNT(*) as total')
-            )
+            DB::raw('ROUND(latitude, 1) as lat_group'),
+            DB::raw('ROUND(longitude, 1) as lng_group'),
+            DB::raw('COUNT(*) as total')
+        )
             ->groupBy('lat_group', 'lng_group')
             ->get();
 
@@ -495,21 +683,21 @@ public function show(Request $request, $id)
         }
 
         return response()->json([
-            'total_locations'           => $totalLocations,
-            'locations_by_category'     => $locationsByCategory,
-            'locations_by_layer'        => $locationsByLayer,
-            'locations_by_department'   => $locationsByDepartment,
-            'locations_by_position'     => $locationsByPosition,
-            'locations_by_month'        => $locationsByMonth,
-            'avg_locations_per_user'    => $avgLocationsPerUser,
-            'most_popular_categories'   => $mostPopularCategories,
-            'most_active_users'         => $mostActiveUsers,
-            'geographic_distribution'   => $geographicDistribution,
-            'monthly_growth_rate'       => $monthlyGrowth,
+            'total_locations' => $totalLocations,
+            'locations_by_category' => $locationsByCategory,
+            'locations_by_layer' => $locationsByLayer,
+            'locations_by_department' => $locationsByDepartment,
+            'locations_by_position' => $locationsByPosition,
+            'locations_by_month' => $locationsByMonth,
+            'avg_locations_per_user' => $avgLocationsPerUser,
+            'most_popular_categories' => $mostPopularCategories,
+            'most_active_users' => $mostActiveUsers,
+            'geographic_distribution' => $geographicDistribution,
+            'monthly_growth_rate' => $monthlyGrowth,
         ]);
     }
 
-     public function getAspects()
+    public function getAspects()
     {
         return Aspect::all();
     }
@@ -527,5 +715,4 @@ public function show(Request $request, $id)
     }
 
 
-    
 }
