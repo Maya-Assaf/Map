@@ -18,6 +18,8 @@ class Location extends Model
         'aspect_id',
         'sub_aspect_id',
         'category_id',
+        'locatable_id',
+        'locatable_type',
     ];
 
 

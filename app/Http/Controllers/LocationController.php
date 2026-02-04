@@ -168,7 +168,8 @@ class LocationController extends Controller
                 'description' => $location->description,
                 'images' => $location->images,      // Returns an array of image records
                 'references' => $location->references,   // Returns an array of PDF reference records
-                'locatable' => $location->locatable
+                'locatable_type'=> $location->locatable_type,
+                'locatable' => $location->locatable,
             ];
         });
 
@@ -366,6 +367,7 @@ class LocationController extends Controller
                 'sub_aspect' => optional($location->subAspect)->name,
                 'category' => optional($location->category)->name,
                 'user_layer' => optional($location->user)->layer,
+                'locatable_type'=> $location->locatable_type,
                 'locatable' => $location->locatable
             ];
         });
