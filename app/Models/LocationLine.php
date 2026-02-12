@@ -13,6 +13,13 @@ class LocationLine extends Model
         'latitude_b',
     ];
 
+    protected $casts = [
+        'longitude_a' => 'double',
+        'latitude_a' => 'double',
+        'longitude_b' => 'double',
+        'latitude_b' => 'double',
+    ];
+
     public function locatable()
     {
         return $this->morphOne(Location::class, 'locatable');

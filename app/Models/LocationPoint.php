@@ -14,6 +14,11 @@ class LocationPoint extends Model
         'latitude'
     ];
 
+    protected $casts = [
+        'longitude' => 'double',
+        'latitude' => 'double'
+    ];
+
     public function locatable()
     {
         return $this->morphOne(Location::class, 'locatable');

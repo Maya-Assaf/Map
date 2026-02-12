@@ -12,6 +12,12 @@ class LocationSpace extends Model
         'radius',
     ];
 
+    protected $casts = [
+        'longitude' => 'double',
+        'latitude' => 'double',
+        'radius' => 'double',
+    ];
+
     public function locatable()
     {
         return $this->morphOne(Location::class, 'locatable');

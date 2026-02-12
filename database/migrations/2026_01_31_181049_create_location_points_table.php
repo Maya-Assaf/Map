@@ -9,8 +9,8 @@ return new class extends Migration {
     {
         Schema::create('location_points', function (Blueprint $table) {
             $table->id();
-            $table->decimal('longitude');
-            $table->decimal('latitude');
+            $table->decimal('longitude',10 ,8);
+            $table->decimal('latitude',10,8);
             $table->timestamps();
         });
     }

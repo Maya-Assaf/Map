@@ -9,10 +9,10 @@ return new class extends Migration {
     {
         Schema::create('location_lines', function (Blueprint $table) {
             $table->id();
-            $table->decimal('longitude_a');
-            $table->decimal('latitude_a');
-            $table->decimal('longitude_b');
-            $table->decimal('latitude_b');
+            $table->decimal('longitude_a',10,8);
+            $table->decimal('latitude_a',10,8);
+            $table->decimal('longitude_b',10,8);
+            $table->decimal('latitude_b',10,8);
             $table->timestamps();
         });
     }

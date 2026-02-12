@@ -13,6 +13,11 @@ class LocationPolygonPoint extends Model
         'location_polygon_id',
     ];
 
+    protected $casts = [
+        'latitude' => 'double',
+        'longitude' => 'double',
+    ];
+
     public function locationPolygon(): BelongsTo
     {
         return $this->belongsTo(LocationPolygon::class);
