@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('location_spaces', function (Blueprint $table) {
             $table->id();
-            $table->decimal('longitude',10 ,8);
-            $table->decimal('latitude',10,8);
-            $table->decimal('radius',10,8);
+            $table->decimal('longitude',10 ,7);
+            $table->decimal('latitude',10,7);
+            $table->decimal('radius', 8, 2); // مثلاً 1500.50 متر
             $table->timestamps();
         });
     }
