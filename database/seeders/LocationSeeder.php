@@ -142,7 +142,7 @@ class LocationSeeder extends Seeder
             ["name" => "Tool/equipment workshops"],
             ["name" => "Craft training centers"],
             ["name" => "Temporary/household workshops"],
-        ]);  
+        ]);
         $international_aid_sub = $economic_factor_layer->subAspects()->create(["name" => "International Aid"]);
         $international_aid_sub->categories()->createMany([
             ["name" => "International grants and loans"],
@@ -470,6 +470,7 @@ class LocationSeeder extends Seeder
             ["name" => "Green roofs and walls"],
             ["name" => "Ecological corridors"],
             ["name" => "Private gardens"],
+            ["name" => "Tree Canopies"],
         ]);
         $waste_management_sub = $ecological_factor_layer->subAspects()->create(["name" => "Waste Management"]);
         $waste_management_sub->categories()->createMany([
@@ -480,9 +481,9 @@ class LocationSeeder extends Seeder
             ["name" => "Landfills locations"],
             ["name" => "Emergency waste collection points"],
         ]);
-   
-           
-       
+
+
+
         $water_and_air_quality_sub = $ecological_factor_layer->subAspects()->create(["name" => "Water & Air Quality"]);
         $water_and_air_quality_sub->categories()->createMany([
             ["name" => "Air quality monitoring stations"],

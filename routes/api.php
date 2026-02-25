@@ -58,6 +58,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/aspects', [LocationController::class, 'getAspects']);
         Route::get('/sub-aspects/{aspectId}', [LocationController::class, 'getSubAspects']);
         Route::get('/categories/{subAspectId}', [LocationController::class, 'getCategories']);
+        Route::get('/types/{categoryId}', [LocationController::class, 'getMarkerTypeById']);
+
 
         // Route::get('/zones' , [ZoneController::class , 'index']);
         Route::post('/zones', [ZoneController::class, 'store']);

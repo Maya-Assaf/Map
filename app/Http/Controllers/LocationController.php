@@ -33,6 +33,13 @@ class LocationController extends Controller
         // Get the authenticated user
         $user = Auth::user();
 
+        if (!in_array($request->type, $this->getMarkerTypeById($request->category_id))) {
+            return response()
+                ->json(
+                    ['message' => 'The type is not suitable for the category.']
+                    , 422);
+
+        }
         if ($request->type == 'point') {
             $request->validate([
                 'latitude' => 'required|numeric',
@@ -168,7 +175,7 @@ class LocationController extends Controller
                 'description' => $location->description,
                 'images' => $location->images,      // Returns an array of image records
                 'references' => $location->references,   // Returns an array of PDF reference records
-                'locatable_type'=> $location->locatable_type,
+                'locatable_type' => $location->locatable_type,
                 'locatable' => $location->locatable,
             ];
         });
@@ -177,6 +184,9 @@ class LocationController extends Controller
     }
 
 
+    /**
+     * @throws \Throwable
+     */
     public function update(Request $request, $id)
     {
         $location = Location::findOrFail($id);
@@ -208,6 +218,8 @@ class LocationController extends Controller
         | تحديث بيانات Location العامة
         |-----------------------------------------
         */
+        DB::beginTransaction();
+
         $location->update($request->only([
             'name',
             'aspect_id',
@@ -217,6 +229,14 @@ class LocationController extends Controller
         ]));
 
         $type = $request->type ?? class_basename($location->locatable_type);
+
+        if (!in_array($type, $this->getMarkerTypeById($location->category_id))) {
+            return response()
+                ->json(
+                    ['message' => 'The type is not suitable for the category.']
+                    , 422);
+
+        }
 
         /*
         |-----------------------------------------
@@ -330,6 +350,8 @@ class LocationController extends Controller
             }
         }
 
+        DB::commit();
+
         return response()->json([
             'message' => 'Location updated successfully',
             'location' => $location->load('images', 'references', 'locatable'),
@@ -367,7 +389,7 @@ class LocationController extends Controller
                 'sub_aspect' => optional($location->subAspect)->name,
                 'category' => optional($location->category)->name,
                 'user_layer' => optional($location->user)->layer,
-                'locatable_type'=> $location->locatable_type,
+                'locatable_type' => $location->locatable_type,
                 'locatable' => $location->locatable
             ];
         });
@@ -714,6 +736,61 @@ class LocationController extends Controller
     public function getCategories($subAspectId)
     {
         return Category::where('sub_aspect_id', $subAspectId)->get();
+    }
+
+    /**
+     * جلب نوع العلامة (Marker Type) بناءً على معرف الفئة.
+     */
+    public function getMarkerTypeById(int $categoryId): array
+    {
+        $category = Category::find($categoryId);
+
+        if (!$category) {
+            return [];
+        }
+
+        $name = $category->name;
+
+
+        $paths = [
+            'Water networks',
+            'Telecommunications networks',
+            'Classified road networks',
+            'Bicycle lanes',
+            'Pedestrian paths',
+            'Sidewalks and walkways',
+            'Blocked/impassable segments',
+            'Land parcel boundaries',
+        ];
+
+        $polygons = [
+            'Squares and plazas', 'Parks and gardens', 'Playgrounds', 'Multi-use open spaces',
+            'Residential blocks', 'Commercial buildings', 'Industrial sites', 'Government buildings',
+            'Educational buildings', 'Mixed-use buildings', 'Informal buildings', 'Damaged buildings',
+            'Informal settlement polygons', 'Residential zones', 'Commercial zones', 'Industrial zones',
+            'Agricultural zones', 'Recreational zones', 'Protected areas', 'Reconstruction sites',
+            'Damaged infrastructure', 'Rehabilitation/reconstruction sites', 'Ongoing Major projects',
+            'Temporary repairs/bridges', 'Assessed/damaged building polygons',
+            'Damaged/partially standing/collapse/rubble polygons', 'Buildings with insulation',
+            'Temporary shelter clusters', 'Traditional production clusters', 'Tree Canopies',
+            'Public gardens', 'Urban forests', 'Green belts', 'Green roofs and walls',
+            'Ecological corridors', 'Private gardens', 'Agricultural lands', 'Greenhouses',
+            'Schools', 'Universities and colleges', 'Community digital hubs', 'E-learning facilities',
+            'E-government service centers', 'Data centers', 'Monitoring station locations', 'Monuments',
+            'Old city polygon', 'Historical neighborhood polygons', 'Sequential urban expansions polygons',
+            'Old industrial areas polygons', 'Modern development polygon', 'Historical buildings',
+            'Archaeological sites'
+        ];
+
+        $type = 'point'; // القيمة الافتراضية
+
+        if (in_array($name, $paths)) {
+            $type = 'line';
+        } elseif (in_array($name, $polygons)) {
+            $type = 'polygon';
+        }
+
+        return [$type];
     }
 
 
