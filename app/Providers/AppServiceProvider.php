@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\LocationLine;
+use App\Models\LocationPath;
 use App\Models\LocationPoint;
 use App\Models\LocationPolygon;
 use App\Models\LocationSpace;
@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::morphMap([
             'point' => LocationPoint::class,
-            'line' => LocationLine::class,
+            'path' => LocationPath::class,
             'space' => LocationSpace::class,
             'polygon' => LocationPolygon::class,
         ]);

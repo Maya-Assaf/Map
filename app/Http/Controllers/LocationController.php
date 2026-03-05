@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LocationLine;
+use App\Models\LocationPath;
 use App\Models\LocationPoint;
 use App\Models\LocationPolygon;
 use App\Models\LocationSpace;
@@ -24,7 +24,7 @@ class LocationController extends Controller
             'aspect_id' => 'required|exists:aspects,id',
             'sub_aspect_id' => 'required|exists:sub_aspects,id',
             'category_id' => 'required|exists:categories,id',
-            'type' => 'required|string|in:point,line,space,polygon',
+            'type' => 'required|string|in:point,path,space,polygon',
             'description' => 'nullable|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
             'references.*' => 'nullable|mimes:pdf,txt|max:15000'
@@ -60,22 +60,24 @@ class LocationController extends Controller
                 'user_id' => $user->id, // Use the authenticated user's ID
             ]);
 
-        } elseif ($request->type == 'line') {
+        } elseif ($request->type == 'path') {
+
             $request->validate([
-                'latitude_a' => 'required|numeric',
-                'longitude_a' => 'required|numeric',
-                'latitude_b' => 'required|numeric',
-                'longitude_b' => 'required|numeric',
+                'points' => 'required|array|min:3',
+                'points.*.latitude' => 'required|numeric',
+                'points.*.longitude' => 'required|numeric',
             ]);
-            $line = new LocationLine();
-            $line->fill([
-                'latitude_a' => $request->latitude_a,
-                'longitude_a' => $request->longitude_a,
-                'latitude_b' => $request->latitude_b,
-                'longitude_b' => $request->longitude_b,
-            ]);
-            $line->save();
-            $location = $line->locatable()->create([
+
+            $path = LocationPath::create();
+
+            foreach ($request->points as $point) {
+                $path->points()->create([
+                    'latitude' => $point['latitude'],
+                    'longitude' => $point['longitude'],
+                ]);
+            }
+
+            $location = $path->locatable()->create([
                 'name' => $request->name,
                 'aspect_id' => $request->aspect_id,
                 'sub_aspect_id' => $request->sub_aspect_id,
@@ -83,6 +85,7 @@ class LocationController extends Controller
                 'description' => $request->description,
                 'user_id' => $user->id,
             ]);
+
         } elseif ($request->type == 'space') {
             $request->validate([
                 'latitude' => 'required|numeric',
@@ -206,7 +209,7 @@ class LocationController extends Controller
             'aspect_id' => 'sometimes|exists:aspects,id',
             'sub_aspect_id' => 'sometimes|exists:sub_aspects,id',
             'category_id' => 'sometimes|exists:categories,id',
-            'type' => 'sometimes|in:point,line,space,polygon',
+            'type' => 'sometimes|in:point,path,space,polygon',
             'description' => 'sometimes|nullable|string',
 
             'images.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
@@ -254,28 +257,25 @@ class LocationController extends Controller
 
             $point->update($request->only(['latitude', 'longitude']));
 
-        } elseif ($type === 'line' && (
-                $request->has('latitude_a') ||
-                $request->has('longitude_a') ||
-                $request->has('latitude_b') ||
-                $request->has('longitude_b')
-            )) {
+        } elseif ($type === 'path' && $request->has('points')) {
 
             $request->validate([
-                'latitude_a' => 'sometimes|numeric',
-                'longitude_a' => 'sometimes|numeric',
-                'latitude_b' => 'sometimes|numeric',
-                'longitude_b' => 'sometimes|numeric',
+                'points' => 'array|min:3',
+                'points.*.latitude' => 'numeric',
+                'points.*.longitude' => 'numeric',
             ]);
 
-            $line = $location->locatable;
+            $path = $location->locatable;
 
-            $line->update($request->only([
-                'latitude_a',
-                'longitude_a',
-                'latitude_b',
-                'longitude_b',
-            ]));
+            // حذف النقاط القديمة واستبدالها
+            $path->points()->delete();
+
+            foreach ($request->points as $point) {
+                $path->points()->create([
+                    'latitude' => $point['latitude'],
+                    'longitude' => $point['longitude'],
+                ]);
+            }
 
         } elseif ($type === 'space' && (
                 $request->has('latitude') ||
@@ -785,7 +785,7 @@ class LocationController extends Controller
         $type = 'point'; // القيمة الافتراضية
 
         if (in_array($name, $paths)) {
-            $type = 'line';
+            $type = 'path';
         } elseif (in_array($name, $polygons)) {
             $type = 'polygon';
         }

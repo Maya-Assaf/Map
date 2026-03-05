@@ -7,12 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('location_lines', function (Blueprint $table) {
+        Schema::create('location_paths', function (Blueprint $table) {
             $table->id();
-            $table->decimal('longitude_a',10,7);
-            $table->decimal('latitude_a',10,7);
-            $table->decimal('longitude_b',10,7);
-            $table->decimal('latitude_b',10,7);
             $table->timestamps();
         });
     }
