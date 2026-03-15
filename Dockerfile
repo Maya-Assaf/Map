@@ -1,45 +1,54 @@
-# استخدم PHP 8.2 مع FPM
+# استخدام نسخة PHP 8.2 FPM (متوافقة تماماً مع متطلباتك)
 FROM php:8.2-fpm
 
-# تعيين مجلد العمل
-WORKDIR /var/www/html
+# تحديد مسار العمل داخل الحاوية
+WORKDIR /var/www
 
-# تثبيت المتطلبات
+# تثبيت الحزم الأساسية والاعتمادات المطلوبة (مثل مكتبات معالجة الصور لـ Excel)
 RUN apt-get update && apt-get install -y \
+    build-essential \
     libpng-dev \
-    libjpeg-dev \
+    libjpeg62-turbo-dev \
     libfreetype6-dev \
-    libzip-dev \
+    locales \
     zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
     unzip \
     git \
     curl \
-    libpq-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_pgsql zip
+    libzip-dev \
+    libonig-dev \
+    libxml2-dev
+
+# تنظيف الكاش لتقليل حجم الحاوية
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# تثبيت إضافات PHP اللازمة لعمل لارافيل وحزمة Excel
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath xml
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd
 
 # تثبيت Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# نسخ ملفات composer أولاً
-COPY composer.json composer.lock ./
+# نسخ ملفات المشروع إلى الحاوية
+COPY . /var/www
 
-# تثبيت الاعتمادات بدون post-scripts
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# نسخ بقية ملفات المشروع
-COPY . .
+# ضبط الصلاحيات لمجلدات التخزين (Storage) والكاش
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 /var/www/storage \
+    && chmod -R 775 /var/www/bootstrap/cache
 
-# تشغيل post-autoload بعد نسخ المشروع
-RUN composer dump-autoload && php artisan package:discover --ansi || true
+RUN rm -f public/storage && php artisan storage:link
 
-# ضبط الأذونات
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD wget -qO- http://localhost/ || exit 1
 
-# تعيين متغير البيئة
-ENV PORT=8080
+# فتح المنفذ 80
+EXPOSE 80
 
-# فتح البورت اللي Render بيستخدمه
-EXPOSE 8080
-
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+# تشغيل خادم PHP-FPM
+CMD ["php-fpm"]
