@@ -93,9 +93,6 @@ class ResetPasswordController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if ($user->rest_password) {
-            return response()->json(['message' => 'User already verified.'], 400);
-        }
 
         $newCode = rand(100000, 999999);
 
