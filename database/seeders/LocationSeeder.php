@@ -2,591 +2,307 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Aspect;
-use App\Models\SubAspect;
-use App\Models\Category;
+use Illuminate\Database\Seeder;
 
 class LocationSeeder extends Seeder
 {
     public function run(): void
     {
-        $culture_and_heritage_layer = Aspect::create(["name" => "Culture & Heritage"]);
-        $cultural_hub_sub = $culture_and_heritage_layer->subAspects()->create(["name" => "Cultural Hub"]);
-        $cultural_hub_sub->categories()->createMany([
-            ["name" => "Museums"],
-            ["name" => "Community cultural centers"],
-            ["name" => "Theaters and cinemas"],
-            ["name" => "Public libraries"],
-            ["name" => "Art galleries"],
-            ["name" => "Traditional handicraft centers"],
-            ["name" => "Temporary cultural/relief exhibition spaces"],
-        ]);
-        $identity_sub = $culture_and_heritage_layer->subAspects()->create(["name" => "Identity"]);
-        $identity_sub->categories()->createMany([
-            ["name" => "Local languages and dialects"],
-            ["name" => "Monuments"],
-            ["name" => "Craft centers"],
-            ["name" => "Libraries/galleries"],
-            ["name" => "National and local symbols"],
-            ["name" => "Traditional clothing"],
-            ["name" => "Distinct customs and traditions"],
-            ["name" => "Visual identity of the city"],
-            ["name" => "Local literature and arts"],
-        ]);
-        $layers_of_the_city_sub = $culture_and_heritage_layer->subAspects()->create(["name" => "Layers of the City"]);
-        $layers_of_the_city_sub->categories()->createMany([
-            ["name" => "Old city polygon"],
-            ["name" => "Historical neighborhoods polygons"],
-            ["name" => "Sequential urban expansions polygons"],
-            ["name" => "Old industrial areas polygons"],
-            ["name" => "Various residential areas"],
-            ["name" => "Modern development polygon"],
-        ]);
-        $tangible_heritage_sub = $culture_and_heritage_layer->subAspects()->create(["name" => "Tangible Heritage"]);
-        $tangible_heritage_sub->categories()->createMany([
-            ["name" => "Historical buildings"],
-            ["name" => "Archaeological sites"],
-            ["name" => "Monuments"],
-            ["name" => "Museum repositories"],
-            ["name" => "Archive/manuscript locations"],
-            ["name" => "Damaged heritage sites"],
-            ["name" => "Handicrafts and traditional products"],
-        ]);
-        $intangible_heritage_sub = $culture_and_heritage_layer->subAspects()->create(["name" => "Intangible Heritage"]);
-        $intangible_heritage_sub->categories()->createMany([
-            ["name" => "Traditional music and singing"],
-            ["name" => "Folk dances"],
-            ["name" => "Local stories and legends"],
-            ["name" => "Traditional festivals and celebrations"],
-            ["name" => "Traditional culinary arts"],
-            ["name" => "Traditional knowledge and practices"],
-        ]);
-        $building_code_and_policy_layer = Aspect::create(["name" => "Building Code & Policy"]);
-        $ownership_rights_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Ownership Rights"]);
-        $ownership_rights_sub->categories()->createMany([
-            ["name" => "Property registry offices"],
-            ["name" => "Easement rights"],
-            ["name" => "Joint ownership buildings"],
-            ["name" => "Leasing rights"],
-            ["name" => "Expropriation laws for public benefit"],
-            ["name" => "Land parcel boundaries"],
-        ]);
-        $safety_standards_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Safety Standards"]);
-        $safety_standards_sub->categories()->createMany([
-            ["name" => "Fire alarm presence"],
-            ["name" => "Emergency exits locations"],
-            ["name" => "Earthquake resistance standards"],
-            ["name" => "Flood protection systems"],
-            ["name" => "Electrical safety standards"],
-            ["name" => "Building monitoring systems"],
-        ]);
-        $structural_integrity_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Structural Integrity"]);
-        $structural_integrity_sub->categories()->createMany([
-            ["name" => "Foundation design standards"],
-            ["name" => "Building condition score"],
-            ["name" => "Assessed/damaged building polygons"],
-            ["name" => "Structural framework requirements"],
-            ["name" => "Construction material testing"],
-            ["name" => "Durability and load-bearing standards"],
-            ["name" => "Periodic safety inspections"],
-            ["name" => "Existing building assessments"],
-            ["name" => "Damaged/partially standing/collapse/rubble polygons"],
-        ]);
-        $energy_and_materials_efficiency_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Energy & Materials Efficiency"]);
-        $energy_and_materials_efficiency_sub->categories()->createMany([
-            ["name" => "Buildings with insulation"],
-            ["name" => "Efficient heating and cooling systems"],
-            ["name" => "Use of sustainable building materials"],
-            ["name" => "Energy efficient HVAC systems"],
-            ["name" => "Renewable energy systems"],
-            ["name" => "Recycling facilities for construction materials"],
-        ]);
-        $accessibility_and_inclusivity_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Accessibility & Inclusivity"]);
-        $accessibility_and_inclusivity_sub->categories()->createMany([
-            ["name" => "Ramps and elevators"],
-            ["name" => "Accessible restrooms "],
-            ["name" => "Braille signage and audio signals"],
-            ["name" => "Wheelchair-accessible paths and spaces"],
-            ["name" => "Universal design standards"],
-            ["name" => "Accessible transport stations"],
-        ]);
-        $health_and_sanitation_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Health & Sanitation"]);
-        $health_and_sanitation_sub->categories()->createMany([
-            ["name" => "Ventilation systems"],
-            ["name" => "Water treatment plants"],
-            ["name" => "Waste disposal facilities "],
-            ["name" => "Pest control"],
-            ["name" => "Hygiene standards"],
-            ["name" => "Sewage connection points"],
-            ["name" => "Emergency sanitation points"],
-        ]);
-        $adaptability_and_resilience_sub = $building_code_and_policy_layer->subAspects()->create(["name" => "Adaptability & Resilience"]);
-        $adaptability_and_resilience_sub->categories()->createMany([
-            ["name" => "Flexible and modifiable designs"],
-            ["name" => "Climate‑resilient buildings"],
-            ["name" => "Adaptability to population changes"],
-            ["name" => "Versatile usage and reuse"],
-            ["name" => "Emergency shelters points"],
-            ["name" => "Sustainable construction technologies"],
-            ["name" => "Multi‑used/convertible facilities"],
-            ["name" => "temporary shelter clusters"],
-        ]);
-        $economic_factor_layer = Aspect::create(["name" => "Economic Factor"]);
-        $local_craft_industry_sub  = $economic_factor_layer->subAspects()->create(["name" => "Local & Craft Industry"]);
-        $local_craft_industry_sub->categories()->createMany([
-            ["name" => "Craft workshops"],
-            ["name" => "Handicraft centers"],
-            ["name" => "Artisan markets"],
-            ["name" => "Traditional production clusters"],
-            ["name" => "Tool/equipment workshops"],
-            ["name" => "Craft training centers"],
-            ["name" => "Temporary/household workshops"],
-        ]);
-        $international_aid_sub = $economic_factor_layer->subAspects()->create(["name" => "International Aid"]);
-        $international_aid_sub->categories()->createMany([
-            ["name" => "International grants and loans"],
-            ["name" => "Active international projects"],
-            ["name" => "Humanitarian coordination hubs"],
-            ["name" => "Internationally funded development projects"],
-            ["name" => "NGO office locations"],
-            ["name" => "Economic cooperation agreements"],
-            ["name" => "Reconstruction programs sites"],
-            ["name" => "Temporary distribution points"],
-        ]);
-        $employment_development_sub = $economic_factor_layer->subAspects()->create(["name" => "Employment Development"]);
-        $employment_development_sub->categories()->createMany([
-            ["name" => "Vocational training centers"],
-            ["name" => "Business incubators"],
-            ["name" => "Employment centers"],
-            ["name" => "Marketplaces and market clusters"],
-            ["name" => "Small enterprise support programs"],
-            ["name" => "Local employment policies"],
-            ["name" => "Labor market qualification programs"],
-        ]);
-        $economic_diversification_sub = $economic_factor_layer->subAspects()->create(["name" => "Economic Diversification"]);
-        $economic_diversification_sub->categories()->createMany([
-            ["name" => "Diverse economic sectors"],
-            ["name" => "Industrial clusters"],
-            ["name" => "Service sector"],
-            ["name" => "Digital economy"],
-            ["name" => "Creative industries spaces"],
-            ["name" => "Green economy"],
-            ["name" => "Tech hubs"],
-        ]);
-        $tourism_sub = $economic_factor_layer->subAspects()->create(["name" => "Tourism"]);
-        $tourism_sub->categories()->createMany([
-            ["name" => "Tourist sites"],
-            ["name" => "Hotels"],
-            ["name" => "Tourism infrastructure"],
-            ["name" => "Accommodation units"],
-            ["name" => "Tourism promotion"],
-            ["name" => "Cultural tourism nodes"],
-            ["name" => "Eco-tourism"],
-            ["name" => "Visitor centers"],
-            ["name" => "Temporarily closed sites"],
-        ]);
-        $financial_insecurity_sub = $economic_factor_layer->subAspects()->create(["name" => "Financial Insecurity"]);
-        $financial_insecurity_sub->categories()->createMany([
-            ["name" => "Social safety nets"],
-            ["name" => "Poverty alleviation programs"],
-            ["name" => "Social insurance"],
-            ["name" => "Financial counseling services"],
-            ["name" => "Economic support for families"],
-            ["name" => "Microcredit outlets"],
-            ["name" => "Social protection offices"],
-            ["name" => "Cash assistance distribution points"],
-        ]);
-        $public_health_layer = Aspect::create(["name" => "Public Health"]);
-        $health_care_system_sub = $public_health_layer->subAspects()->create(["name" => "Health Care System"]);
-        $health_care_system_sub->categories()->createMany([
-            ["name" => "Hospitals"],
-            ["name" => "Health centers"],
-            ["name" => "Clinics"],
-            ["name" => "Emergency stations"],
-            ["name" => "Pharmacies"],
-            ["name" => "Health insurance companies"],
-            ["name" => "Mobile clinics"],
-            ["name" => "Medical and nursing staff"],
-        ]);
-        $physical_health_and_disability_sub = $public_health_layer->subAspects()->create(["name" => "Physical Health & Disability"]);
-        $physical_health_and_disability_sub->categories()->createMany([
-            ["name" => "Rehabilitation centers"],
-            ["name" => "Physical therapy services"],
-            ["name" => "Prosthetics clinics"],
-            ["name" => "Mobile rehab teams"],
-            ["name" => "Therapeutic sports programs"],
-            ["name" => "Home care organizations"],
-            ["name" => "Disability support centers"],
-        ]);
-        $disease_management_sub = $public_health_layer->subAspects()->create(["name" => "Disease Management"]);
-        $disease_management_sub->categories()->createMany([
-            ["name" => "Infectious disease control programs"],
-            ["name" => "Epidemiological monitoring systems"],
-            ["name" => "Vaccination centers"],
-            ["name" => "Disease surveillance nodes"],
-            ["name" => "Diagnostic laboratories"],
-            ["name" => "Treatment protocols"],
-        ]);
-        $nutrition_sub = $public_health_layer->subAspects()->create(["name" => "Nutrition"]);
-        $nutrition_sub->categories()->createMany([
-            ["name" => "Nutritional awareness programs"],
-            ["name" => "Nutritional counseling centers"],
-            ["name" => "School nutrition sites"],
-            ["name" => "Food distribution centers"],
-            ["name" => "Emergency kitchens"],
-            ["name" => "Malnutrition prevention programs"],
-        ]);
-        $medication_sub = $public_health_layer->subAspects()->create(["name" => "Medication"]);
-        $medication_sub->categories()->createMany([
-            ["name" => "Pharmacies"],
-            ["name" => "Drug warehouses"],
-            ["name" => "Medicine distribution points"],
-            ["name" => "Pharmaceutical regulation"],
-            ["name" => "Medicine support programs"],
-            ["name" => "Local pharmaceutical industry"],
-        ]);
-        $psych_and_mental_health_sub = $public_health_layer->subAspects()->create(["name" => "Psych & Mental Health"]);
-        $psych_and_mental_health_sub->categories()->createMany([
-            ["name" => "Mental health centers"],
-            ["name" => "Psychological counseling services"],
-            ["name" => "Mental support programs"],
-            ["name" => "Addiction treatment centers"],
-            ["name" => "Mobile psychosocial teams"],
-            ["name" => "Mental health awareness programs"],
-            ["name" => "Psychiatric emergency services"],
-        ]);
-        $resources_management_layer = Aspect::create(["name" => "Resources Management"]);
-        $capacity_building_sub = $resources_management_layer->subAspects()->create(["name" => "Capacity Building"]);
-        $capacity_building_sub->categories()->createMany([
-            ["name" => "Training & development centers"],
-            ["name" => "Skills development programs"],
-            ["name" => "Knowledge and experience transfer"],
-            ["name" => "Local leadership development"],
-            ["name" => "Vocational education facilities"],
-            ["name" => "Professional collaboration networks"],
-            ["name" => "Temporary training hubs"],
-            ["name" => "Research & training hubs"],
-            ["name" => "Meeting venues for capacity programs"],
-        ]);
-        $water_resources_sub = $resources_management_layer->subAspects()->create(["name" => "Water Resources"]);
-        $water_resources_sub->categories()->createMany([
-            ["name" => "Water sources"],
-            ["name" => "Water treatment plants"],
-            ["name" => "Water distribution nodes"],
-            ["name" => "Water storage reservoirs"],
-            ["name" => "Emergency water points"],
-            ["name" => "Rainwater management"],
-            ["name" => "Water conservation technologies"],
-        ]);
-        $food_insecurity_sub = $resources_management_layer->subAspects()->create(["name" => "Food Insecurity"]);
-        $food_insecurity_sub->categories()->createMany([
-            ["name" => "Food banks"],
-            ["name" => "Food assistance distribution points"],
-            ["name" => "Urban farms"],
-            ["name" => "Humanitarian Food distribution hubs"],
-            ["name" => "Hunger prevention programs"],
-            ["name" => "Monitoring food prices"],
-        ]);
-        $material_resources_sub = $resources_management_layer->subAspects()->create(["name" => "Material Resources"]);
-        $material_resources_sub->categories()->createMany([
-            ["name" => "Raw material sources"],
-            ["name" => "Supply chains"],
-            ["name" => "Construction material markets"],
-            ["name" => "Supply / Storage centers"],
-            ["name" => "Recycling facilities"],
-            ["name" => "Material distribution hubs"],
-            ["name" => "Rubble staging areas"],
-            ["name" => "Efficient resource use technologies"],
-        ]);
-        $energy_resources_sub = $resources_management_layer->subAspects()->create(["name" => "Energy Resources"]);
-        $energy_resources_sub->categories()->createMany([
-            ["name" => "Power generation plants"],
-            ["name" => "Energy transmission and distribution nodes"],
-            ["name" => "Renewable energy installations"],
-            ["name" => "Energy storage facilities"],
-            ["name" => "Emergency generators"],
-            ["name" => "Energy efficiency"],
-            ["name" => "Energy demand management"],
-        ]);
-        $urban_planning_layer = Aspect::create(["name" => "Urban Planning"]);
-        $public_spaces_sub = $urban_planning_layer->subAspects()->create(["name" => "Public Spaces"]);
-        $public_spaces_sub->categories()->createMany([
-            ["name" => "Squares and plazas"],
-            ["name" => "Parks and gardens"],
-            ["name" => "Public beaches"],
-            ["name" => "Playgrounds"],
-            ["name" => "Sidewalks and walkways"],
-            ["name" => "Multi-use open spaces"],
-            ["name" => "Designated safe gathering points"],
-        ]);
-        $amenities_sub = $urban_planning_layer->subAspects()->create(["name" => "Amenities"]);
-        $amenities_sub->categories()->createMany([
-            ["name" => "Sports facilities"],
-            ["name" => "Recreational amenities"],
-            ["name" => "Cultural centers"],
-            ["name" => "Educational facilities"],
-            ["name" => "Health facilities"],
-            ["name" => "Markets/malls"],
-        ]);
-        $housing_and_buildings_sub = $urban_planning_layer->subAspects()->create(["name" => "Housing & Buildings"]);
-        $housing_and_buildings_sub->categories()->createMany([
-            ["name" => "Residential blocks"],
-            ["name" => "Commercial buildings"],
-            ["name" => "Industrial sites"],
-            ["name" => "Government buildings"],
-            ["name" => "Educational buildings"],
-            ["name" => "Mixed-use buildings"],
-            ["name" => "Informal buildings"],
-            ["name" => "Damaged building"],
-        ]);
-        $population_sub = $urban_planning_layer->subAspects()->create(["name" => "Population"]);
-        $population_sub->categories()->createMany([
-            ["name" => "Population density grid cells"],
-            ["name" => "Population density"],
-            ["name" => "Age structure"],
-            ["name" => "Social and cultural diversity"],
-            ["name" => "Population growth rates"],
-            ["name" => "IDP /refugee camp polygons"],
-            ["name" => "Informal settlement polygons"],
-            ["name" => "Identified population change hotspots"],
-        ]);
-        $land_use_sub = $urban_planning_layer->subAspects()->create(["name" => "Land Use"]);
-        $land_use_sub->categories()->createMany([
-            ["name" => "Residential zones"],
-            ["name" => "Commercial zones"],
-            ["name" => "Industrial zones"],
-            ["name" => "Agricultural zones"],
-            ["name" => "Recreational zones"],
-            ["name" => "Protected areas"],
-            ["name" => "Reconstruction site"],
-        ]);
-        $infrastructure_sub = $urban_planning_layer->subAspects()->create(["name" => "Infrastructure"]);
-        $infrastructure_sub->categories()->createMany([
-            ["name" => "Water networks"],
-            ["name" => "Sewage mains"],
-            ["name" => "Electricity substations"],
-            ["name" => "Telecommunications networks"],
-            ["name" => "Waste transfer stations"],
-            ["name" => "Dams and bridges"],
-            ["name" => "Damaged infrastructure"],
-        ]);
-        $urban_transformation_sub = $urban_planning_layer->subAspects()->create(["name" => "Urban Transformation"]);
-        $urban_transformation_sub->categories()->createMany([
-            ["name" => "Rehabilitation /reconstruction sites"],
-            ["name" => "Urban center renewal"],
-            ["name" => "Repurposed industrial zones"],
-            ["name" => "Planned expansion footprints"],
-            ["name" => "Urban densification sites"],
-            ["name" => "Ongoing Major projects"],
-        ]);
-        $network_and_mobility_sub = $urban_planning_layer->subAspects()->create(["name" => "Network & Mobility"]);
-        $network_and_mobility_sub->categories()->createMany([
-            ["name" => "Classified road networks "],
-            ["name" => "Public transport stops"],
-            ["name" => "Bicycle lanes"],
-            ["name" => "Pedestrian paths"],
-            ["name" => "Transport hubs"],
-            ["name" => "Intelligent transportation systems"],
-            ["name" => "Sidewalks and walkways"],
-            ["name" => "Parking areas"],
-            ["name" => "Blocked/impassable segments"],
-            ["name" => "Temporary repairs/bridges"],
-        ]);
-        $data_collection_and_analysis_layer = Aspect::create(["name" => "Data Collection & Analysis"]);
-        $official_statistics_sub = $data_collection_and_analysis_layer->subAspects()->create(["name" => "Official Statistics"]);
-        $official_statistics_sub->categories()->createMany([
-            ["name" => "Census centers"],
-            ["name" => "Statistical tables"],
-            ["name" => "Temporary IDP registration points"],
-            ["name" => "Education statistics"],
-            ["name" => "Health statistics"],
-            ["name" => "Labor statistics"],
-            ["name" => "Environmental statistics"],
-        ]);
-        $research_tools_sub = $data_collection_and_analysis_layer->subAspects()->create(["name" => "Research Tools"]);
-        $research_tools_sub->categories()->createMany([
-            ["name" => "Survey cluster points"],
-            ["name" => "Interviews"],
-            ["name" => "Focus groups locations"],
-            ["name" => "Monitoring station locations"],
-            ["name" => "Statistical data analysis"],
-            ["name" => "Simulation models"],
-        ]);
-        $mapping_tools_sub = $data_collection_and_analysis_layer->subAspects()->create(["name" => "Mapping Tools"]);
-        $mapping_tools_sub->categories()->createMany([
-            ["name" => "Geographic Information Systems (GIS)"],
-            ["name" => "Remote sensing"],
-            ["name" => "Satellite imagery"],
-            ["name" => "Participatory community mapping"],
-            ["name" => "Heat maps"],
-            ["name" => "Spatial data visualization"],
-        ]);
-        $technology_and_digital_infrastructure_layer = Aspect::create(["name" => "Technology & Digital Infrastructure"]);
-        $social_networking_sub = $technology_and_digital_infrastructure_layer->subAspects()->create(["name" => "Social Networking"]);
-        $social_networking_sub->categories()->createMany([
-            ["name" => "Social media platforms"],
-            ["name" => "Virtual community groups"],
-            ["name" => "Information-sharing platforms"],
-            ["name" => "Professional collaboration networks"],
-            ["name" => "Community digital hubs"],
-            ["name" => "Public internet access points"],
-        ]);
-        $online_platforms_sub = $technology_and_digital_infrastructure_layer->subAspects()->create(["name" => "Online Platforms"]);
-        $online_platforms_sub->categories()->createMany([
-            ["name" => "E-learning facilities"],
-            ["name" => "E-commerce platforms"],
-            ["name" => "E-government service centers"],
-            ["name" => "Remote work platforms"],
-            ["name" => "E-health platforms"],
-            ["name" => "Civic engagement platforms"],
-        ]);
-        $hi_technology_and_ai_sub = $technology_and_digital_infrastructure_layer->subAspects()->create(["name" => "Hi-Technology & AI"]);
-        $hi_technology_and_ai_sub->categories()->createMany([
-            ["name" => "Data centers"],
-            ["name" => "IoT sensor clusters"],
-            ["name" => "Robotics"],
-            ["name" => "Virtual and augmented reality"],
-            ["name" => "Big data and analytics"],
-            ["name" => "Smart infrastructure control centers"],
-        ]);
-        $digital_connectivity_sub = $technology_and_digital_infrastructure_layer->subAspects()->create(["name" => "Digital Connectivity"]);
-        $digital_connectivity_sub->categories()->createMany([
-            ["name" => "Internet networks"],
-            ["name" => "Mobile networks towers"],
-            ["name" => "Data centers"],
-            ["name" => "Public Wi-Fi hotspots"],
-            ["name" => "Fiber backbone node"],
-            ["name" => "Wireless network coverage"],
-            ["name" => "Temporary connectivity points"],
-        ]);
-        $ecological_factor_layer = Aspect::create(["name" => "Ecological Factor"]);
-        $green_spaces_sub = $ecological_factor_layer->subAspects()->create(["name" => "Green Spaces"]);
-        $green_spaces_sub->categories()->createMany([
-            ["name" => "Public gardens"],
-            ["name" => "Urban forests"],
-            ["name" => "Green belts"],
-            ["name" => "Urban agriculture"],
-            ["name" => "Green roofs and walls"],
-            ["name" => "Ecological corridors"],
-            ["name" => "Private gardens"],
-            ["name" => "Tree Canopies"],
-        ]);
-        $waste_management_sub = $ecological_factor_layer->subAspects()->create(["name" => "Waste Management"]);
-        $waste_management_sub->categories()->createMany([
-            ["name" => "Waste collection centers"],
-            ["name" => "Waste sorting stations"],
-            ["name" => "Recycling facilities"],
-            ["name" => "Organic waste treatment plants"],
-            ["name" => "Landfills locations"],
-            ["name" => "Emergency waste collection points"],
-        ]);
+        // --- 1. Public Health (PH) ---
+        $public_health = Aspect::create(["name" => "Public Health"]);
 
+        $public_health->subAspects()->create(["name" => "Health Care System"])
+            ->categories()->createMany([
+                ["name" => "Hospital"], ["name" => "Health Center"], ["name" => "Clinic"],
+                ["name" => "Pharmacy"], ["name" => "Emergency station"]
+            ]);
 
+        $public_health->subAspects()->create(["name" => "Physical Health & Disability"])
+            ->categories()->createMany([
+                ["name" => "Physical therapy center"], ["name" => "Prosthetics clinic"],
+                ["name" => "Disability support center"], ["name" => "Mobile rehab team"]
+            ]);
 
-        $water_and_air_quality_sub = $ecological_factor_layer->subAspects()->create(["name" => "Water & Air Quality"]);
-        $water_and_air_quality_sub->categories()->createMany([
-            ["name" => "Air quality monitoring stations"],
-            ["name" => "Water quality monitoring systems"],
-            ["name" => "Air pollution treatment technologies"],
-            ["name" => "Water source protection programs"],
-            ["name" => "Emission reduction policies"],
-            ["name" => "Low-emission zones"],
-            ["name" => "Emergency water testing points"],
-        ]);
-        $climate_sub = $ecological_factor_layer->subAspects()->create(["name" => "Climate"]);
-        $climate_sub->categories()->createMany([
-            ["name" => "Climate change adaptation strategies"],
-            ["name" => "Early warning node locations"],
-            ["name" => "Carbon emissions reduction initiatives"],
-            ["name" => "Climate-conscious building design"],
-            ["name" => "Urban heat islands"],
-            ["name" => "Climate-responsive urban planning"],
-        ]);
-        $natural_disaster_sub = $ecological_factor_layer->subAspects()->create(["name" => "Natural Disaster"]);
-        $natural_disaster_sub->categories()->createMany([
-            ["name" => "Early warning systems nodes"],
-            ["name" => "Emergency response plans"],
-            ["name" => "Disaster resilient infrastructure locations"],
-            ["name" => "Disaster Designated shelters"],
-            ["name" => "Flood defenses"],
-            ["name" => "Rescue and emergency teams"],
-            ["name" => "Post-disaster recovery programs"],
-        ]);
-        $agriculture_sub = $ecological_factor_layer->subAspects()->create(["name" => "Agriculture"]);
-        $agriculture_sub->categories()->createMany([
-            ["name" => "Agricultural lands"],
-            ["name" => "Irrigation systems"],
-            ["name" => "Greenhouses"],
-            ["name" => "Organic farming"],
-            ["name" => "Seed banks locations"],
-            ["name" => "Emergency seed/food depots"],
+        $public_health->subAspects()->create(["name" => "Disease Control"])
+            ->categories()->createMany([["name" => "Vaccination center"]]);
 
-            ["name" => "Sustainable agriculture"],
-        ]);
-        $social_factor_layer = Aspect::create(["name" => "Social Factor"]);
-        $civil_peace_sub = $social_factor_layer->subAspects()->create(["name" => "Civil Peace"]);
-        $civil_peace_sub->categories()->createMany([
-            ["name" => "Conflict resolution mechanisms"],
-            ["name" => "Registered peace building programs offices"],
-            ["name" => "Community dialogue initiatives"],
-            ["name" => "Community justice systems"],
-            ["name" => "Social cohesion programs"],
-            ["name" => "Community safety nets"],
-            ["name" => "Community mediation centers"],
-            ["name" => "Police/community safety posts"],
-            ["name" => "Security incident hotspots"],
+        $public_health->subAspects()->create(["name" => "Nutrition"])
+            ->categories()->createMany([["name" => "Nutritional counseling center"], ["name" => "Emergency kitchens"]]);
 
-        ]);
-        $immigration_sub = $social_factor_layer->subAspects()->create(["name" => "Immigration"]);
-        $immigration_sub->categories()->createMany([
-            ["name" => "Migrant reception centers"],
-            ["name" => "Integration programs"],
-            ["name" => "Language/translation service locations"],
-            ["name" => "Legal assistance centers"],
-            ["name" => "Language training programs"],
-            ["name" => "Migrant support hubs"],
-            ["name" => "Entry monitoring points"],
-        ]);
-        $local_community_sub = $social_factor_layer->subAspects()->create(["name" => "Local Community"]);
-        $local_community_sub->categories()->createMany([
-            ["name" => "Local council offices"],
-            ["name" => "Civil society organization premises"],
-            ["name" => "Community initiatives"],
-            ["name" => "Community support networks"],
-            ["name" => "Community centers"],
-            ["name" => "Public event venues"],
-            ["name" => "Volunteer coordination hubs"],
+        $public_health->subAspects()->create(["name" => "Medication"])
+            ->categories()->createMany([["name" => "Medicine distribution point"], ["name" => "Drug warehouse"]]);
 
-        ]);
-        $adaptation_sub = $social_factor_layer->subAspects()->create(["name" => "Adaptation"]);
-        $adaptation_sub->categories()->createMany([
-            ["name" => "Adaptation programs to changes"],
-            ["name" => "Psychosocial support centers"],
-            ["name" => "Community resilience program offices"],
-            ["name" => "Solidarity networks"],
-            ["name" => "Rehabilitation programs sites"],
-            ["name" => "Community adaptation strategies"],
-        ]);
-        $education_system_sub = $social_factor_layer->subAspects()->create(["name" => "Education System"]);
-        $education_system_sub->categories()->createMany([
-            ["name" => "Schools"],
-            ["name" => "Universities and colleges"],
-            ["name" => "Vocational training centers"],
-            ["name" => "Continuing education institutions"],
-            ["name" => "Educational libraries"],
-            ["name" => "Research centers"],
-            ["name" => "Temporary learning spaces"],
-        ]);
-        $community_engagement_sub = $social_factor_layer->subAspects()->create(["name" => "Community Engagement"]);
-        $community_engagement_sub->categories()->createMany([
-            ["name" => "Participatory planning offices"],
-            ["name" => "Volunteering coordination centers"],
-            ["name" => "Community work initiatives"],
-            ["name" => "Community dialogue forums"],
-            ["name" => "Public consultation venues"],
-            ["name" => "Community development projects offices"],
-            ["name" => "Complaint/feedback kiosks"],
-        ]);
+        $public_health->subAspects()->create(["name" => "Psych & Mental Health"])
+            ->categories()->createMany([
+                ["name" => "Mental health center"], ["name" => "Psychological counseling service"],
+                ["name" => "Addiction treatment center"]
+            ]);
+
+        // --- 2. Resources Management (RM) ---
+        $resources_mgt = Aspect::create(["name" => "Resources Management"]);
+
+        $resources_mgt->subAspects()->create(["name" => "Capacity Building"])
+            ->categories()->createMany([
+                ["name" => "Training & development center"], ["name" => "Research & training hub"],
+                ["name" => "Temporary training hub"]
+            ]);
+
+        $resources_mgt->subAspects()->create(["name" => "Water Resources"])
+            ->categories()->createMany([
+                ["name" => "Water source"], ["name" => "Water distribution node"],
+                ["name" => "Water storage reservoir"], ["name" => "Emergency water point"]
+            ]);
+
+        $resources_mgt->subAspects()->create(["name" => "Food Insecurity"])
+            ->categories()->createMany([["name" => "Food bank"], ["name" => "Humanitarian Food distribution hub"]]);
+
+        $resources_mgt->subAspects()->create(["name" => "Material Resources"])
+            ->categories()->createMany([
+                ["name" => "Construction material market"], ["name" => "Recycling facility"],
+                ["name" => "Material distribution hub"], ["name" => "Rubble staging area"]
+            ]);
+
+        $resources_mgt->subAspects()->create(["name" => "Energy Resources"])
+            ->categories()->createMany([
+                ["name" => "Power generation plant"], ["name" => "Energy transmission and distribution node"],
+                ["name" => "Renewable energy installation"], ["name" => "Energy storage facility"],
+                ["name" => "Emergency generator"]
+            ]);
+
+        // --- 3. Urban Planning (UP) ---
+        $urban_planning = Aspect::create(["name" => "Urban Planning"]);
+
+        $urban_planning->subAspects()->create(["name" => "Public Spaces"])
+            ->categories()->createMany([
+                ["name" => "Squares and plaza"], ["name" => "Parks and garden"],
+                ["name" => "Playground"], ["name" => "Multi-use open space"],
+                ["name" => "Designated safe gathering point"]
+            ]);
+
+        $urban_planning->subAspects()->create(["name" => "Amenities"])
+            ->categories()->createMany([
+                ["name" => "Sports facility"], ["name" => "Religious center"],
+                ["name" => "Recreational amenity"], ["name" => "Cultural center"],
+                ["name" => "Health facility"], ["name" => "Market/mall"]
+            ]);
+
+        $urban_planning->subAspects()->create(["name" => "Housing & Buildings"])
+            ->categories()->createMany([
+                ["name" => "Residential block"], ["name" => "Commercial building"],
+                ["name" => "Industrial site"], ["name" => "Government building"],
+                ["name" => "Educational building"], ["name" => "Mixed-use building"],
+                ["name" => "Informal building"], ["name" => "Damaged building"]
+            ]);
+
+        $urban_planning->subAspects()->create(["name" => "Population"])
+            ->categories()->createMany([["name" => "Informal settlement"]]);
+
+        $urban_planning->subAspects()->create(["name" => "Land Use"])
+            ->categories()->createMany([
+                ["name" => "Residential zone"], ["name" => "Commercial zone"],
+                ["name" => "Industrial zone"], ["name" => "Agricultural zone"],
+                ["name" => "Recreational zone"], ["name" => "Protected area"],
+                ["name" => "Reconstruction site"]
+            ]);
+
+        $urban_planning->subAspects()->create(["name" => "Infrastructure"])
+            ->categories()->createMany([
+                ["name" => "Water network"], ["name" => "Sewage main"],
+                ["name" => "Electricity substation"], ["name" => "Telecommunications network"],
+                ["name" => "Waste transfer station"], ["name" => "Dams and bridge"],
+                ["name" => "Damaged infrastructure"]
+            ]);
+
+        $urban_planning->subAspects()->create(["name" => "Urban Transformation"])
+            ->categories()->createMany([["name" => "Rehabilitation/reconstruction site"], ["name" => "Ongoing Major project"]]);
+
+        $urban_planning->subAspects()->create(["name" => "Network & Mobility"])
+            ->categories()->createMany([
+                ["name" => "Classified road network"], ["name" => "Public transport stop"],
+                ["name" => "Bicycle lane"], ["name" => "Pedestrian path"],
+                ["name" => "Transport hub"], ["name" => "Sidewalks and walkway"],
+                ["name" => "Parking area"], ["name" => "Blocked/impassable segment"],
+                ["name" => "Temporary repairs/bridges"]
+            ]);
+
+        // --- 4. Building Code (BC) ---
+        $building_code = Aspect::create(["name" => "Building Code"]);
+
+        $building_code->subAspects()->create(["name" => "Ownership Rights"])
+            ->categories()->createMany([["name" => "Property registry office"], ["name" => "Land parcel boundary"], ["name" => "Leasing office"]]);
+
+        $building_code->subAspects()->create(["name" => "Safety Standards"])
+            ->categories()->createMany([["name" => "Fire alarm presence"], ["name" => "Emergency exits location"], ["name" => "Building monitoring center"]]);
+
+        $building_code->subAspects()->create(["name" => "Structural Integrity"])
+            ->categories()->createMany([["name" => "Assessed/damaged building polygon"], ["name" => "Damaged/partially standing/collapse/rubble polygon"]]);
+
+        $building_code->subAspects()->create(["name" => "Energy & Materials Efficiency"])
+            ->categories()->createMany([["name" => "Buildings with insulation"], ["name" => "Energy efficient HVAC system"], ["name" => "Recycling facilitys for construction material"]]);
+
+        $building_code->subAspects()->create(["name" => "Accessibility & Inclusivity"])
+            ->categories()->createMany([
+                ["name" => "Ramps and elevator"], ["name" => "Accessible restroom"],
+                ["name" => "Braille signage and audio signal"], ["name" => "Wheelchair-accessible paths and space"],
+                ["name" => "Accessible transport station"]
+            ]);
+
+        $building_code->subAspects()->create(["name" => "Health & Sanitation"])
+            ->categories()->createMany([
+                ["name" => "Water treatment plant"], ["name" => "Waste disposal facility"],
+                ["name" => "Sewage connection point"], ["name" => "Emergency sanitation point"]
+            ]);
+
+        $building_code->subAspects()->create(["name" => "Adaptability & Resilience"])
+            ->categories()->createMany([
+                ["name" => "Climate‑resilient building"], ["name" => "Emergency shelters point"],
+                ["name" => "Multi‑used/convertible facility"], ["name" => "Temporary shelter cluster"]
+            ]);
+
+        // --- 5. Economy (EC) ---
+        $economy = Aspect::create(["name" => "Economy"]);
+
+        $economy->subAspects()->create(["name" => "Local & Craft Industry"])
+            ->categories()->createMany([
+                ["name" => "Craft workshop"], ["name" => "Handicraft center"], ["name" => "Artisan market"],
+                ["name" => "Traditional production cluster"], ["name" => "Tool/equipment workshop"],
+                ["name" => "Craft training center"], ["name" => "Temporary/household workshop"]
+            ]);
+
+        $economy->subAspects()->create(["name" => "International Aid"])
+            ->categories()->createMany([
+                ["name" => "Active international project"], ["name" => "Humanitarian coordination hub"],
+                ["name" => "NGO office location"], ["name" => "Reconstruction programs site"],
+                ["name" => "Temporary distribution point"]
+            ]);
+
+        $economy->subAspects()->create(["name" => "Employment Development"])
+            ->categories()->createMany([
+                ["name" => "Vocational training center"], ["name" => "Business incubator"],
+                ["name" => "Employment center"], ["name" => "Marketplaces and market cluster"]
+            ]);
+
+        $economy->subAspects()->create(["name" => "Economic Diversification"])
+            ->categories()->createMany([["name" => "Industrial cluster"], ["name" => "Creative industries space"], ["name" => "Tech hub"]]);
+
+        $economy->subAspects()->create(["name" => "Tourism"])
+            ->categories()->createMany([
+                ["name" => "Tourist site"], ["name" => "Hotel"], ["name" => "Accommodation unit"],
+                ["name" => "Cultural tourism node"], ["name" => "Visitor center"], ["name" => "Temporarily closed site"]
+            ]);
+
+        $economy->subAspects()->create(["name" => "Financial Insecurity"])
+            ->categories()->createMany([["name" => "Microcredit outlet"], ["name" => "Social protection office"], ["name" => "Cash assistance distribution point"]]);
+
+        // --- 6. Ecological Factor (EG) ---
+        $ecological = Aspect::create(["name" => "Ecological Factor"]);
+
+        $ecological->subAspects()->create(["name" => "Green Spaces"])
+            ->categories()->createMany([
+                ["name" => "Tree Canopy"], ["name" => "Public garden"], ["name" => "Urban forest"],
+                ["name" => "Green belt"], ["name" => "Green roofs and wall"],
+                ["name" => "Ecological corridor"], ["name" => "Private garden"]
+            ]);
+
+        $ecological->subAspects()->create(["name" => "Waste Management"])
+            ->categories()->createMany([
+                ["name" => "Waste collection point"], ["name" => "Waste sorting station"],
+                ["name" => "Recycling facility"], ["name" => "Landfills location"],
+                ["name" => "Emergency waste collection point"]
+            ]);
+
+        $ecological->subAspects()->create(["name" => "Water & Air Quality"])
+            ->categories()->createMany([["name" => "Air quality monitoring station"], ["name" => "Water quality monitoring station"], ["name" => "Emergency water testing point"]]);
+
+        $ecological->subAspects()->create(["name" => "Natural Disaster"])
+            ->categories()->createMany([["name" => "Disaster Designated shelter"]]);
+
+        $ecological->subAspects()->create(["name" => "Agriculture"])
+            ->categories()->createMany([["name" => "Agricultural land"], ["name" => "Irrigation system"], ["name" => "Greenhouse"], ["name" => "Emergency seed/food depots"]]);
+
+        // --- 7. Social (SO) ---
+        $social = Aspect::create(["name" => "Social"]);
+
+        $social->subAspects()->create(["name" => "Civil Peace"])
+            ->categories()->createMany([["name" => "Registered peace building programs office"], ["name" => "Police/community safety post"]]);
+
+        $social->subAspects()->create(["name" => "Immigration"])
+            ->categories()->createMany([
+                ["name" => "Migrant reception center"], ["name" => "Language/translation service"],
+                ["name" => "Legal assistance center"], ["name" => "Migrant support hub"],
+                ["name" => "Entry monitoring point"]
+            ]);
+
+        $social->subAspects()->create(["name" => "Local Community"])
+            ->categories()->createMany([
+                ["name" => "Local council office"], ["name" => "Community center"],
+                ["name" => "Public event venue"], ["name" => "Volunteer coordination hub"]
+            ]);
+
+        $social->subAspects()->create(["name" => "Adaptation"])
+            ->categories()->createMany([["name" => "Psychosocial support center"], ["name" => "Community resilience program office"], ["name" => "Rehabilitation programs site"]]);
+
+        $social->subAspects()->create(["name" => "Education System"])
+            ->categories()->createMany([
+                ["name" => "School"], ["name" => "Universities and college"], ["name" => "Vocational training center"],
+                ["name" => "Continuing education institution"], ["name" => "Educational library"],
+                ["name" => "Research center"], ["name" => "Temporary learning space"]
+            ]);
+
+        $social->subAspects()->create(["name" => "Community Engagement"])
+            ->categories()->createMany([
+                ["name" => "Participatory planning office"], ["name" => "Public consultation venue"],
+                ["name" => "Community development projects office"], ["name" => "Complaint/feedback kiosk"]
+            ]);
+
+        // --- 8. Technology & Digital Infrastructure (TD) ---
+        $tech = Aspect::create(["name" => "Technology & Digital Infrastructure"]);
+
+        $tech->subAspects()->create(["name" => "Social Networking"])
+            ->categories()->createMany([["name" => "Community digital hub"], ["name" => "Public internet access point"]]);
+
+        $tech->subAspects()->create(["name" => "Online Platforms"])
+            ->categories()->createMany([["name" => "E-learning facility"], ["name" => "E-government service center"]]);
+
+        $tech->subAspects()->create(["name" => "Hi-Technology & AI"])
+            ->categories()->createMany([["name" => "Data center"]]);
+
+        $tech->subAspects()->create(["name" => "Digital Connectivity"])
+            ->categories()->createMany([["name" => "Mobile networks tower"], ["name" => "Public Wi-Fi hotspot"], ["name" => "Temporary connectivity points"]]);
+
+        // --- 9. Data Collection (DC) ---
+        $data_coll = Aspect::create(["name" => "Data Collection"]);
+        $data_coll->subAspects()->create(["name" => "Research Tools"])
+            ->categories()->createMany([["name" => "Monitoring station"]]);
+
+        // --- 10. Culture (CU) ---
+        $culture = Aspect::create(["name" => "Culture"]);
+
+        $culture->subAspects()->create(["name" => "Cultural Hub"])
+            ->categories()->createMany([
+                ["name" => "Museums"], ["name" => "Community cultural center"], ["name" => "Theaters and cinema"],
+                ["name" => "Public library"], ["name" => "Art gallery"], ["name" => "Traditional handicraft center"],
+                ["name" => "Temporary cultural/relief exhibition space"]
+            ]);
+
+        $culture->subAspects()->create(["name" => "Identity"])
+            ->categories()->createMany([["name" => "Monument"], ["name" => "Craft center"], ["name" => "Library/gallery"]]);
+
+        $culture->subAspects()->create(["name" => "Layers of the City"])
+            ->categories()->createMany([
+                ["name" => "Old city polygon"], ["name" => "Historical neighborhood polygon"],
+                ["name" => "Sequential urban expansion polygon"], ["name" => "Old industrial area polygon"],
+                ["name" => "Modern development polygon"]
+            ]);
+
+        $culture->subAspects()->create(["name" => "Tangible Heritage"])
+            ->categories()->createMany([
+                ["name" => "Historical building"], ["name" => "Archaeological site"], ["name" => "Museum repository"],
+                ["name" => "Archive/manuscript location"], ["name" => "Damaged heritage site"]
+            ]);
+
+        $culture->subAspects()->create(["name" => "Intangible Heritage"])
+            ->categories()->createMany([["name" => "Traditional culinary site"]]);
     }
 }

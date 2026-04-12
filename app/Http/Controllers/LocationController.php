@@ -753,33 +753,33 @@ class LocationController extends Controller
 
 
         $paths = [
-            'Water networks',
-            'Telecommunications networks',
-            'Classified road networks',
-            'Bicycle lanes',
-            'Pedestrian paths',
-            'Sidewalks and walkways',
-            'Blocked/impassable segments',
-            'Land parcel boundaries',
+            'Water network',
+            'Telecommunications network',
+            'Classified road network',
+            'Bicycle lane',
+            'Pedestrian path',
+            'Sidewalks and walkway',
+            'Blocked/impassable segment',
+            'Land parcel boundary',
         ];
 
         $polygons = [
-            'Squares and plazas', 'Parks and gardens', 'Playgrounds', 'Multi-use open spaces',
-            'Residential blocks', 'Commercial buildings', 'Industrial sites', 'Government buildings',
-            'Educational buildings', 'Mixed-use buildings', 'Informal buildings', 'Damaged buildings',
-            'Informal settlement polygons', 'Residential zones', 'Commercial zones', 'Industrial zones',
-            'Agricultural zones', 'Recreational zones', 'Protected areas', 'Reconstruction sites',
-            'Damaged infrastructure', 'Rehabilitation/reconstruction sites', 'Ongoing Major projects',
-            'Temporary repairs/bridges', 'Assessed/damaged building polygons',
-            'Damaged/partially standing/collapse/rubble polygons', 'Buildings with insulation',
-            'Temporary shelter clusters', 'Traditional production clusters', 'Tree Canopies',
-            'Public gardens', 'Urban forests', 'Green belts', 'Green roofs and walls',
-            'Ecological corridors', 'Private gardens', 'Agricultural lands', 'Greenhouses',
-            'Schools', 'Universities and colleges', 'Community digital hubs', 'E-learning facilities',
-            'E-government service centers', 'Data centers', 'Monitoring station locations', 'Monuments',
-            'Old city polygon', 'Historical neighborhood polygons', 'Sequential urban expansions polygons',
-            'Old industrial areas polygons', 'Modern development polygon', 'Historical buildings',
-            'Archaeological sites'
+            'Squares and plaza', 'Parks and garden', 'Playground', 'Multi-use open space',
+            'Residential block', 'Commercial building', 'Industrial site', 'Government building',
+            'Educational building', 'Mixed-use building', 'Informal building', 'Damaged building',
+            'Informal settlement', 'Residential zone', 'Commercial zone', 'Industrial zone',
+            'Agricultural zone', 'Recreational zone', 'Protected area', 'Reconstruction site',
+            'Damaged infrastructure', 'Rehabilitation/reconstruction site', 'Ongoing Major project',
+            'Temporary repairs/bridges', 'Assessed/damaged building polygon',
+            'Damaged/partially standing/collapse/rubble polygon', 'Buildings with insulation',
+            'Temporary shelter cluster', 'Traditional production cluster', 'Tree Canopy',
+            'Public garden', 'Urban forest', 'Green belt', 'Green roofs and wall',
+            'Ecological corridor', 'Private garden', 'Agricultural land', 'Greenhouse',
+            'School', 'Universities and college', 'Community digital hub', 'E-learning facility',
+            'E-government service center', 'Data center', 'Monitoring station', 'Monument',
+            'Old city polygon', 'Historical neighborhood polygon', 'Sequential urban expansion polygon',
+            'Old industrial area polygon', 'Modern development polygon', 'Historical building',
+            'Archaeological site'
         ];
 
         $type = 'point'; // القيمة الافتراضية
