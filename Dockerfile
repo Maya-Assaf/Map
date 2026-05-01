@@ -27,7 +27,7 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath xml
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 
-# 4. تفعيل موديل Rewrite الخاص بـ Apache (ضروري جداً لروابط لارافيل)
+# 4. تفعيل موديل Rewrite الخاص بـ Apache
 RUN a2enmod rewrite
 
 # 5. تغيير مسار الـ DocumentRoot الخاص بـ Apache ليشير إلى مجلد public
@@ -42,17 +42,16 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# 8. تثبيت مكتبات Composer
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# 8. تثبيت مكتبات Composer (تمت إضافة --no-scripts لتجنب أخطاء البناء)
+RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
 # 9. ضبط الصلاحيات لمجلدات Laravel
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
-
-RUN rm -f public/storage && php artisan storage:link
-
+# تجاوز خطأ الربط في حال عدم وجود متغيرات البيئة أثناء البناء
+RUN rm -f public/storage && php artisan storage:link || true
 
 # 10. فحص حالة الحاوية (Healthcheck) على منفذ 80
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
