@@ -49,6 +49,7 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev --no-script
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache
 
 # تجاوز خطأ الربط في حال عدم وجود متغيرات البيئة أثناء البناء
 RUN rm -f public/storage && php artisan storage:link || true
