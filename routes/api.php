@@ -77,6 +77,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 });
 
+Route::get('api-google-map', function (){
+    return env('API_GOOGLE_MAP');
+} );
 
 
 // Route::middleware('layer.access:public health')->group(function () {
