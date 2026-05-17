@@ -76,10 +76,10 @@ class AuthController extends Controller
 
 
         // Send email
-        Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
-            $message->to($user->email)
-                ->subject('Verify Your Email');
-        });
+//        Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
+//            $message->to($user->email)
+//                ->subject('Verify Your Email');
+//        });
 
         Log::info('User Registered Successfully:', ['user' => $user]);
 
