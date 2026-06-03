@@ -45,18 +45,17 @@ COPY . .
 # 8. تثبيت مكتبات Composer (تمت إضافة --no-scripts لتجنب أخطاء البناء)
 RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
-# 9. ضبط الصلاحيات لمجلدات Laravel
+# 9. ضبط الصلاحيات لمجلدات Laravel (تمت إزالة المسارات النسبية الزائدة المسببة للخطأ)
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+    && chmod -R 775 /var/www/html/bootstrap/cache
 
 # تجاوز خطأ الربط في حال عدم وجود متغيرات البيئة أثناء البناء
 RUN rm -f public/storage && php artisan storage:link || true
 
 # 10. فحص حالة الحاوية (Healthcheck) على منفذ 80
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost/ || exit 1
+    CMD curl -f http://localhost/ || exit 1
 
 # المنفذ الافتراضي لـ Apache هو 80
 EXPOSE 80
