@@ -42,23 +42,33 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# 8. تثبيت مكتبات Composer (تمت إضافة --no-scripts لتجنب أخطاء البناء)
+# 8. تثبيت مكتبات Composer (بدون سكربتات لتجنب الأخطاء)
 RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
-# 9. ضبط الصلاحيات لمجلدات Laravel (تمت إزالة المسارات النسبية الزائدة المسببة للخطأ)
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+# --- [ الإضافة الجديدة لحل مشكلة الصلاحيات والكاش ] ---
+# إنشاء المجلدات الفرعية المطلوبة بشكل مسبق للتأكد من وجودها قبل تطبيق الصلاحيات
+RUN mkdir -p /var/www/html/storage/framework/cache/data \
+    && mkdir -p /var/www/html/storage/framework/views \
+    && mkdir -p /var/www/html/storage/framework/sessions \
+    && mkdir -p /var/www/html/storage/logs \
+    && mkdir -p /var/www/html/bootstrap/cache
 
-# تجاوز خطأ الربط في حال عدم وجود متغيرات البيئة أثناء البناء
+# 9. ضبط الملكية والصلاحيات للمجلدات بشكل صحيح
+RUN chown -R www-data:www-data /var/www/html \
+    && find /var/www/html/storage -type d -exec chmod 775 {} \; \
+    && find /var/www/html/bootstrap/cache -type d -exec chmod 775 {} \; \
+    && find /var/www/html/storage -type f -exec chmod 664 {} \; \
+    && find /var/www/html/bootstrap/cache -type f -exec chmod 664 {} \;
+
+# تجاوز خطأ الربط
 RUN rm -f public/storage && php artisan storage:link || true
 
-# 10. فحص حالة الحاوية (Healthcheck) على منفذ 80
+# 10. فحص حالة الحاوية (Healthcheck)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
     CMD curl -f http://localhost/ || exit 1
 
-# المنفذ الافتراضي لـ Apache هو 80
+# المنفذ الافتراضي لـ Apache
 EXPOSE 80
 
-# تشغيل Apache في المقدمة
+# تشغيل Apache
 CMD ["apache2-foreground"]
