@@ -1,0 +1,3992 @@
+{
+  "info": {
+    "_postman_id": "5c194d0e-0e43-4026-8fbb-b11c9315c32c",
+    "name": "Map",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47479846"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Batoul",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "batouljdid25@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "12345678",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/register",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "send code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"batouljdid25@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/resend-code",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "resend-code"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "forgot password for mob",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"batouljdid25@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/forgot-password-for-mob",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "forgot-password-for-mob"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Email",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "batouljdid25@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "verification_code",
+                  "value": "872129",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/verify-code",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "verify-code"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify reset code for mob",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "batouljdid25@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "reset_password_code",
+                  "value": "590693",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/verify-reset-code-for-mob",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "verify-reset-code-for-mob"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|eYNt4R2AT3LvpuhbbNdtIJ7vdyrH8ogc1fzcEWjW6ad55388",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/user/profile",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "user",
+                "profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "My Profile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/user/profile",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "user",
+                    "profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 02:33:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"user\": {\n        \"name\": \"Batoul\",\n        \"email\": \"batouljdid25@gmail.com\",\n        \"position\": \"Senior Leader\",\n        \"department\": \"IT & AI DEPARTMENT\",\n        \"layer\": \"other\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "update profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "10|2wPkn49dqVP6Jjlx7jqmNNbNVQKihjDXxp1dnSoM050453d6",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Batoul Jdid",
+                  "type": "text"
+                },
+                {
+                  "key": "current_password",
+                  "value": "12345678",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "123456789",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "123456789",
+                  "type": "text"
+                },
+                {
+                  "key": "profile_image",
+                  "type": "file",
+                  "src": "postman-cloud:///1f03fbe5-8357-4580-8707-561e03fd8932"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/profile/edit",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "profile",
+                "edit"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update profile",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "Batoul Jdid",
+                      "type": "text"
+                    },
+                    {
+                      "key": "current_password",
+                      "value": "12345678",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123456789",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password_confirmation",
+                      "value": "123456789",
+                      "type": "text"
+                    },
+                    {
+                      "key": "profile_image",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f03fbe5-8357-4580-8707-561e03fd8932"
+                      ]
+                    }
+                  ],
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/profile/edit/11",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "edit",
+                    "11"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 14:48:14 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Profile updated successfully\",\n    \"user\": {\n        \"id\": 11,\n        \"name\": \"Batoul Jdid\",\n        \"email\": \"batouljdid25@gmail.com\",\n        \"position\": \"Senior Leader\",\n        \"department\": \"IT & AI DEPARTMENT\",\n        \"layer\": \"other\",\n        \"created_at\": \"2025-06-02T02:00:20.000000Z\",\n        \"updated_at\": \"2025-06-02T14:48:13.000000Z\",\n        \"is_verified\": 0,\n        \"profile_image\": \"profile_images/1748875693_avatr.jpg\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "forget password",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"wardalshaheen@gmail.com\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/forgot-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "forget password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\" : \"batouljdid25@gmail.com\" \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/forgot-password",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "forgot-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 03:41:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "reset password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "wardalshaheen@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "token",
+                  "value": "2df476aa14cb63aeb361cb3e0c515c2b7aad1327d5b47a669c2e40d84eccad6a",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "12345678",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/reset-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "reset password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "batouljdid25@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "token",
+                      "value": "c34f403568beddc3cdd41918937c077f7f0fa74e9479e052b31be7303cf9a97c",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123456789",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password_confirmation",
+                      "value": "123456789",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/reset-password",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 03:48:44 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"تمت إعادة تعيين كلمة المرور بنجاح.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "F6neM9l5ukmyAuIGdJwjciVCsIP9yuyCpm5QsFW6c3480710",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://map-ipf3.onrender.com/api/logout",
+              "protocol": "https",
+              "host": [
+                "map-ipf3",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "logout",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "admin@example.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "12345678",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/logout",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 03 Jul 2025 09:53:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Logout successful\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "change email",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|eYNt4R2AT3LvpuhbbNdtIJ7vdyrH8ogc1fzcEWjW6ad55388",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "new_email",
+                  "value": "wardalshaheen1@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "current_password",
+                  "value": "12345678",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/change-email",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "change-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "change password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|J51ciibEf1kEacxggHFm3VIGNqIAgjMGZi2KWRXG5c3ae5d1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "12345678",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/change-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "change-password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Zone",
+      "item": [
+        {
+          "name": "http://127.0.0.1:8000/api/zones",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "16|gKQx6rMySmlCkgiDRWdRhINW3nPysI1fpCLnAsdD8131cad3",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/zones",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "zones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://127.0.0.1:8000/api/zones",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|cGcZcpSCdBuP7XZw1jNXuu9nAnPnMbsc37VRcayBbb3dafea",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "new zone3",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "Zone3",
+                  "type": "text"
+                },
+                {
+                  "key": "latitude",
+                  "value": "30",
+                  "type": "text"
+                },
+                {
+                  "key": "longitude",
+                  "value": "45",
+                  "type": "text"
+                },
+                {
+                  "key": "radius",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/zones",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "zones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://127.0.0.1:8000/api/zone/2",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|2xVqJ505KYoGvRLhsuSy09wvLOyfP9tePwhgamtkdbe2474b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/zone/2",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "zone",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://127.0.0.1:8000/api/zone/2",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|cGcZcpSCdBuP7XZw1jNXuu9nAnPnMbsc37VRcayBbb3dafea",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "zone3",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/zone/2",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "zone",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://127.0.0.1:8000/api/zone/2",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|cGcZcpSCdBuP7XZw1jNXuu9nAnPnMbsc37VRcayBbb3dafea",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/zone/2",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "zone",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "item": [
+        {
+          "name": "Public Locations Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/public/locations?name=&description=&aspect=&aspect_id=&sub_aspect=&sub_aspect_id=&category=&category_id=&user_name=&user_id=&type=&created_after=&created_before=&latitude=&longitude=&radius=&sw_lat=&sw_lng=&ne_lat=&ne_lng=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "public",
+                "locations"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "",
+                  "description": "Filter by location name (partial match)"
+                },
+                {
+                  "key": "description",
+                  "value": "",
+                  "description": "Filter by description (partial match)"
+                },
+                {
+                  "key": "aspect",
+                  "value": "",
+                  "description": "Filter by aspect name (partial match)"
+                },
+                {
+                  "key": "aspect_id",
+                  "value": "",
+                  "description": "Filter by exact aspect ID"
+                },
+                {
+                  "key": "sub_aspect",
+                  "value": "",
+                  "description": "Filter by sub-aspect name (partial match)"
+                },
+                {
+                  "key": "sub_aspect_id",
+                  "value": "",
+                  "description": "Filter by exact sub-aspect ID"
+                },
+                {
+                  "key": "category",
+                  "value": "",
+                  "description": "Filter by category name (partial match)"
+                },
+                {
+                  "key": "category_id",
+                  "value": "",
+                  "description": "Filter by exact category ID"
+                },
+                {
+                  "key": "user_name",
+                  "value": "",
+                  "description": "Filter by creator username (partial match)"
+                },
+                {
+                  "key": "user_id",
+                  "value": "",
+                  "description": "Filter by exact creator user ID"
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "description": "Filter by location type (point, path, space, polygon)"
+                },
+                {
+                  "key": "created_after",
+                  "value": "",
+                  "description": "Filter by creation date (YYYY-MM-DD) starting from"
+                },
+                {
+                  "key": "created_before",
+                  "value": "",
+                  "description": "Filter by creation date (YYYY-MM-DD) up to"
+                },
+                {
+                  "key": "latitude",
+                  "value": "",
+                  "description": "Latitude for distance proximity search"
+                },
+                {
+                  "key": "longitude",
+                  "value": "",
+                  "description": "Longitude for distance proximity search"
+                },
+                {
+                  "key": "radius",
+                  "value": "",
+                  "description": "Radius for distance proximity search in kilometers (default 5)"
+                },
+                {
+                  "key": "sw_lat",
+                  "value": "",
+                  "description": "South-West Latitude for Map Bounding Box filter"
+                },
+                {
+                  "key": "sw_lng",
+                  "value": "",
+                  "description": "South-West Longitude for Map Bounding Box filter"
+                },
+                {
+                  "key": "ne_lat",
+                  "value": "",
+                  "description": "North-East Latitude for Map Bounding Box filter"
+                },
+                {
+                  "key": "ne_lng",
+                  "value": "",
+                  "description": "North-East Longitude for Map Bounding Box filter"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Show all Markers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|kaYWeQnJbu9cjO21uW1n3Wa2NHSsphGw2k9cffkk8f4f96f1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Show all Markers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 00:00:52 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 3,\n        \"name\": \"The National Museum of Damascus\",\n        \"aspect\": \"Culture & Heritage\",\n        \"sub_aspect\": \"Cultural Hub\",\n        \"category\": \"Museums\",\n        \"latitude\": \"33.50000000\",\n        \"longitude\": \"36.50000000\",\n        \"description\": \"متحف في دمشق\",\n        \"images\": [\n            {\n                \"id\": 3,\n                \"location_id\": 3,\n                \"image_path\": \"imgs/1748822382_the-national-museum-of.jpg\",\n                \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n                \"updated_at\": \"2025-06-01T23:59:42.000000Z\"\n            },\n            {\n                \"id\": 4,\n                \"location_id\": 3,\n                \"image_path\": \"imgs/1748822382_courtyard.jpg\",\n                \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n                \"updated_at\": \"2025-06-01T23:59:42.000000Z\"\n            }\n        ],\n        \"references\": []\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create New Marker",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|4DOCLxxV0E4Qi8HoVToA6EJcm78MhCd8O7f6sCOZ3045f9f8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "new location22",
+                  "type": "text"
+                },
+                {
+                  "key": "aspect_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "sub_aspect_id",
+                  "value": "3",
+                  "type": "text"
+                },
+                {
+                  "key": "category_id",
+                  "value": "243",
+                  "type": "text"
+                },
+                {
+                  "key": "latitude_a",
+                  "value": "33.5",
+                  "type": "text"
+                },
+                {
+                  "key": "longitude_a",
+                  "value": "36.5",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "جبل يطل على مدينة دمشق ويُعد من أبرز معالمها الجغرافية والثقافية",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "line",
+                  "type": "text",
+                  "uuid": "84df7f54-2a93-4cb9-a9bc-dc906d24ea4c"
+                },
+                {
+                  "key": "latitude_b",
+                  "value": "40.2",
+                  "type": "text",
+                  "uuid": "52fa433a-2a8d-4cea-b449-81aae4e6ea17"
+                },
+                {
+                  "key": "longitude_b",
+                  "value": "45.2",
+                  "type": "text",
+                  "uuid": "48ee2484-cb01-4719-be8e-651e15be7521"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Point",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "The National Museum of Damascus",
+                      "type": "text"
+                    },
+                    {
+                      "key": "aspect_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "sub_aspect_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "33.5",
+                      "type": "text"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "36.5",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "متحف في دمشق",
+                      "type": "text"
+                    },
+                    {
+                      "key": "type",
+                      "value": "point",
+                      "type": "text",
+                      "uuid": "711bb9c5-129a-4c99-a9eb-78cd54ea8963"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 01 Jun 2025 23:59:42 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Location added successfully\",\n    \"location\": {\n        \"name\": \"The National Museum of Damascus\",\n        \"aspect_id\": \"1\",\n        \"sub_aspect_id\": \"1\",\n        \"category_id\": \"1\",\n        \"latitude\": \"33.5\",\n        \"longitude\": \"36.5\",\n        \"description\": \"متحف في دمشق\",\n        \"user_id\": 11,\n        \"updated_at\": \"2025-06-01T23:59:42.000000Z\",\n        \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n        \"id\": 3,\n        \"images\": [\n            {\n                \"id\": 3,\n                \"location_id\": 3,\n                \"image_path\": \"imgs/1748822382_the-national-museum-of.jpg\",\n                \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n                \"updated_at\": \"2025-06-01T23:59:42.000000Z\"\n            },\n            {\n                \"id\": 4,\n                \"location_id\": 3,\n                \"image_path\": \"imgs/1748822382_courtyard.jpg\",\n                \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n                \"updated_at\": \"2025-06-01T23:59:42.000000Z\"\n            }\n        ],\n        \"references\": []\n    }\n}"
+            },
+            {
+              "name": "Space",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "new location22",
+                      "type": "text"
+                    },
+                    {
+                      "key": "aspect_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "sub_aspect_id",
+                      "value": "3",
+                      "type": "text"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "13",
+                      "type": "text"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "33.5",
+                      "type": "text"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "36.5",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "جبل يطل على مدينة دمشق ويُعد من أبرز معالمها الجغرافية والثقافية",
+                      "type": "text"
+                    },
+                    {
+                      "key": "type",
+                      "value": "space",
+                      "type": "text",
+                      "uuid": "84df7f54-2a93-4cb9-a9bc-dc906d24ea4c"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "40",
+                      "type": "text",
+                      "uuid": "efa41ef4-02b0-4526-9764-839b013c175f"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Path",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"New Location\",\r\n    \"aspect_id\":1,\r\n    \"sub_aspect_id\":3,\r\n    \"category_id\":243,\r\n    \"description\":\"This is a new location\",\r\n    \"type\": \"path\",\r\n    \"points\": [\r\n        { \"latitude\": 33.5138, \"longitude\": 36.2765 },\r\n        { \"latitude\": 33.5140, \"longitude\": 36.2770 },\r\n        { \"latitude\": 33.5132, \"longitude\": 36.2773 }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Polygon",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"New Location\",\r\n    \"aspect_id\":1,\r\n    \"sub_aspect_id\":3,\r\n    \"category_id\":13,\r\n    \"description\":\"This is a new location\",\r\n    \"type\": \"polygon\",\r\n    \"points\": [\r\n        { \"latitude\": 33.5138, \"longitude\": 36.2765 },\r\n        { \"latitude\": 33.5140, \"longitude\": 36.2770 },\r\n        { \"latitude\": 33.5132, \"longitude\": 36.2773 }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Show specific marker",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "9|1CxQXretutTQQfDyHKcC9vAgqwpgdoDE2kL7DD0477e7e0c8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/3",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "3"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Marker",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/3",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 00:02:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Location retrieved successfully\",\n    \"location\": {\n        \"id\": 3,\n        \"name\": \"The National Museum of Damascus\",\n        \"user_id\": 11,\n        \"aspect_id\": 1,\n        \"sub_aspect_id\": 1,\n        \"category_id\": 1,\n        \"description\": \"متحف في دمشق\",\n        \"latitude\": \"33.50000000\",\n        \"longitude\": \"36.50000000\",\n        \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n        \"updated_at\": \"2025-06-01T23:59:42.000000Z\",\n        \"user\": {\n            \"id\": 11,\n            \"name\": \"Batoul\",\n            \"email\": \"batouljdid25@gmail.com\",\n            \"position\": \"Senior Leader\",\n            \"department\": \"IT & AI DEPARTMENT\",\n            \"layer\": \"public health\",\n            \"created_at\": \"2025-06-01T23:32:59.000000Z\",\n            \"updated_at\": \"2025-06-01T23:32:59.000000Z\",\n            \"is_verified\": 0\n        },\n        \"images\": [\n            {\n                \"id\": 3,\n                \"location_id\": 3,\n                \"image_path\": \"imgs/1748822382_the-national-museum-of.jpg\",\n                \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n                \"updated_at\": \"2025-06-01T23:59:42.000000Z\"\n            },\n            {\n                \"id\": 4,\n                \"location_id\": 3,\n                \"image_path\": \"imgs/1748822382_courtyard.jpg\",\n                \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n                \"updated_at\": \"2025-06-01T23:59:42.000000Z\"\n            }\n        ],\n        \"references\": [],\n        \"aspect\": {\n            \"id\": 1,\n            \"name\": \"Culture & Heritage\",\n            \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n            \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n        },\n        \"sub_aspect\": {\n            \"id\": 1,\n            \"name\": \"Cultural Hub\",\n            \"aspect_id\": 1,\n            \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n            \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n        },\n        \"category\": {\n            \"id\": 1,\n            \"name\": \"Museums\",\n            \"sub_aspect_id\": 1,\n            \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n            \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Edit Marker",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|kaYWeQnJbu9cjO21uW1n3Wa2NHSsphGw2k9cffkk8f4f96f1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"The National Museum\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "edit marker",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"The National Museum\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/3",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 00:05:46 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Location updated successfully\",\n    \"location\": {\n        \"id\": 3,\n        \"name\": \"The National Museum\",\n        \"aspect\": \"Culture & Heritage\",\n        \"sub_aspect\": \"Cultural Hub\",\n        \"category\": \"Museums\",\n        \"description\": \"متحف في دمشق\",\n        \"latitude\": \"33.50000000\",\n        \"longitude\": \"36.50000000\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Marker",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/4",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "4"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Marker",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/4",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "4"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 00:35:16 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Location deleted successfully\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Search",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "category",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"National Museum\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/search",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "search"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Search",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "name",
+                    "value": "Mount Qassioun",
+                    "type": "text"
+                  },
+                  {
+                    "key": "category",
+                    "value": "",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/search",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "search"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 00:50:27 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "57"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"locations\": [\n        {\n            \"id\": 3,\n            \"name\": \"The National Museum\",\n            \"user_id\": 11,\n            \"aspect_id\": 1,\n            \"sub_aspect_id\": 1,\n            \"category_id\": 1,\n            \"description\": \"متحف في دمشق\",\n            \"latitude\": \"33.50000000\",\n            \"longitude\": \"36.50000000\",\n            \"created_at\": \"2025-06-01T23:59:42.000000Z\",\n            \"updated_at\": \"2025-06-02T00:05:46.000000Z\",\n            \"user\": {\n                \"id\": 11,\n                \"name\": \"Batoul\",\n                \"email\": \"batouljdid25@gmail.com\",\n                \"position\": \"Senior Leader\",\n                \"department\": \"IT & AI DEPARTMENT\",\n                \"layer\": \"public health\",\n                \"created_at\": \"2025-06-01T23:32:59.000000Z\",\n                \"updated_at\": \"2025-06-01T23:32:59.000000Z\",\n                \"is_verified\": 0\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "get all aspects",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|nOLdiJHLfnMxTsflPoARzF2SfwvTaztFA4GdyJfb05995829",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/aspects",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "aspects"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "All Aspects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/aspects",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "aspects"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 01 Jun 2025 23:34:55 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Culture & Heritage\",\n        \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Building Code & Policy\",\n        \"created_at\": \"2025-06-01T23:24:51.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:51.000000Z\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Economic Factor\",\n        \"created_at\": \"2025-06-01T23:24:57.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:57.000000Z\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Public Health\",\n        \"created_at\": \"2025-06-01T23:24:59.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:59.000000Z\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Resources Management\",\n        \"created_at\": \"2025-06-01T23:25:01.000000Z\",\n        \"updated_at\": \"2025-06-01T23:25:01.000000Z\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Urban Planning\",\n        \"created_at\": \"2025-06-01T23:25:05.000000Z\",\n        \"updated_at\": \"2025-06-01T23:25:05.000000Z\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"Data Collection & Analysis\",\n        \"created_at\": \"2025-06-01T23:25:12.000000Z\",\n        \"updated_at\": \"2025-06-01T23:25:12.000000Z\"\n    },\n    {\n        \"id\": 8,\n        \"name\": \"Technology & Digital Infrastructure\",\n        \"created_at\": \"2025-06-01T23:25:15.000000Z\",\n        \"updated_at\": \"2025-06-01T23:25:15.000000Z\"\n    },\n    {\n        \"id\": 9,\n        \"name\": \"Ecological Factor\",\n        \"created_at\": \"2025-06-01T23:25:18.000000Z\",\n        \"updated_at\": \"2025-06-01T23:25:18.000000Z\"\n    },\n    {\n        \"id\": 10,\n        \"name\": \"Social Factor\",\n        \"created_at\": \"2025-06-01T23:25:22.000000Z\",\n        \"updated_at\": \"2025-06-01T23:25:22.000000Z\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "get all sub aspects for selected aspect",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/sub-aspects/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "sub-aspects",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "All SubAspects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/sub-aspects/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "sub-aspects",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 01 Jun 2025 23:36:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Cultural Hub\",\n        \"aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Identity\",\n        \"aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Layers of the City\",\n        \"aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:48.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:48.000000Z\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Tangible Heritage\",\n        \"aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:49.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:49.000000Z\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Intangible Heritage\",\n        \"aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:50.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:50.000000Z\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "get all categories for selected sub-aspect",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/categories/3",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "categories",
+                "3"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "All categories",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/categories/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 01 Jun 2025 23:40:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Museums\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Community cultural centers\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:46.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:46.000000Z\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Theaters and cinemas\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:46.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:46.000000Z\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Public libraries\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Art galleries\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Traditional handicraft centers\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "get all types for selected category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|QVVge4TIbHXS4P1BLXuBPTim35gZTzFV9zyMYWD682adef35",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/types/13",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "types",
+                "13"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "All categories",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/categories/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 01 Jun 2025 23:40:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Museums\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:45.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:45.000000Z\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Community cultural centers\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:46.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:46.000000Z\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Theaters and cinemas\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:46.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:46.000000Z\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Public libraries\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Art galleries\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Traditional handicraft centers\",\n        \"sub_aspect_id\": 1,\n        \"created_at\": \"2025-06-01T23:24:47.000000Z\",\n        \"updated_at\": \"2025-06-01T23:24:47.000000Z\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Filter Marker By categories",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|bWwHPCC7eQN2ReHeyQTv6IZ4prfWCfP4jEkLZRuPae8ea6b3",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"categories\": [\r\n    \"Museums\",\r\n    \"Touristic Spots\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/filter",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "filter"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Filter Marker",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/filter",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "filter"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 03 Jun 2025 21:51:25 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"The National Museum of Damascus\",\n        \"aspect\": \"Culture & Heritage\",\n        \"sub_aspect\": \"Cultural Hub\",\n        \"category\": \"Museums\",\n        \"latitude\": \"33.50000000\",\n        \"longitude\": \"36.50000000\",\n        \"user_layer\": \"public health\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Delete Image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/8/delete-image/11",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "8",
+                "delete-image",
+                "11"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Images & Files to an existing marker",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "images[]",
+                  "type": "file",
+                  "src": "/C:/Users/KING/Downloads/photos/images.jpg"
+                },
+                {
+                  "key": "references[]",
+                  "type": "file",
+                  "src": "/C:/Users/KING/Downloads/Telegram Desktop/downloadfile-46.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/8/upload-files",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "8",
+                "upload-files"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Upload files and images",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "images[]",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/KING/Downloads/photos/images.jpg"
+                      ]
+                    },
+                    {
+                      "key": "references[]",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/KING/Downloads/Telegram Desktop/downloadfile-46.pdf"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/8/upload-files",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "8",
+                    "upload-files"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 11 Jul 2025 20:24:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Files uploaded successfully\",\n    \"uploaded_images\": [\n        \"imgs/1752265458_images.jpg\"\n    ],\n    \"uploaded_references\": [\n        \"refs/1752265458_downloadfile-46.pdf\"\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete File",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/8/delete-reference/2",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "8",
+                "delete-reference",
+                "2"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete file",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/locations/8/delete-reference/2",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "locations",
+                    "8",
+                    "delete-reference",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 11 Jul 2025 20:27:24 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Reference deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AdminDashboard",
+      "item": [
+        {
+          "name": "Edit position",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "8|QwM5fkiOhTrvR5ls9uDephLGV0YOolFvofnA4oBi9c879961",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "NewPosition",
+                  "value": "CoHead",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/updatePosition/3",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "updatePosition",
+                "3"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "return ALL users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "batouljdid25@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "123456789",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/users",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get ALL users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 16:45:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"current_page\": 1,\n    \"data\": [\n        {\n            \"name\": \"Ameen Abdoh\",\n            \"email\": \"ameenabdoh2@gmail.con\",\n            \"position\": \"Junior\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Pause\"\n        },\n        {\n            \"name\": \"Sana ahmad Bajouri \",\n            \"email\": \"leesana14@gmail.com\",\n            \"position\": \"Junior\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Stop\"\n        },\n        {\n            \"name\": \"Hanin Weshah\",\n            \"email\": \"haninostalgia@gmail.com\",\n            \"position\": \"Head\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Active\"\n        },\n        {\n            \"name\": \"Mohammed Khalid Ramadhan \",\n            \"email\": \"Mk86_2006@hotmail.com\",\n            \"position\": \"Head\",\n            \"department\": \"DESIGN DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Active\"\n        },\n        {\n            \"name\": \"Massa Habbal\",\n            \"email\": \"massa.g.habbal@gmail.com\",\n            \"position\": \"Head\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Stop\"\n        },\n        {\n            \"name\": \"Sham alolabi\",\n            \"email\": \"shaamaloulabi@gmail.com\",\n            \"position\": \"Head\",\n            \"department\": \"EDUCATION DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Stop\"\n        },\n        {\n            \"name\": \"Maya Azizogli\",\n            \"email\": \"mayaoghli1@gmail.com\",\n            \"position\": \"Junior\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Pause\"\n        },\n        {\n            \"name\": \"Reem Abou fakhr\",\n            \"email\": \"1998reemabofakher@gmail.com\",\n            \"position\": \"Head\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Active\"\n        },\n        {\n            \"name\": \"Rizk Roumieh\",\n            \"email\": \"Rezk.romea@gmail.com\",\n            \"position\": \"Corrdinator\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Stop\"\n        },\n        {\n            \"name\": \"Raghad Abdin\",\n            \"email\": \"Raghadabdin98@gmail.com\",\n            \"position\": \"Junior\",\n            \"department\": \"RESEARCH DEPARTMENT\",\n            \"layer\": \"Other\",\n            \"status\": \"Active\"\n        }\n    ],\n    \"first_page_url\": \"http://127.0.0.1:8000/api/users?page=1\",\n    \"from\": 1,\n    \"last_page\": 38,\n    \"last_page_url\": \"http://127.0.0.1:8000/api/users?page=38\",\n    \"links\": [\n        {\n            \"url\": null,\n            \"label\": \"&laquo; Previous\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=1\",\n            \"label\": \"1\",\n            \"active\": true\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=2\",\n            \"label\": \"2\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=3\",\n            \"label\": \"3\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=4\",\n            \"label\": \"4\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=5\",\n            \"label\": \"5\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=6\",\n            \"label\": \"6\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=7\",\n            \"label\": \"7\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=8\",\n            \"label\": \"8\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=9\",\n            \"label\": \"9\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=10\",\n            \"label\": \"10\",\n            \"active\": false\n        },\n        {\n            \"url\": null,\n            \"label\": \"...\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=37\",\n            \"label\": \"37\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=38\",\n            \"label\": \"38\",\n            \"active\": false\n        },\n        {\n            \"url\": \"http://127.0.0.1:8000/api/users?page=2\",\n            \"label\": \"Next &raquo;\",\n            \"active\": false\n        }\n    ],\n    \"next_page_url\": \"http://127.0.0.1:8000/api/users?page=2\",\n    \"path\": \"http://127.0.0.1:8000/api/users\",\n    \"per_page\": 10,\n    \"prev_page_url\": null,\n    \"to\": 10,\n    \"total\": 376\n}"
+            }
+          ]
+        },
+        {
+          "name": "Edit user info",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Ameen Abdoh\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/users/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Edit user",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Ameen Abdoh\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 16:52:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User updated successfully in both preregistered and users tables\",\n    \"pre_registered_user\": {\n        \"id\": 1,\n        \"name\": \"Ameen Abdoh\",\n        \"email\": \"ameenabdoh2@gmail.con\",\n        \"department\": \"RESEARCH DEPARTMENT\",\n        \"position\": \"Junior\",\n        \"layer\": \"Other\",\n        \"status\": \"Pause\",\n        \"created_at\": \"2025-06-02T16:43:32.000000Z\",\n        \"updated_at\": \"2025-06-02T16:52:39.000000Z\"\n    },\n    \"user\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create new user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "heeseung",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "heeseung@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "position",
+                  "value": "Junior",
+                  "type": "text"
+                },
+                {
+                  "key": "department",
+                  "value": "IT & AI DEPARTMENT",
+                  "type": "text"
+                },
+                {
+                  "key": "layer",
+                  "value": "Other",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/users",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create new user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "heeseung",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "heeseung@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "position",
+                      "value": "Junior",
+                      "type": "text"
+                    },
+                    {
+                      "key": "department",
+                      "value": "IT & AI DEPARTMENT",
+                      "type": "text"
+                    },
+                    {
+                      "key": "layer",
+                      "value": "Other",
+                      "type": "text"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 16:57:38 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User created successfully\",\n    \"user\": {\n        \"name\": \"heeseung\",\n        \"email\": \"heeseung@gmail.com\",\n        \"position\": \"Junior\",\n        \"department\": \"IT & AI DEPARTMENT\",\n        \"layer\": \"Other\",\n        \"status\": \"active\",\n        \"updated_at\": \"2025-06-02T16:57:37.000000Z\",\n        \"created_at\": \"2025-06-02T16:57:37.000000Z\",\n        \"id\": 377\n    },\n    \"generated_password\": \"UFDd7aFgGW\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/users/377",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "users",
+                "377"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete user",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users/377",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users",
+                    "377"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Jun 2025 17:00:08 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User deleted successfully from preregistered and users tables if existed\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Export Csv",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/csv; charset=UTF-8",
+                "type": "text"
+              },
+              {
+                "key": "Content-Disposition",
+                "value": "attachment; filename=$csvFileName",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/locations/exportcsv",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "locations",
+                "exportcsv"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

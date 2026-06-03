@@ -19,6 +19,8 @@ Route::post('/forgot-password-for-mob', [ResetPasswordController::class, 'sendCo
 Route::post('/verify-reset-code-for-mob', [ResetPasswordController::class, 'verifyCode']);
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
 
+// Public routes
+Route::get('/public/locations', [LocationController::class, 'publicIndex']);
 
 // Admin-only routes
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {

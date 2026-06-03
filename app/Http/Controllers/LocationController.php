@@ -793,5 +793,158 @@ class LocationController extends Controller
         return [$type];
     }
 
+    /**
+     * Get all locations with details, relationships, and advanced search filters.
+     * Accessible publicly.
+     */
+    public function publicIndex(Request $request)
+    {
+        $query = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category', 'locatable']);
 
+        // Filter by location name
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        // Filter by description
+        if ($request->filled('description')) {
+            $query->where('description', 'like', '%' . $request->description . '%');
+        }
+
+        // Filter by aspect ID or aspect name
+        if ($request->filled('aspect_id')) {
+            $query->where('aspect_id', $request->aspect_id);
+        } elseif ($request->filled('aspect')) {
+            $query->whereHas('aspect', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->aspect . '%');
+            });
+        }
+
+        // Filter by sub-aspect ID or sub-aspect name
+        if ($request->filled('sub_aspect_id')) {
+            $query->where('sub_aspect_id', $request->sub_aspect_id);
+        } elseif ($request->filled('sub_aspect')) {
+            $query->whereHas('subAspect', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->sub_aspect . '%');
+            });
+        }
+
+        // Filter by category ID or category name
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        } elseif ($request->filled('category')) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->category . '%');
+            });
+        }
+
+        // Filter by user ID or user name (creator)
+        if ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        } elseif ($request->filled('user_name')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->user_name . '%');
+            });
+        }
+
+        // Filter by type (point, path, space, polygon)
+        if ($request->filled('type')) {
+            $typeMap = [
+                'point' => LocationPoint::class,
+                'path' => LocationPath::class,
+                'space' => LocationSpace::class,
+                'polygon' => LocationPolygon::class,
+            ];
+            $type = strtolower($request->type);
+            if (isset($typeMap[$type])) {
+                $query->where('locatable_type', $typeMap[$type]);
+            }
+        }
+
+        // Filter by creation date range
+        if ($request->filled('created_after')) {
+            $query->whereDate('created_at', '>=', $request->created_after);
+        }
+        if ($request->filled('created_before')) {
+            $query->whereDate('created_at', '<=', $request->created_before);
+        }
+
+        // Filter by map bounding box
+        if ($request->filled(['sw_lat', 'sw_lng', 'ne_lat', 'ne_lng'])) {
+            $swLat = (double) $request->sw_lat;
+            $swLng = (double) $request->sw_lng;
+            $neLat = (double) $request->ne_lat;
+            $neLng = (double) $request->ne_lng;
+
+            $minLat = min($swLat, $neLat);
+            $maxLat = max($swLat, $neLat);
+            $minLng = min($swLng, $neLng);
+            $maxLng = max($swLng, $neLng);
+
+            $query->where(function ($q) use ($minLat, $maxLat, $minLng, $maxLng) {
+                $q->whereHasMorph('locatable', [LocationPoint::class, LocationSpace::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                    $morphQuery->whereBetween('latitude', [$minLat, $maxLat])
+                        ->whereBetween('longitude', [$minLng, $maxLng]);
+                })
+                ->orWhereHasMorph('locatable', [LocationPath::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                    $morphQuery->whereHas('points', function ($pointQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                        $pointQuery->whereBetween('latitude', [$minLat, $maxLat])
+                            ->whereBetween('longitude', [$minLng, $maxLng]);
+                    });
+                })
+                ->orWhereHasMorph('locatable', [LocationPolygon::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                    $morphQuery->whereHas('points', function ($pointQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                        $pointQuery->whereBetween('latitude', [$minLat, $maxLat])
+                            ->whereBetween('longitude', [$minLng, $maxLng]);
+                    });
+                });
+            });
+        }
+        // Filter by geographical proximity (latitude, longitude, radius in km)
+        elseif ($request->filled(['latitude', 'longitude'])) {
+            $lat = (double) $request->latitude;
+            $lng = (double) $request->longitude;
+            $radius = (double) $request->input('radius', 5); // default to 5km radius
+
+            // 1 degree latitude is approximately 111 kilometers
+            $deltaLat = $radius / 111.0;
+            // 1 degree longitude is approximately 111 * cos(latitude) kilometers
+            $cosLat = cos(deg2rad($lat));
+            $deltaLng = $cosLat > 0 ? ($radius / (111.0 * $cosLat)) : 0;
+
+            $minLat = $lat - $deltaLat;
+            $maxLat = $lat + $deltaLat;
+            $minLng = $lng - $deltaLng;
+            $maxLng = $lng + $deltaLng;
+
+            $query->where(function ($q) use ($minLat, $maxLat, $minLng, $maxLng) {
+                $q->whereHasMorph('locatable', [LocationPoint::class, LocationSpace::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                    $morphQuery->whereBetween('latitude', [$minLat, $maxLat])
+                        ->whereBetween('longitude', [$minLng, $maxLng]);
+                })
+                ->orWhereHasMorph('locatable', [LocationPath::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                    $morphQuery->whereHas('points', function ($pointQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                        $pointQuery->whereBetween('latitude', [$minLat, $maxLat])
+                            ->whereBetween('longitude', [$minLng, $maxLng]);
+                    });
+                })
+                ->orWhereHasMorph('locatable', [LocationPolygon::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                    $morphQuery->whereHas('points', function ($pointQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
+                        $pointQuery->whereBetween('latitude', [$minLat, $maxLat])
+                            ->whereBetween('longitude', [$minLng, $maxLng]);
+                    });
+                });
+            });
+        }
+
+        // Return the locations
+        $locations = $query->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Public locations retrieved successfully',
+            'count' => $locations->count(),
+            'locations' => $locations
+        ]);
+    }
 }
