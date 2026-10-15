@@ -1,0 +1,1013 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "L' Auberge",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "district": "Jewish Quarter",
+        "suburb": "Amin Neighbourhood",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3140073,
+        "lat": 33.5092028,
+        "formatted": "L' Auberge, Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "address_line1": "L' Auberge",
+        "address_line2": "Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.pub"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "L' Auberge",
+            "osm_id": 10723260218,
+            "amenity": "pub",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "51461a26643128424059d1a2ad8e2dc14040f00103f9013af7277f0200000092030a4c272041756265726765",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3140073,
+          33.5092028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Alnagafa for oriental",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3128748,
+        "lat": 33.5093517,
+        "formatted": "Alnagafa for oriental, Souq Madhat - Basha Street - Via Recta, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "Alnagafa for oriental",
+        "address_line2": "Souq Madhat - Basha Street - Via Recta, Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.art"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "Alnagafa for oriental",
+            "shop": "art",
+            "osm_id": 10723260220,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "art"
+        },
+        "place_id": "510cdf0c480c2842405984f3bd6f32c14040f00103f9013cf7277f02000000920315416c6e616761666120666f72206f7269656e74616c",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3128748,
+          33.5093517
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "مجوهرات ساري نقرور",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3124003,
+        "lat": 33.509324,
+        "formatted": "مجوهرات ساري نقرور, Souq Madhat - Basha Street - Via Recta, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "مجوهرات ساري نقرور",
+        "address_line2": "Souq Madhat - Basha Street - Via Recta, Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.jewelry"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "مجوهرات ساري نقرور",
+            "shop": "jewelry",
+            "osm_id": 10723260222,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "jewelry"
+        },
+        "place_id": "515be1a7bbfc2742405977a7608731c14040f00103f9013ef7277f02000000920322d985d8acd988d987d8b1d8a7d8aa20d8b3d8a7d8b1d98a20d986d982d8b1d988d8b1",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3124003,
+          33.509324
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Barbershop Damascus",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Amin Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3118213,
+        "lat": 33.5091177,
+        "formatted": "The Barbershop Damascus, Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "address_line1": "The Barbershop Damascus",
+        "address_line2": "Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.bar"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "The Barbershop Damascus",
+            "osm_id": 10723260224,
+            "amenity": "bar",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "511dd9a6c2e9274240590dc7cec42ac14040f00103f90140f7277f020000009203175468652042617262657273686f702044616d6173637573",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3118213,
+          33.5091177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "فلافل سندويش (مفتوح دايما)",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Al-Qanawat Municipality",
+        "suburb": "Hijaz Neighborhood",
+        "street": "Al Istiklal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.2997223,
+        "lat": 33.5123941,
+        "formatted": "falafel sandwich (always open), Al Istiklal Street, Hijaz Neighborhood, Al-Qanawat Municipality, Syria",
+        "address_line1": "falafel sandwich (always open)",
+        "address_line2": "Al Istiklal Street, Hijaz Neighborhood, Al-Qanawat Municipality, Syria",
+        "categories": [
+          "catering",
+          "catering.fast_food"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "فلافل سندويش (مفتوح دايما)",
+            "osm_id": 10931224605,
+            "amenity": "fast_food",
+            "name:en": "falafel sandwich (always open)",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "en": "falafel sandwich (always open)"
+        },
+        "place_id": "51e130e24c5d26424059b4333e2196c14040f00103f9011d408d8b0200000092032fd981d984d8a7d981d98420d8b3d986d8afd988d98ad8b42028d985d981d8aad988d8ad20d8afd8a7d98ad985d8a729",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.2997223,
+          33.5123941
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "فرن الكريشاتي",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Amara Baraniyyeh Neighborhood",
+        "street": "Al-Malek Faisal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3074413,
+        "lat": 33.5147699,
+        "formatted": "فرن الكريشاتي, Al-Malek Faisal Street, Amara Baraniyyeh Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "فرن الكريشاتي",
+        "address_line2": "Al-Malek Faisal Street, Amara Baraniyyeh Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "commercial",
+          "commercial.food_and_drink",
+          "commercial.food_and_drink.bakery"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "فرن الكريشاتي",
+            "shop": "bakery",
+            "osm_id": 10945265205,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "bakery"
+        },
+        "place_id": "5149788c3c5a274240595bdae5fae3c14040f00103f901357e638c02000000920319d981d8b1d98620d8a7d984d983d8b1d98ad8b4d8a7d8aad98a",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3074413,
+          33.5147699
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "معرض مصطفى علي (فنون ومقهى)",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Amin Neighbourhood",
+        "street": "Al Islah Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.31251,
+        "lat": 33.5072599,
+        "formatted": "Mostafa Ali Gallery (art&coffee), Al Islah Street, Amin Neighbourhood, Damascus, Syria",
+        "address_line1": "Mostafa Ali Gallery (art&coffee)",
+        "address_line2": "Al Islah Street, Amin Neighbourhood, Damascus, Syria",
+        "categories": [
+          "entertainment",
+          "entertainment.culture",
+          "entertainment.culture.gallery"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "معرض مصطفى علي (فنون ومقهى)",
+            "osm_id": 11121261407,
+            "name:en": "Mostafa Ali Gallery (art&coffee)",
+            "name:ru": "галерея Мустафы Али (арт и кофе)",
+            "tourism": "gallery",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "en": "Mostafa Ali Gallery (art&coffee)",
+          "ru": "галерея Мустафы Али (арт и кофе)"
+        },
+        "place_id": "5124d6e253002842405900a873e4edc04040f00103f9015ffbe09602000000920330d985d8b9d8b1d8b620d985d8b5d8b7d981d98920d8b9d984d98a2028d981d986d988d98620d988d985d982d987d98929",
+        "color": "#EC407A",
+        "mainCategory": "Entertainment & Culture",
+        "aspect": "culture & heritage",
+        "subaspect": "cultural hub"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.31251,
+          33.5072599
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ليمون مجمد بالكهرباء (محل قديم)",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Oqaiba Neighborhood",
+        "street": "Al-Malek Faisal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.303828,
+        "lat": 33.513733,
+        "formatted": "lemon iced juice (very old shop), Al-Malek Faisal Street, Oqaiba Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "lemon iced juice (very old shop)",
+        "address_line2": "Al-Malek Faisal Street, Oqaiba Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "catering",
+          "catering.cafe"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "ليمون مجمد بالكهرباء (محل قديم)",
+            "osm_id": 11121290605,
+            "amenity": "cafe",
+            "name:en": "lemon iced juice (very old shop)",
+            "name:ru": "лимонный лед (старое место, готовят на глазах)",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "en": "lemon iced juice (very old shop)",
+          "ru": "лимонный лед (старое место, готовят на глазах)"
+        },
+        "place_id": "51f6cdfdd5e326424059ee0ec000c2c14040f00103f9016d6de19602000000920338d984d98ad985d988d98620d985d8acd985d8af20d8a8d8a7d984d983d987d8b1d8a8d8a7d8a12028d985d8add98420d982d8afd98ad98529",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.303828,
+          33.513733
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Shaghour Jowani Neighbourhood",
+        "street": "الشماعين",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3056707,
+        "lat": 33.5082433,
+        "formatted": "الشماعين, Shaghour Jowani Neighbourhood, Damascus, Syria",
+        "address_line1": "الشماعين",
+        "address_line2": "Shaghour Jowani Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.clothing",
+          "commercial.clothing.clothes"
+        ],
+        "details": [
+          "details.contact"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "clothes",
+            "phone": "0112210631",
+            "osm_id": 4761294221,
+            "osm_type": "n"
+          }
+        },
+        "contact": {
+          "phone": "0112210631"
+        },
+        "commercial": {
+          "type": "clothes"
+        },
+        "place_id": "5137ecad3720274240596313cf1d0ec14040f00103f9018d95cb1b01000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3056707,
+          33.5082433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Al-Qanawat Municipality",
+        "suburb": "Bab Al Jabiyeh Neighborhood",
+        "street": "Kaser Hajjaj Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.300672603465344,
+        "lat": 33.5066699,
+        "formatted": "Kaser Hajjaj Street, Bab Al Jabiyeh Neighborhood, Al-Qanawat Municipality, Syria",
+        "address_line1": "Kaser Hajjaj Street",
+        "address_line2": "Bab Al Jabiyeh Neighborhood, Al-Qanawat Municipality, Syria",
+        "categories": [
+          "education",
+          "education.school"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 204040674,
+            "amenity": "school",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51ea579b707c26424059cd4d2c8fdac04040f00102f901e269290c00000000",
+        "color": "#9575CD",
+        "mainCategory": "Education",
+        "aspect": "social factor",
+        "subaspect": "education system"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.300672603465344,
+          33.5066699
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Ma'azanet Ash Shahm Neighbourhood",
+        "street": "Rue As-Saghir",
+        "iso3166_2": "SY-DI",
+        "lon": 36.309656980951225,
+        "lat": 33.50527635,
+        "formatted": "Rue As-Saghir, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "address_line1": "Rue As-Saghir",
+        "address_line2": "Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "categories": [
+          "parking",
+          "parking.cars"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 318156611,
+            "amenity": "parking",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51f21407d7a2274240595a773ae5acc04040f00102f90143aff61200000000",
+        "color": "#FF8A65",
+        "mainCategory": "Transportation",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.309656980951225,
+          33.50527635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Al-Qanawat Municipality",
+        "suburb": "Hijaz Neighborhood",
+        "iso3166_2": "SY-DI",
+        "lon": 36.29969605639843,
+        "lat": 33.5129483,
+        "formatted": "Hijaz Neighborhood, Al-Qanawat Municipality, Damascus Subdistrict, Syria",
+        "address_line1": "Hijaz Neighborhood",
+        "address_line2": "Al-Qanawat Municipality, Damascus Subdistrict, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 318161303,
+            "leisure": "park",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51587cbc705c26424059c5a3354aa8c14040f00102f90197c1f61200000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.29969605639843,
+          33.5129483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30552950146064,
+        "lat": 33.51128675,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "parking",
+          "parking.cars"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 318261799,
+            "amenity": "parking",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "514a5e38971b27424059302f1ed871c14040f00102f901274af81200000000",
+        "color": "#FF8A65",
+        "mainCategory": "Transportation",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30552950146064,
+          33.51128675
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30923747384337,
+        "lat": 33.50992255,
+        "formatted": "Al Qamariyyeh Neighbourhood, Damascus, Damascus Subdistrict, Syria",
+        "address_line1": "Al Qamariyyeh Neighbourhood",
+        "address_line2": "Damascus, Damascus Subdistrict, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 318293978,
+            "leisure": "park",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "516e6df2179527424059e0fd602445c14040f00102f901dac7f81200000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30923747384337,
+          33.50992255
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Amin Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.31134718358369,
+        "lat": 33.50916765,
+        "formatted": "Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq Madhat - Basha Street - Via Recta",
+        "address_line2": "Amin Neighbourhood, Damascus, Syria",
+        "categories": [
+          "parking",
+          "parking.cars"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 319460449,
+            "amenity": "parking",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51ca987939da27424059f695d1672cc14040f00102f90161940a1300000000",
+        "color": "#FF8A65",
+        "mainCategory": "Transportation",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.31134718358369,
+          33.50916765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.311304253952265,
+        "lat": 33.509646599999996,
+        "formatted": "Souq Madhat - Basha Street - Via Recta, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq Madhat - Basha Street - Via Recta",
+        "address_line2": "Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "parking",
+          "parking.cars"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 319657716,
+            "amenity": "parking",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "5152ea5ad1d82742405907e18a193cc14040f00102f901f4960d1300000000",
+        "color": "#FF8A65",
+        "mainCategory": "Transportation",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.311304253952265,
+          33.509646599999996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3133514264773,
+        "lat": 33.51133555,
+        "formatted": "Bab Touma Neighbourhood, Damascus, Damascus Subdistrict, Syria",
+        "address_line1": "Bab Touma Neighbourhood",
+        "address_line2": "Damascus, Damascus Subdistrict, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 319657717,
+            "leisure": "park",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51fd6f48e61b28424059e8627b7173c14040f00102f901f5960d1300000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3133514264773,
+          33.51133555
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Joura Neighbourhood",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3150933525974,
+        "lat": 33.513678350000006,
+        "formatted": "Joura Neighbourhood, Damascus, Damascus Subdistrict, Syria",
+        "address_line1": "Joura Neighbourhood",
+        "address_line2": "Damascus, Damascus Subdistrict, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 319657719,
+            "leisure": "park",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51e24b9efa5428424059b4135036c0c14040f00102f901f7960d1300000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3150933525974,
+          33.513678350000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Joura Neighbourhood",
+        "iso3166_2": "SY-DI",
+        "lon": 36.31500126631356,
+        "lat": 33.513408350000006,
+        "formatted": "Joura Neighbourhood, Damascus, Damascus Subdistrict, Syria",
+        "address_line1": "Joura Neighbourhood",
+        "address_line2": "Damascus, Damascus Subdistrict, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "area": "yes",
+            "osm_id": 319657721,
+            "leisure": "park",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51f68124f65128424059f27d635db7c14040f00102f901f9960d1300000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "ecological factor",
+        "subaspect": "green spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.31500126631356,
+          33.513408350000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.31113808642686,
+        "lat": 33.5095115,
+        "formatted": "Souq Madhat - Basha Street - Via Recta, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq Madhat - Basha Street - Via Recta",
+        "address_line2": "Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.catering",
+          "catering",
+          "catering.restaurant"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 319729403,
+            "amenity": "restaurant",
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "5127df705fd32742405992d63dac37c14040f00102f901fbae0e1300000000",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.31113808642686,
+          33.5095115
+        ]
+      }
+    }
+  ]
+}

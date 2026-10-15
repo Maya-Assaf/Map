@@ -1,0 +1,984 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30249041447368,
+        "lat": 33.51113805,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725568,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "514cc28201b826424059a95dbbf86cc14040f00102f90100e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30249041447368,
+          33.51113805
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30256922797571,
+        "lat": 33.51114325,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725569,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "514077a596ba26424059e4475a246dc14040f00102f90101e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30256922797571,
+          33.51114325
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30269136421365,
+        "lat": 33.51115445000001,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725570,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51240a3397be2642405902194e826dc14040f00102f90102e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30269136421365,
+          33.51115445000001
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30280503531674,
+        "lat": 33.51116515,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725571,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51f0dfbd50c226424059372c10dc6dc14040f00102f90103e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30280503531674,
+          33.51116515
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30292219964828,
+        "lat": 33.511175699999995,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725572,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51625c9627c6264240590e2090346ec14040f00102f90104e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30292219964828,
+          33.511175699999995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30305638147482,
+        "lat": 33.5112528,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725573,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51a4a32f8dca264240594e1d53bb70c14040f00102f90105e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30305638147482,
+          33.5112528
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30326837631473,
+        "lat": 33.5111969,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725574,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "516617877fd1264240594fc766e66ec14040f00102f90106e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30326837631473,
+          33.5111969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Souq al-Hamidiyya",
+        "iso3166_2": "SY-DI",
+        "lon": 36.303459427554216,
+        "lat": 33.5112143,
+        "formatted": "Souq al-Hamidiyya, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Souq al-Hamidiyya",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725575,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "510e812ec2d72642405978fe5c786fc14040f00102f90107e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.303459427554216,
+          33.5112143
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hameidiyyeh Neighbourhood",
+        "street": "Al-Asronieh Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30353100137097,
+        "lat": 33.5113188,
+        "formatted": "Al-Asronieh Street, Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Al-Asronieh Street",
+        "address_line2": "Hameidiyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725576,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51f01a961ada264240590509f9e472c14040f00102f90108e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30353100137097,
+          33.5113188
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Amara Baraniyyeh Neighborhood",
+        "street": "Qalet Demashq Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30147636304804,
+        "lat": 33.51264075,
+        "formatted": "Qalet Demashq Street, Amara Baraniyyeh Neighborhood, Damascus, Syria",
+        "address_line1": "Qalet Demashq Street",
+        "address_line2": "Amara Baraniyyeh Neighborhood, Damascus, Syria",
+        "categories": [
+          "building",
+          "building.commercial",
+          "commercial"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "shop": "yes",
+            "osm_id": 463725577,
+            "building": "yes",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "5178e707c79626424059330b4b369ec14040f00102f90109e4a31b00000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Culture & Heritage",
+        "subaspect": "Tangible Heritage"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30147636304804,
+          33.51264075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Amara Baraniyyeh Neighborhood",
+        "street": "Al-Malek Faisal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.309227540111564,
+        "lat": 33.515120749999994,
+        "formatted": "Al-Malek Faisal Street, Amara Baraniyyeh Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "Al-Malek Faisal Street",
+        "address_line2": "Amara Baraniyyeh Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "education",
+          "education.school"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1124729488,
+            "amenity": "school",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "519ee69dc49427424059aa7d0a7aefc14040f00102f90190020a4300000000",
+        "color": "#9575CD",
+        "mainCategory": "Education",
+        "aspect": "Social Factor",
+        "subaspect": "Education System"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.309227540111564,
+          33.515120749999994
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Amara Baraniyyeh Neighborhood",
+        "street": "Al-Malek Faisal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3096282836824,
+        "lat": 33.515123,
+        "formatted": "Al-Malek Faisal Street, Amara Baraniyyeh Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "Al-Malek Faisal Street",
+        "address_line2": "Amara Baraniyyeh Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "education",
+          "education.school"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1124729489,
+            "amenity": "school",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51902a4ce6a1274240593f54ea8cefc14040f00102f90191020a4300000000",
+        "color": "#9575CD",
+        "mainCategory": "Education",
+        "aspect": "Social Factor",
+        "subaspect": "Education System"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3096282836824,
+          33.515123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Masjid Aqsab Neighborhood",
+        "street": "Al Farrayeen Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.310612388992624,
+        "lat": 33.51478145,
+        "formatted": "Al Farrayeen Street, Masjid Aqsab Neighborhood, Damascus, Syria",
+        "address_line1": "Al Farrayeen Street",
+        "address_line2": "Masjid Aqsab Neighborhood, Damascus, Syria",
+        "categories": [
+          "parking",
+          "parking.cars"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1124729490,
+            "amenity": "parking",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51563a9225c227424059024ac95be4c14040f00102f90192020a4300000000",
+        "color": "#FF8A65",
+        "mainCategory": "Transportation",
+        "aspect": "Urban Planning",
+        "subaspect": "Infrastructure"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.310612388992624,
+          33.51478145
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Saroujah Neighborhood",
+        "street": "Al Thawra Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30011064431521,
+        "lat": 33.5140932,
+        "formatted": "Al Thawra Street, Saroujah Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "Al Thawra Street",
+        "address_line2": "Saroujah Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "commercial.marketplace"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1195537098,
+            "amenity": "marketplace",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51f6418d066a2642405917ab53cecdc14040f00102f901ca72424700000000",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "Economic Factor",
+        "subaspect": "Employment Development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30011064431521,
+          33.5140932
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "street": "Bzouriah Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30678960971278,
+        "lat": 33.51015205,
+        "formatted": "Bzouriah Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Bzouriah Street",
+        "address_line2": "Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park",
+          "leisure.park.garden"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1235309522,
+            "leisure": "garden",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51083cc6e144274240592a7d90a94cc14040f00102f901d253a14900000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "Urban Planning",
+        "subaspect": "Public Spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30678960971278,
+          33.51015205
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "iso3166_2": "SY-DI",
+        "lon": 36.30707192286115,
+        "lat": 33.51027775,
+        "formatted": "Al Qamariyyeh Neighbourhood, Damascus, Damascus Subdistrict, Syria",
+        "address_line1": "Al Qamariyyeh Neighbourhood",
+        "address_line2": "Damascus, Damascus Subdistrict, Syria",
+        "categories": [
+          "leisure",
+          "leisure.park"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1235309529,
+            "leisure": "park",
+            "osm_type": "w"
+          }
+        },
+        "place_id": "51af1afd214e27424059f72e03c850c14040f00102f901d953a14900000000",
+        "color": "#26C6DA",
+        "mainCategory": "Outdoor leisure & activities",
+        "aspect": "Urban Planning",
+        "subaspect": "Public Spaces"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.30707192286115,
+          33.51027775
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "albab alateek",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Joura Neighbourhood",
+        "street": "جادة تاج الدين",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3123264,
+        "lat": 33.5127866,
+        "formatted": "albab alateek, جادة تاج الدين, Joura Neighbourhood, Damascus, Syria",
+        "address_line1": "albab alateek",
+        "address_line2": "جادة تاج الدين, Joura Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.restaurant"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 1329664451,
+            "amenity": "restaurant",
+            "name:ar": "الباب العتيق",
+            "name:en": "albab alateek",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "الباب العتيق",
+          "en": "albab alateek"
+        },
+        "place_id": "51b5d6bc4ffa27424059aa88c5fda2c14040f00103f901c311414f00000000",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "Urban Planning",
+        "subaspect": "Amenities"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3123264,
+          33.5127866
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "‫زقاق القصبة‬‎",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3155782,
+        "lat": 33.5128084,
+        "formatted": "‫زقاق القصبة‬‎, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "‫زقاق القصبة‬‎",
+        "address_line2": "Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.restaurant"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 2402774591,
+            "amenity": "restaurant",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "514e2ad0dd642842405966ada4b4a3c14040f00103f9013f6e378f00000000",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "Urban Planning",
+        "subaspect": "Amenities"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3155782,
+          33.5128084
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "street": "Al-Baba Cul-de-sac",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3103942,
+        "lat": 33.5106983,
+        "formatted": "Al-Baba Cul-de-sac, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Al-Baba Cul-de-sac",
+        "address_line2": "Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.bar"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 4134450590,
+            "amenity": "bar",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "511eef44ffba27424059806ed78f5ec14040f00103f9019eb56ef600000000",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "Urban Planning",
+        "subaspect": "Amenities"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3103942,
+          33.5106983
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "شارع باب توما‬‎",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3150482,
+        "lat": 33.5116456,
+        "formatted": "شارع باب توما‬‎, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "شارع باب توما‬‎",
+        "address_line2": "Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.cafe"
+        ],
+        "details": [
+          "details.catering"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "osm_id": 5645378421,
+            "amenity": "cafe",
+            "cuisine": "american",
+            "osm_type": "n"
+          }
+        },
+        "catering": {
+          "cuisine": "american"
+        },
+        "place_id": "51f2d4d97f532842405902b15e9a7dc14040f00103f90175a37d5001000000",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "Urban Planning",
+        "subaspect": "Amenities"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3150482,
+          33.5116456
+        ]
+      }
+    }
+  ]
+}

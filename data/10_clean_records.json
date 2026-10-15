@@ -1,0 +1,44 @@
+[
+  {
+    "name": null,
+    "country": "Syria",
+    "city": "Damascus",
+    "lat": 33.5084135,
+    "lon": 36.3014992,
+    "region_name": "المزة",
+    "aspect": "building",
+    "sup_aspect": "general purpose",
+    "amenity": null,
+    "shop": "sports",
+    "building": null,
+    "mainCategory": "Sports"
+  },
+  {
+    "name": null,
+    "country": "Syria",
+    "city": "Sarouja Municipality",
+    "lat": 33.5160703,
+    "lon": 36.3099697,
+    "region_name": "المزة",
+    "aspect": "building",
+    "sup_aspect": "general purpose",
+    "amenity": "atm",
+    "shop": null,
+    "building": null,
+    "mainCategory": "Financial"
+  },
+  {
+    "name": null,
+    "country": "Syria",
+    "city": "Damascus",
+    "lat": 33.5102146,
+    "lon": 36.3066876,
+    "region_name": "المزة",
+    "aspect": "building",
+    "sup_aspect": "general purpose",
+    "amenity": null,
+    "shop": "ticket",
+    "building": null,
+    "mainCategory": "Other retail"
+  }
+]

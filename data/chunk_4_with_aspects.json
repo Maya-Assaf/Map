@@ -1,0 +1,1141 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "حلويات سمر",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "شارع باب توما‬‎",
+        "iso3166_2": "SY-DI",
+        "lon": 36.315018,
+        "lat": 33.512526,
+        "formatted": "Samer, شارع باب توما‬‎, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "Samer",
+        "address_line2": "شارع باب توما‬‎, Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.food_and_drink",
+          "commercial.food_and_drink.confectionery"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "حلويات سمر",
+            "shop": "confectionery",
+            "osm_id": 4698081290,
+            "name:ar": "حلويات سمر",
+            "name:en": "Samer",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "حلويات سمر",
+          "en": "Samer"
+        },
+        "commercial": {
+          "type": "confectionery"
+        },
+        "place_id": "515fd3838252284240598e4bb3739ac14040f00103f9010a08071801000000920313d8add984d988d98ad8a7d8aa20d8b3d985d8b1",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.315018,
+          33.512526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "نعيم اخوان",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Shaghour Jowani Neighbourhood",
+        "street": "الشماعين",
+        "housenumber": "+9632210631",
+        "iso3166_2": "SY-DI",
+        "lon": 36.305676,
+        "lat": 33.5082359,
+        "formatted": "NB, الشماعين, +9632210631, Shaghour Jowani Neighbourhood, Damascus, Syria",
+        "address_line1": "NB",
+        "address_line2": "الشماعين, +9632210631, Shaghour Jowani Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.clothing",
+          "commercial.clothing.clothes"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "نعيم اخوان",
+            "shop": "clothes",
+            "osm_id": 4794793725,
+            "name:ar": "نعيم اخوان",
+            "name:en": "NB",
+            "osm_type": "n",
+            "addr:street": "الشماعين",
+            "addr:housenumber": "+9632210631"
+          }
+        },
+        "name_international": {
+          "ar": "نعيم اخوان",
+          "en": "NB"
+        },
+        "commercial": {
+          "type": "clothes"
+        },
+        "place_id": "510796236420274240595cb2bbdf0dc14040f00103f901fdbeca1d01000000920313d986d8b9d98ad98520d8a7d8aed988d8a7d986",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.305676,
+          33.5082359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "خيرات ياسين",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Ma'azanet Ash Shahm Neighbourhood",
+        "street": "Hassan Al Kharrat Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3065625,
+        "lat": 33.5070669,
+        "formatted": "خيرات ياسين, Hassan Al Kharrat Street, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "address_line1": "خيرات ياسين",
+        "address_line2": "Hassan Al Kharrat Street, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.convenience"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "خيرات ياسين",
+            "shop": "convenience",
+            "osm_id": 5202608423,
+            "name:ar": "خيرات ياسين",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "خيرات ياسين"
+        },
+        "commercial": {
+          "type": "convenience"
+        },
+        "place_id": "510ad7a3703d27424059ec4f7391e7c04040f00103f9012781193601000000920315d8aed98ad8b1d8a7d8aa20d98ad8a7d8b3d98ad986",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3065625,
+          33.5070669
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "مطعم وكافيه بيت العيلة",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Amara Jowaniyyeh Neighbourhood",
+        "street": "Al-Qeimarieh Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3094942,
+        "lat": 33.5117707,
+        "formatted": "مطعم وكافيه بيت العيلة, Al-Qeimarieh Street, Amara Jowaniyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "مطعم وكافيه بيت العيلة",
+        "address_line2": "Al-Qeimarieh Street, Amara Jowaniyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.restaurant"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "مطعم وكافيه بيت العيلة",
+            "osm_id": 5202608722,
+            "amenity": "restaurant",
+            "name:ar": "مطعم وكافيه بيت العيلة",
+            "name:he": "מסעדה ובית קפה בית עילה",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "مطعم وكافيه بيت العيلة",
+          "he": "מסעדה ובית קפה בית עילה"
+        },
+        "place_id": "519da685819d2742405952e5c8b381c14040f00103f9015282193601000000920329d985d8b7d8b9d98520d988d983d8a7d981d98ad98720d8a8d98ad8aa20d8a7d984d8b9d98ad984d8a9",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3094942,
+          33.5117707
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ashqarco",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Ancient City of Damascus Municipality",
+        "town": "Dwelaa",
+        "suburb": "Hariqa Neighbourhood",
+        "street": "Sa'd Zagloul Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.301494,
+        "lat": 33.509825,
+        "formatted": "Ashqarco, Sa'd Zagloul Street, Hariqa Neighbourhood, Ancient City of Damascus Municipality, Syria",
+        "address_line1": "Ashqarco",
+        "address_line2": "Sa'd Zagloul Street, Hariqa Neighbourhood, Ancient City of Damascus Municipality, Syria",
+        "categories": [
+          "commercial",
+          "commercial.hobby",
+          "commercial.hobby.sewing_and_knitting"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "Ashqarco",
+            "shop": "sewing",
+            "osm_id": 5509224305,
+            "facebook": "https://www.facebook.com/Ashqarco/",
+            "osm_type": "n",
+            "addr:city": "دمشق",
+            "addr:country": "SY"
+          }
+        },
+        "commercial": {
+          "type": "sewing"
+        },
+        "place_id": "5159f8fa5a972642405939f611f241c14040f00103f9017117604801000000920308417368716172636f",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.301494,
+          33.509825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "الصفدي للتجارة",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Ma'azanet Ash Shahm Neighbourhood",
+        "street": "Hassan Al Kharrat Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3065966,
+        "lat": 33.5071268,
+        "formatted": "الصفدي للتجارة, Hassan Al Kharrat Street, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "address_line1": "الصفدي للتجارة",
+        "address_line2": "Hassan Al Kharrat Street, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.convenience"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "الصفدي للتجارة",
+            "shop": "convenience",
+            "osm_id": 5615862322,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "convenience"
+        },
+        "place_id": "514b08b18e3e274240592c95ed87e9c04040f00103f9013242bb4e0100000092031bd8a7d984d8b5d981d8afd98a20d984d984d8aad8acd8a7d8b1d8a9",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3065966,
+          33.5071268
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "شركة المتوسط التجارية",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Oqaiba Neighborhood",
+        "street": "Al-Malek Faisal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3053479,
+        "lat": 33.5139613,
+        "formatted": "شركة المتوسط التجارية, Al-Malek Faisal Street, Oqaiba Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "شركة المتوسط التجارية",
+        "address_line2": "Al-Malek Faisal Street, Oqaiba Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "commercial",
+          "commercial.houseware_and_hardware",
+          "commercial.houseware_and_hardware.hardware_and_tools"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "شركة المتوسط التجارية",
+            "shop": "hardware",
+            "osm_id": 5619018821,
+            "name:ar": "شركة المتوسط التجارية",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "شركة المتوسط التجارية"
+        },
+        "commercial": {
+          "type": "hardware"
+        },
+        "place_id": "517e33d6a315274240593d93de7bc9c14040f00103f901456ceb4e01000000920328d8b4d8b1d983d8a920d8a7d984d985d8aad988d8b3d8b720d8a7d984d8aad8acd8a7d8b1d98ad8a9",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3053479,
+          33.5139613
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "سيلينا",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "ساحة الدوامنة",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3127781,
+        "lat": 33.5120007,
+        "formatted": "Selena, ساحة الدوامنة, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "Selena",
+        "address_line2": "ساحة الدوامنة, Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.restaurant"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "سيلينا",
+            "osm_id": 5621711526,
+            "amenity": "restaurant",
+            "name:ar": "سيلينا",
+            "name:en": "Selena",
+            "name:fr": "Selena",
+            "name:he": "סלנה",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "سيلينا",
+          "en": "Selena",
+          "fr": "Selena",
+          "he": "סלנה"
+        },
+        "place_id": "51d833df1c092842405985222a3d89c14040f00103f901a682144f0100000092030cd8b3d98ad984d98ad986d8a7",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3127781,
+          33.5120007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "بما إنو",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "street": "Al-Qeimarieh Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3110211,
+        "lat": 33.5113992,
+        "formatted": "Bina Inno, Al-Qeimarieh Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Bina Inno",
+        "address_line2": "Al-Qeimarieh Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.restaurant"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "بما إنو",
+            "osm_id": 6237155685,
+            "amenity": "restaurant",
+            "name:ar": "بما إنو",
+            "name:en": "Bina Inno",
+            "osm_type": "n"
+          }
+        },
+        "name_international": {
+          "ar": "بما إنو",
+          "en": "Bina Inno"
+        },
+        "place_id": "51d76e168acf2742405977b86a8775c14040f00103f9016571c3730100000092030dd8a8d985d8a720d8a5d986d988",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3110211,
+          33.5113992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "حلويات البيك",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Al-Qanawat Municipality",
+        "suburb": "Al Qanawat Neighborhood",
+        "street": "Bab Aljabieh",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3001172,
+        "lat": 33.5073987,
+        "formatted": "حلويات البيك, Bab Aljabieh, Al Qanawat Neighborhood, Al-Qanawat Municipality, Syria",
+        "address_line1": "حلويات البيك",
+        "address_line2": "Bab Aljabieh, Al Qanawat Neighborhood, Al-Qanawat Municipality, Syria",
+        "categories": [
+          "commercial",
+          "commercial.food_and_drink",
+          "commercial.food_and_drink.confectionery"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "حلويات البيك",
+            "shop": "confectionery",
+            "osm_id": 6379112286,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "confectionery"
+        },
+        "place_id": "51ca7b8b3d6a26424059f762ca70f2c04040f00103f9015e87397c01000000920317d8add984d988d98ad8a7d8aa20d8a7d984d8a8d98ad983",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3001172,
+          33.5073987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "موناليزا",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "شارع باب توما‬‎",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3155337,
+        "lat": 33.5103576,
+        "formatted": "Monaliza, شارع باب توما‬‎, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "Monaliza",
+        "address_line2": "شارع باب توما‬‎, Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.restaurant",
+          "internet_access"
+        ],
+        "details": [
+          "details",
+          "details.facilities"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "موناليزا",
+            "osm_id": 6658574187,
+            "amenity": "restaurant",
+            "name:ar": "موناليزا",
+            "name:en": "Monaliza",
+            "name:fr": "Monaliza",
+            "osm_type": "n",
+            "addr:street": "شارع باب توما‬‎",
+            "internet_access": "wlan"
+          }
+        },
+        "name_international": {
+          "ar": "موناليزا",
+          "en": "Monaliza",
+          "fr": "Monaliza"
+        },
+        "facilities": {
+          "internet_access": true
+        },
+        "place_id": "51972485686328424059b4c0d76553c14040f00103f9016bc7e18c01000000920310d985d988d986d8a7d984d98ad8b2d8a7",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3155337,
+          33.5103576
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "AL NOUR AND AL MANAR SCHOOL",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Joura Neighbourhood",
+        "street": "جادة تاج الدين",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3137657,
+        "lat": 33.5132915,
+        "formatted": "AL NOUR AND AL MANAR SCHOOL, جادة تاج الدين, Joura Neighbourhood, Damascus, Syria",
+        "address_line1": "AL NOUR AND AL MANAR SCHOOL",
+        "address_line2": "جادة تاج الدين, Joura Neighbourhood, Damascus, Syria",
+        "categories": [
+          "education",
+          "education.school"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "AL NOUR AND AL MANAR SCHOOL",
+            "osm_id": 6665276305,
+            "amenity": "school",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "51a20d7679292842405919072e89b3c14040f00103f901910b488d0100000092031b414c204e4f555220414e4420414c204d414e4152205343484f4f4c",
+        "color": "#9575CD",
+        "mainCategory": "Education",
+        "aspect": "social factor",
+        "subaspect": "education system"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3137657,
+          33.5132915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "shadows bar",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Bab Touma Neighbourhood",
+        "quarter": "Bab Touma",
+        "street": "Al Azariyeh Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3163708,
+        "lat": 33.511702,
+        "formatted": "shadows bar, Al Azariyeh Street, Bab Touma Neighbourhood, Damascus, Syria",
+        "address_line1": "shadows bar",
+        "address_line2": "Al Azariyeh Street, Bab Touma Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.bar"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "shadows bar",
+            "osm_id": 6858468557,
+            "amenity": "bar",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "5166b49fd67e28424059e8c47c737fc14040f00103f901cdeccb980100000092030b736861646f777320626172",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3163708,
+          33.511702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "مستر بوتيتو",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "street": "Al-Qeimarieh Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3111684,
+        "lat": 33.5116696,
+        "formatted": "Mr.potato, Al-Qeimarieh Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "Mr.potato",
+        "address_line2": "Al-Qeimarieh Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.fast_food"
+        ],
+        "details": [
+          "details"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "مستر بوتيتو",
+            "osm_id": 7141473385,
+            "amenity": "fast_food",
+            "name:en": "Mr.potato",
+            "name:fr": "Mister Potato",
+            "osm_type": "n",
+            "addr:street": "شارع الشماسي"
+          }
+        },
+        "name_international": {
+          "en": "Mr.potato",
+          "fr": "Mister Potato"
+        },
+        "place_id": "513ac6ba5dd427424059894cb2637ec14040f00103f901693caaa901000000920315d985d8b3d8aad8b120d8a8d988d8aad98ad8aad988",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3111684,
+          33.5116696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "حمزة الفقير",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Sarouja Municipality",
+        "town": "Sarouja",
+        "suburb": "Masjid Aqsab Neighborhood",
+        "street": "Al-Malek Faisal Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3098728,
+        "lat": 33.5159983,
+        "formatted": "حمزة الفقير, Al-Malek Faisal Street, Masjid Aqsab Neighborhood, Sarouja Municipality, Syria",
+        "address_line1": "حمزة الفقير",
+        "address_line2": "Al-Malek Faisal Street, Masjid Aqsab Neighborhood, Sarouja Municipality, Syria",
+        "categories": [
+          "commercial",
+          "commercial.food_and_drink",
+          "commercial.food_and_drink.bakery"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "حمزة الفقير",
+            "shop": "bakery",
+            "osm_id": 7492743285,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "bakery"
+        },
+        "place_id": "51c1f572e9a92742405926c4763b0cc24040f00103f90175309abe01000000920315d8add985d8b2d8a920d8a7d984d981d982d98ad8b1",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3098728,
+          33.5159983
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "المتميزون",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Hariqa Neighbourhood",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3025072,
+        "lat": 33.5090685,
+        "formatted": "المتميزون, Souq Madhat - Basha Street - Via Recta, Hariqa Neighbourhood, Damascus, Syria",
+        "address_line1": "المتميزون",
+        "address_line2": "Souq Madhat - Basha Street - Via Recta, Hariqa Neighbourhood, Damascus, Syria",
+        "categories": [
+          "commercial",
+          "commercial.stationery"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "المتميزون",
+            "shop": "stationery",
+            "osm_id": 7860335987,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "stationery"
+        },
+        "place_id": "51fb66518eb8264240590395162829c14040f00103f901733583d401000000920312d8a7d984d985d8aad985d98ad8b2d988d986",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3025072,
+          33.5090685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "بيتزا القيمرية",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Al Qamariyyeh Neighbourhood",
+        "street": "Al-Qeimarieh Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3119254,
+        "lat": 33.5118572,
+        "formatted": "بيتزا القيمرية, Al-Qeimarieh Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "address_line1": "بيتزا القيمرية",
+        "address_line2": "Al-Qeimarieh Street, Al Qamariyyeh Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.fast_food",
+          "catering.fast_food.pizza"
+        ],
+        "details": [
+          "details.catering"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "بيتزا القيمرية",
+            "osm_id": 8206016317,
+            "amenity": "fast_food",
+            "cuisine": "pizza",
+            "osm_type": "n",
+            "addr:street": "القيمرية"
+          }
+        },
+        "catering": {
+          "cuisine": "pizza"
+        },
+        "place_id": "5157e5e72bed27424059393b668984c14040f00103f9013ddf1de90100000092031bd8a8d98ad8aad8b2d8a720d8a7d984d982d98ad985d8b1d98ad8a9",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "resource management",
+        "subaspect": "food insecurity"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3119254,
+          33.5118572
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "مقهى السروجي (أبو عصام الشنواني)",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "suburb": "Ma'azanet Ash Shahm Neighbourhood",
+        "street": "Al Badawi Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3075059,
+        "lat": 33.5057074,
+        "formatted": "مقهى السروجي (أبو عصام الشنواني), Al Badawi Street, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "address_line1": "مقهى السروجي (أبو عصام الشنواني)",
+        "address_line2": "Al Badawi Street, Ma'azanet Ash Shahm Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.cafe"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "مقهى السروجي (أبو عصام الشنواني)",
+            "osm_id": 8490234617,
+            "amenity": "cafe",
+            "osm_type": "n"
+          }
+        },
+        "place_id": "51dde9735a5c27424059ed4a2305bbc04040f00103f901f9b20efa0100000092033ad985d982d987d98920d8a7d984d8b3d8b1d988d8acd98a2028d8a3d8a8d98820d8b9d8b5d8a7d98520d8a7d984d8b4d986d988d8a7d986d98a29",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3075059,
+          33.5057074
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "مروان دعبول",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Ancient City of Damascus Municipality",
+        "town": "Dwelaa",
+        "suburb": "Hariqa Neighbourhood",
+        "street": "Sa'd Zagloul Street",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3014547,
+        "lat": 33.5087535,
+        "formatted": "مروان دعبول, Sa'd Zagloul Street, Hariqa Neighbourhood, Ancient City of Damascus Municipality, Syria",
+        "address_line1": "مروان دعبول",
+        "address_line2": "Sa'd Zagloul Street, Hariqa Neighbourhood, Ancient City of Damascus Municipality, Syria",
+        "categories": [
+          "commercial",
+          "commercial.clothing",
+          "commercial.clothing.clothes"
+        ],
+        "details": [],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "مروان دعبول",
+            "shop": "clothes",
+            "osm_id": 8866541518,
+            "osm_type": "n"
+          }
+        },
+        "commercial": {
+          "type": "clothes"
+        },
+        "place_id": "51dddc4e119626424059a33badd51ec14040f00103f901ceaf7c1002000000920315d985d8b1d988d8a7d98620d8afd8b9d8a8d988d984",
+        "color": "#26D7AE",
+        "mainCategory": "Other retail",
+        "aspect": "economic factor",
+        "subaspect": "employment development"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3014547,
+          33.5087535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "قهوة القشلة",
+        "country": "Syria",
+        "country_code": "sy",
+        "state": "Damascus Governorate",
+        "county": "Damascus Subdistrict",
+        "state_district": "Damascus District",
+        "city": "Damascus",
+        "district": "Jewish Quarter",
+        "suburb": "Amin Neighbourhood",
+        "street": "Souq Madhat - Basha Street - Via Recta",
+        "iso3166_2": "SY-DI",
+        "lon": 36.3150559,
+        "lat": 33.5085568,
+        "formatted": "Al Qishla, Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "address_line1": "Al Qishla",
+        "address_line2": "Souq Madhat - Basha Street - Via Recta, Amin Neighbourhood, Damascus, Syria",
+        "categories": [
+          "catering",
+          "catering.cafe"
+        ],
+        "details": [
+          "details",
+          "details.catering",
+          "details.facilities"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "قهوة القشلة",
+            "osm_id": 9139406724,
+            "amenity": "cafe",
+            "name:ar": "قهوة القشلة",
+            "name:en": "Al Qishla",
+            "osm_type": "n",
+            "outdoor_seating": "yes"
+          }
+        },
+        "name_international": {
+          "ar": "قهوة القشلة",
+          "en": "Al Qishla"
+        },
+        "facilities": {
+          "outdoor_seating": true
+        },
+        "place_id": "51b77471c053284240590a33a36318c14040f00103f9018447c02002000000920315d982d987d988d8a920d8a7d984d982d8b4d984d8a9",
+        "color": "#4FC3F7",
+        "mainCategory": "Sustenance",
+        "aspect": "social factor",
+        "subaspect": "local community"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.3150559,
+          33.5085568
+        ]
+      }
+    }
+  ]
+}
