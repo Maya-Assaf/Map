@@ -27,6 +27,12 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath xml
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 
+# 3. ضبط إعدادات PHP لرفع حجم الذاكرة (Memory Limit) وحجم رفع الملفات
+RUN echo "memory_limit = 1024M" > /usr/local/etc/php/conf.d/custom-php.ini \
+    && echo "upload_max_filesize = 100M" >> /usr/local/etc/php/conf.d/custom-php.ini \
+    && echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/custom-php.ini \
+    && echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/custom-php.ini
+
 # 4. تفعيل موديل Rewrite الخاص بـ Apache
 RUN a2enmod rewrite
 
