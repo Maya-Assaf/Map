@@ -222,7 +222,24 @@
               ]
             }
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.access_token) {",
+                  "        pm.collectionVariables.set('token', jsonData.access_token);",
+                  "        console.log('Bearer token saved automatically to collection variable {{token}}');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         },
         {
           "name": "get user profile",
@@ -232,7 +249,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|eYNt4R2AT3LvpuhbbNdtIJ7vdyrH8ogc1fzcEWjW6ad55388",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -339,7 +356,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "10|2wPkn49dqVP6Jjlx7jqmNNbNVQKihjDXxp1dnSoM050453d6",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -793,7 +810,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "F6neM9l5ukmyAuIGdJwjciVCsIP9yuyCpm5QsFW6c3480710",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -969,7 +986,24 @@
               ]
             }
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.access_token) {",
+                  "        pm.collectionVariables.set('token', jsonData.access_token);",
+                  "        console.log('Bearer token saved automatically to collection variable {{token}}');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         },
         {
           "name": "change email",
@@ -979,7 +1013,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|eYNt4R2AT3LvpuhbbNdtIJ7vdyrH8ogc1fzcEWjW6ad55388",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1033,7 +1067,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|J51ciibEf1kEacxggHFm3VIGNqIAgjMGZi2KWRXG5c3ae5d1",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1092,7 +1126,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "16|gKQx6rMySmlCkgiDRWdRhINW3nPysI1fpCLnAsdD8131cad3",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1131,7 +1165,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "3|cGcZcpSCdBuP7XZw1jNXuu9nAnPnMbsc37VRcayBbb3dafea",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1200,7 +1234,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|2xVqJ505KYoGvRLhsuSy09wvLOyfP9tePwhgamtkdbe2474b",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1240,7 +1274,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "3|cGcZcpSCdBuP7XZw1jNXuu9nAnPnMbsc37VRcayBbb3dafea",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1290,7 +1324,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "3|cGcZcpSCdBuP7XZw1jNXuu9nAnPnMbsc37VRcayBbb3dafea",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1597,7 +1631,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|kaYWeQnJbu9cjO21uW1n3Wa2NHSsphGw2k9cffkk8f4f96f1",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1690,7 +1724,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|kaYWeQnJbu9cjO21uW1n3Wa2NHSsphGw2k9cffkk8f4f96f1",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -1801,7 +1835,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|4DOCLxxV0E4Qi8HoVToA6EJcm78MhCd8O7f6sCOZ3045f9f8",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2193,7 +2227,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "9|1CxQXretutTQQfDyHKcC9vAgqwpgdoDE2kL7DD0477e7e0c8",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2306,7 +2340,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|kaYWeQnJbu9cjO21uW1n3Wa2NHSsphGw2k9cffkk8f4f96f1",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2437,7 +2471,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2553,7 +2587,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2691,7 +2725,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|nOLdiJHLfnMxTsflPoARzF2SfwvTaztFA4GdyJfb05995829",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2800,7 +2834,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -2907,7 +2941,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|K0naBl9FTZDzKRZQ5Z00yvZvYncJSb93MybN9VmP5f6f04da",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3014,7 +3048,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "1|QVVge4TIbHXS4P1BLXuBPTim35gZTzFV9zyMYWD682adef35",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3124,7 +3158,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "3|bWwHPCC7eQN2ReHeyQTv6IZ4prfWCfP4jEkLZRuPae8ea6b3",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3246,7 +3280,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3288,7 +3322,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3437,7 +3471,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3559,7 +3593,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "8|QwM5fkiOhTrvR5ls9uDephLGV0YOolFvofnA4oBi9c879961",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3613,7 +3647,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3739,7 +3773,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -3870,7 +3904,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -4051,7 +4085,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "2|rM7CNYrLuCaUEqyTlJPJhXbXcFuJOIEFQJn6PiZ842030837",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -4172,7 +4206,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "9|T4q6HZTknfm0RwPLmylSbgb2X5PpmtfVpmbdNWla222efce2",
+                  "value": "{{token}}",
                   "type": "string"
                 }
               ]
@@ -4210,6 +4244,13 @@
           "response": []
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
     }
   ]
 }
