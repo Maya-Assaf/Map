@@ -16,3 +16,7 @@ yarn-error.log
 /.idea
 /.vscode
 .env
+/GEMINI.md
+/AGENTS.md
+/.agents
+/.agent

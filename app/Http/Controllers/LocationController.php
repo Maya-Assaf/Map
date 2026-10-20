@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Aspect;
 use App\Models\SubAspect;
 use App\Models\Category;
+use App\Services\HexagonalGridService;
+use App\Http\Requests\NearbyHexagonRequest;
+use App\Http\Resources\NearbyHexagonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class LocationController extends Controller
 {
@@ -797,6 +801,21 @@ class LocationController extends Controller
      * Get all locations with details, relationships, and advanced search filters.
      * Accessible publicly.
      */
+    /**
+     * Find nearby location markers around a given point by partitioning the map into a hexagonal grid,
+     * returning matched markers ordered by hexagon ring and distance with pagination.
+     */
+    public function nearbyByHexagon(NearbyHexagonRequest $request, HexagonalGridService $hexService): NearbyHexagonResponse
+    {
+        $result = $hexService->getNearbyLocations($request->validated(), $request);
+
+        return new NearbyHexagonResponse(
+            gridMetadata: $result['grid_metadata'],
+            pagination: $result['pagination'],
+            locations: $result['locations']
+        );
+    }
+
     public function publicIndex(Request $request)
     {
         $query = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category', 'locatable']);

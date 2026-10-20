@@ -21,6 +21,7 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 
 // Public routes
 Route::get('/public/locations', [LocationController::class, 'publicIndex']);
+Route::match(['get', 'post'], '/public/locations/nearby-hex', [LocationController::class, 'nearbyByHexagon']);
 
 // Admin-only routes
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
@@ -51,6 +52,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/locations/search', [LocationController::class, 'search']);
         Route::get('/locations/statistics', [LocationController::class, 'statistics']);
+        Route::match(['get', 'post'], '/locations/nearby-hex', [LocationController::class, 'nearbyByHexagon']);
         Route::get('/locations/{id}', [LocationController::class, 'show']);
         Route::put('/locations/{id}', [LocationController::class, 'update']);
         Route::delete('/locations/{id}', [LocationController::class, 'destroy']);
