@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             PreRegisteredUsersSeeder::class,
             LocationFromJsonSeeder::class,
+            ConsolidateCoreAspectsSeeder::class,
         ]);
     }
 }

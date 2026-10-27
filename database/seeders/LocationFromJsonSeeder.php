@@ -110,11 +110,11 @@ class LocationFromJsonSeeder extends Seeder
                         $rawSub = 'General';
                     }
 
-                    $name = $item['name'] 
-                        ?? $item['name:ar'] 
-                        ?? $item['name:en'] 
-                        ?? $item['official_name'] 
-                        ?? $item['operator'] 
+                    $name = $item['name']
+                        ?? $item['name:ar']
+                        ?? $item['name:en']
+                        ?? $item['official_name']
+                        ?? $item['operator']
                         ?? null;
 
                     if (empty($name) || trim((string)$name) === '') {
@@ -288,6 +288,9 @@ class LocationFromJsonSeeder extends Seeder
         $this->command->info("المضلعات المضافة (Polygons): {$totalPolygonsInserted}");
         $this->command->info("المواقع التي تم تخطيها لأنها موجودة مسبقاً (Skipped Duplicates): {$totalSkipped}");
         $this->command->info("==========================================");
+
+        // دمج أي Aspects إضافية واردة من ملفات JSON ضمن الـ 10 الأساسية وحذف الزائدة تلقائياً
+        $this->call(ConsolidateCoreAspectsSeeder::class);
     }
 
     /**
