@@ -12,6 +12,7 @@ use App\Models\LocationSpace;
 use App\Models\SubAspect;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -225,6 +226,185 @@ class NearbyHexagonLocationsTest extends TestCase
             'longitude' => 36.2765,
         ]);
         $protectedPost->assertStatus(405);
+    }
+
+    public function test_type_filter_accurately_filters_morph_map_geometry_types(): void
+    {
+        $originLat = 33.5138;
+        $originLng = 36.2765;
+
+        $pointLoc = $this->createPointLocation('Point Marker', 33.5140, 36.2766);
+
+        $space = LocationSpace::create([
+            'latitude' => 33.5141,
+            'longitude' => 36.2767,
+            'radius' => 150.0,
+        ]);
+        $spaceLoc = $space->locatable()->create([
+            'name' => 'Space Marker',
+            'description' => 'Space inside ring 0',
+            'aspect_id' => $this->aspect->id,
+            'sub_aspect_id' => $this->subAspect->id,
+            'category_id' => $this->category->id,
+            'user_id' => $this->user->id,
+        ]);
+
+        $path = LocationPath::create();
+        $path->points()->createMany([
+            ['latitude' => 33.5142, 'longitude' => 36.2768],
+            ['latitude' => 33.5145, 'longitude' => 36.2772],
+            ['latitude' => 33.5148, 'longitude' => 36.2775],
+        ]);
+        $pathLoc = $path->locatable()->create([
+            'name' => 'Path Marker',
+            'description' => 'Path inside ring 0',
+            'aspect_id' => $this->aspect->id,
+            'sub_aspect_id' => $this->subAspect->id,
+            'category_id' => $this->category->id,
+            'user_id' => $this->user->id,
+        ]);
+
+        $polygon = LocationPolygon::create();
+        $polygon->points()->createMany([
+            ['latitude' => 33.5143, 'longitude' => 36.2769],
+            ['latitude' => 33.5146, 'longitude' => 36.2771],
+            ['latitude' => 33.5144, 'longitude' => 36.2773],
+        ]);
+        $polyLoc = $polygon->locatable()->create([
+            'name' => 'Polygon Marker',
+            'description' => 'Polygon inside ring 0',
+            'aspect_id' => $this->aspect->id,
+            'sub_aspect_id' => $this->subAspect->id,
+            'category_id' => $this->category->id,
+            'user_id' => $this->user->id,
+        ]);
+
+        Sanctum::actingAs($this->user);
+
+        foreach ([
+            'point' => $pointLoc->id,
+            'space' => $spaceLoc->id,
+            'path' => $pathLoc->id,
+            'polygon' => $polyLoc->id,
+        ] as $type => $expectedId) {
+            $res = $this->getJson('/api/locations/nearby-hex?' . http_build_query([
+                'latitude' => $originLat,
+                'longitude' => $originLng,
+                'hex_size_km' => 1.0,
+                'rings' => 1,
+                'type' => $type,
+            ]));
+
+            $res->assertStatus(200)
+                ->assertJsonPath('pagination.total', 1)
+                ->assertJsonPath('locations.data.0.id', $expectedId)
+                ->assertJsonPath('locations.data.0.locatable_type', $type);
+        }
+    }
+
+    public function test_protected_endpoint_enforces_verified_and_password_reset_middlewares(): void
+    {
+        $unverifiedUser = User::create([
+            'name' => 'Unverified User',
+            'email' => 'unverified@example.com',
+            'password' => bcrypt('password123'),
+            'position' => 'Volunteer',
+            'department' => 'IT & AI DEPARTMENT',
+            'layer' => 'technology and infrastructure',
+            'is_verified' => false,
+        ]);
+
+        Sanctum::actingAs($unverifiedUser);
+        $this->getJson('/api/locations/nearby-hex?latitude=33.5138&longitude=36.2765')
+            ->assertStatus(403);
+
+        $resetRequiredUser = User::create([
+            'name' => 'Reset User',
+            'email' => 'reset@example.com',
+            'password' => bcrypt('password123'),
+            'position' => 'Volunteer',
+            'department' => 'IT & AI DEPARTMENT',
+            'layer' => 'technology and infrastructure',
+            'is_verified' => true,
+        ]);
+        DB::table('users')->where('id', $resetRequiredUser->id)->update(['rest_password' => true]);
+        $resetRequiredUser->refresh();
+
+        Sanctum::actingAs($resetRequiredUser);
+        $this->getJson('/api/locations/nearby-hex?latitude=33.5138&longitude=36.2765')
+            ->assertStatus(405);
+    }
+
+    public function test_nearby_hex_executes_with_bounded_queries_and_fast_response_on_large_dataset(): void
+    {
+        $originLat = 33.5138;
+        $originLng = 36.2765;
+        $now = now()->toDateTimeString();
+
+        $pointsRows = [];
+        $locationsRows = [];
+
+        for ($i = 1; $i <= 1000; $i++) {
+            $latOffset = (($i % 40) - 20) * 0.0005;
+            $lngOffset = ((intdiv($i, 40) % 40) - 20) * 0.0005;
+
+            $pointsRows[] = [
+                'id' => $i,
+                'latitude' => round($originLat + $latOffset, 7),
+                'longitude' => round($originLng + $lngOffset, 7),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+
+            $locationsRows[] = [
+                'id' => $i,
+                'name' => "Bulk Marker #{$i}",
+                'description' => 'Performance test marker',
+                'aspect_id' => $this->aspect->id,
+                'sub_aspect_id' => $this->subAspect->id,
+                'category_id' => $this->category->id,
+                'user_id' => $this->user->id,
+                'locatable_type' => 'point',
+                'locatable_id' => $i,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+        }
+
+        foreach (array_chunk($pointsRows, 500) as $chunk) {
+            DB::table('location_points')->insert($chunk);
+        }
+        foreach (array_chunk($locationsRows, 500) as $chunk) {
+            DB::table('locations')->insert($chunk);
+        }
+
+        Sanctum::actingAs($this->user);
+
+        DB::flushQueryLog();
+        DB::enableQueryLog();
+
+        $startTime = microtime(true);
+        $response = $this->getJson('/api/locations/nearby-hex?' . http_build_query([
+            'latitude' => $originLat,
+            'longitude' => $originLng,
+            'hex_size_km' => 1.0,
+            'rings' => 2,
+            'per_page' => 15,
+            'page' => 1,
+        ]));
+        $elapsedMs = (microtime(true) - $startTime) * 1000;
+
+        $queries = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('pagination.per_page', 15);
+
+        $this->assertGreaterThan(500, $response->json('pagination.total'));
+        $this->assertCount(15, $response->json('locations.data'));
+        $this->assertLessThanOrEqual(8, count($queries), 'Expected bounded SQL query count via deferred hydration.');
+        $this->assertLessThan(250.0, $elapsedMs, 'Expected nearby-hex response under 250ms for 1,000 markers.');
     }
 }
 

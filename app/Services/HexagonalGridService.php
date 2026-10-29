@@ -8,8 +8,11 @@ use App\Models\LocationPath;
 use App\Models\LocationPoint;
 use App\Models\LocationPolygon;
 use App\Models\LocationSpace;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use PDO;
 
 class HexagonalGridService
 {
@@ -17,6 +20,11 @@ class HexagonalGridService
 
     /**
      * Get nearby locations partitioned into a hexagonal grid with sorting and pagination.
+     *
+     * Uses a two-phase late-materialization pipeline:
+     *  - Phase 1 streams lightweight indexed coordinates via PDO::FETCH_NUM, assigns hex rings/distances
+     *    in flat scalar arrays, and sorts in native C (array_multisort).
+     *  - Phase 2 hydrates Eloquent models and relationships strictly for the current page slice.
      */
     public function getNearbyLocations(array $validated, Request $request): array
     {
@@ -30,142 +38,225 @@ class HexagonalGridService
         // 1. Generate the hexagonal grid (k-ring around the target point)
         $hexagons = $this->generateKRingGrid($originLat, $originLng, $hexSizeKm, $rings);
 
-        // 2. Compute bounding box to pre-filter locations in SQL
+        // 2. Compute bounding box to pre-filter locations in SQL using spatial indexes
         $bbox = $this->getGridBoundingBox($originLat, $originLng, $hexSizeKm, $rings);
-        $minLat = $bbox['min_lat'];
-        $maxLat = $bbox['max_lat'];
-        $minLng = $bbox['min_lng'];
-        $maxLng = $bbox['max_lng'];
+        $spatialQuery = $this->buildSpatialCandidateQuery(
+            $validated,
+            $bbox['min_lat'],
+            $bbox['max_lat'],
+            $bbox['min_lng'],
+            $bbox['max_lng']
+        );
 
-        $query = Location::with(['user', 'images', 'references', 'aspect', 'subAspect', 'category', 'locatable']);
+        // 3. Stream lightweight coordinate rows and map candidates to hexagons without hydrating Eloquent models
+        $kmPerDegLng = $this->getKmPerDegLng($originLat);
+        $twoThirds = 2.0 / 3.0;
+        $negOneThird = -1.0 / 3.0;
+        $sqrt3Over3 = sqrt(3.0) / 3.0;
+        $cosOriginLat = cos(deg2rad($originLat));
 
-        if (!empty($validated['aspect_id'])) {
-            $query->where('aspect_id', $validated['aspect_id']);
-        }
-        if (!empty($validated['sub_aspect_id'])) {
-            $query->where('sub_aspect_id', $validated['sub_aspect_id']);
-        }
-        if (!empty($validated['category_id'])) {
-            $query->where('category_id', $validated['category_id']);
-        }
-        if (!empty($validated['type'])) {
-            $typeMap = [
-                'point' => LocationPoint::class,
-                'path' => LocationPath::class,
-                'space' => LocationSpace::class,
-                'polygon' => LocationPolygon::class,
-            ];
-            $query->where('locatable_type', $typeMap[strtolower($validated['type'])]);
-        }
+        $bestRings = [];
+        $bestDists = [];
+        $bestQ = [];
+        $bestR = [];
+        $bestLat = [];
+        $bestLng = [];
+        $bestPtOrder = [];
 
-        $query->where(function ($q) use ($minLat, $maxLat, $minLng, $maxLng) {
-            $q->whereHasMorph('locatable', [LocationPoint::class, LocationSpace::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
-                $morphQuery->whereBetween('latitude', [$minLat, $maxLat])
-                    ->whereBetween('longitude', [$minLng, $maxLng]);
-            })
-            ->orWhereHasMorph('locatable', [LocationPath::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
-                $morphQuery->whereHas('points', function ($pointQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
-                    $pointQuery->whereBetween('latitude', [$minLat, $maxLat])
-                        ->whereBetween('longitude', [$minLng, $maxLng]);
-                });
-            })
-            ->orWhereHasMorph('locatable', [LocationPolygon::class], function ($morphQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
-                $morphQuery->whereHas('points', function ($pointQuery) use ($minLat, $maxLat, $minLng, $maxLng) {
-                    $pointQuery->whereBetween('latitude', [$minLat, $maxLat])
-                        ->whereBetween('longitude', [$minLng, $maxLng]);
-                });
-            });
-        });
+        $connection = DB::connection();
+        if (!$connection->pretending()) {
+            $sql = $spatialQuery->toSql();
+            $bindings = $connection->prepareBindings($spatialQuery->getBindings());
+            $startQuery = microtime(true);
 
-        $candidateLocations = $query->get();
+            $stmt = $connection->getPdo()->prepare($sql);
+            $stmt->execute($bindings);
 
-        // 3. Map each candidate location to its hexagon in the grid and filter by exact hex ring
-        $matchedLocations = collect();
-
-        foreach ($candidateLocations as $location) {
-            $locatable = $location->locatable;
-            if (!$locatable) {
-                continue;
+            if ($connection->logging()) {
+                $connection->logQuery($sql, $bindings, round((microtime(true) - $startQuery) * 1000, 2));
             }
 
-            $bestHex = null;
-            $bestDistanceKm = null;
-            $representativePoint = null;
+            while (($row = $stmt->fetch(PDO::FETCH_NUM)) !== false) {
+                $locId = (int) $row[0];
+                $lat = (float) $row[1];
+                $lng = (float) $row[2];
+                $ptOrder = (int) $row[3];
 
-            if ($locatable instanceof LocationPoint || $locatable instanceof LocationSpace) {
-                $lat = (float) $locatable->latitude;
-                $lng = (float) $locatable->longitude;
-                $bestHex = $this->latLngToHex($lat, $lng, $originLat, $originLng, $hexSizeKm);
-                $bestDistanceKm = $this->haversineDistanceKm($originLat, $originLng, $lat, $lng);
-                $representativePoint = ['latitude' => $lat, 'longitude' => $lng];
-            } elseif ($locatable instanceof LocationPath || $locatable instanceof LocationPolygon) {
-                foreach ($locatable->points as $pt) {
-                    $lat = (float) $pt->latitude;
-                    $lng = (float) $pt->longitude;
-                    $hex = $this->latLngToHex($lat, $lng, $originLat, $originLng, $hexSizeKm);
-                    $dist = $this->haversineDistanceKm($originLat, $originLng, $lat, $lng);
+                $xKm = ($lng - $originLng) * $kmPerDegLng;
+                $yKm = ($lat - $originLat) * self::KM_PER_DEG_LAT;
 
-                    if (
-                        $bestHex === null ||
-                        $hex['ring'] < $bestHex['ring'] ||
-                        ($hex['ring'] === $bestHex['ring'] && $dist < $bestDistanceKm)
-                    ) {
-                        $bestHex = $hex;
-                        $bestDistanceKm = $dist;
-                        $representativePoint = ['latitude' => $lat, 'longitude' => $lng];
-                    }
+                $qFrac = ($twoThirds * $xKm) / $hexSizeKm;
+                $rFrac = ($negOneThird * $xKm + $sqrt3Over3 * $yKm) / $hexSizeKm;
+                $sFrac = -$qFrac - $rFrac;
+
+                $q = (int) round($qFrac);
+                $r = (int) round($rFrac);
+                $s = (int) round($sFrac);
+
+                $qDiff = abs($q - $qFrac);
+                $rDiff = abs($r - $rFrac);
+                $sDiff = abs($s - $sFrac);
+
+                if ($qDiff > $rDiff && $qDiff > $sDiff) {
+                    $q = -$r - $s;
+                } elseif ($rDiff > $sDiff) {
+                    $r = -$q - $s;
+                } else {
+                    $s = -$q - $r;
+                }
+
+                $ring = max(abs($q), abs($r), abs($s));
+                if ($ring > $rings) {
+                    continue;
+                }
+
+                // Skip Haversine calculation if this multi-vertex location already has a strictly closer ring
+                if (isset($bestRings[$locId]) && $ring > $bestRings[$locId]) {
+                    continue;
+                }
+
+                $dLat = deg2rad($lat - $originLat);
+                $dLng = deg2rad($lng - $originLng);
+                $sinHalfLat = sin($dLat * 0.5);
+                $sinHalfLng = sin($dLng * 0.5);
+                $a = $sinHalfLat * $sinHalfLat
+                    + $cosOriginLat * cos(deg2rad($lat)) * $sinHalfLng * $sinHalfLng;
+                $dist = round(6371.0 * 2.0 * atan2(sqrt($a), sqrt(max(0.0, 1.0 - $a))), 4);
+
+                if (
+                    !isset($bestRings[$locId])
+                    || $ring < $bestRings[$locId]
+                    || ($ring === $bestRings[$locId] && (
+                        $dist < $bestDists[$locId]
+                        || ($dist === $bestDists[$locId] && $ptOrder < $bestPtOrder[$locId])
+                    ))
+                ) {
+                    $bestRings[$locId] = $ring;
+                    $bestDists[$locId] = $dist;
+                    $bestQ[$locId] = $q;
+                    $bestR[$locId] = $r;
+                    $bestLat[$locId] = $lat;
+                    $bestLng[$locId] = $lng;
+                    $bestPtOrder[$locId] = $ptOrder;
                 }
             }
+        }
 
-            if ($bestHex === null || $bestHex['ring'] > $rings) {
-                continue;
-            }
-
-            $hexId = $bestHex['hex_id'];
+        // Tally marker counts per hexagon and count occupied hexagons
+        foreach ($bestQ as $locId => $q) {
+            $hexId = "hex_q{$q}_r{$bestR[$locId]}";
             if (isset($hexagons[$hexId])) {
                 $hexagons[$hexId]['markers_count']++;
             }
-
-            $matchedLocations->push([
-                'id' => $location->id,
-                'name' => $location->name,
-                'description' => $location->description,
-                'aspect_id' => $location->aspect_id,
-                'aspect' => optional($location->aspect)->name ?? 'unknown',
-                'sub_aspect_id' => $location->sub_aspect_id,
-                'sub_aspect' => optional($location->subAspect)->name ?? 'unknown',
-                'category_id' => $location->category_id,
-                'category' => optional($location->category)->name ?? 'unknown',
-                'user_id' => $location->user_id,
-                'user_layer' => optional($location->user)->layer ?? 'unknown',
-                'locatable_type' => $location->locatable_type,
-                'locatable' => $location->locatable,
-                'images' => $location->images,
-                'references' => $location->references,
-                'representative_point' => $representativePoint,
-                'distance_km' => $bestDistanceKm,
-                'hexagon' => $bestHex,
-                'created_at' => $location->created_at,
-                'updated_at' => $location->updated_at,
-            ]);
         }
 
-        // 4. Sort by hexagon ring first, then exact Haversine distance, then ID
-        $sortedLocations = $matchedLocations->sort(function (array $a, array $b) {
-            if ($a['hexagon']['ring'] !== $b['hexagon']['ring']) {
-                return $a['hexagon']['ring'] <=> $b['hexagon']['ring'];
+        $occupiedHexagonsCount = 0;
+        foreach ($hexagons as $hex) {
+            if ($hex['markers_count'] > 0) {
+                $occupiedHexagonsCount++;
             }
-            if ($a['distance_km'] !== $b['distance_km']) {
-                return $a['distance_km'] <=> $b['distance_km'];
-            }
-            return $a['id'] <=> $b['id'];
-        })->values();
+        }
 
-        // 5. Paginate results
-        $paginatedItems = $sortedLocations->forPage($page, $perPage)->values();
+        // 4. Sort by hexagon ring first, then exact Haversine distance, then ID (in native C)
+        $totalMatched = count($bestRings);
+        $pageIds = [];
+
+        if ($totalMatched > 0) {
+            $idsList = array_keys($bestRings);
+            $ringsList = array_values($bestRings);
+            $distsList = array_values($bestDists);
+
+            array_multisort(
+                $ringsList, SORT_ASC, SORT_NUMERIC,
+                $distsList, SORT_ASC, SORT_NUMERIC,
+                $idsList, SORT_ASC, SORT_NUMERIC
+            );
+
+            $offset = ($page - 1) * $perPage;
+            if ($offset < $totalMatched) {
+                $pageIds = array_slice($idsList, $offset, $perPage);
+            }
+        }
+
+        // 5. Deferred Hydration: Load full Eloquent models & relations ONLY for the paginated slice
+        $paginatedItems = collect();
+
+        if (!empty($pageIds)) {
+            $locationsById = Location::query()
+                ->leftJoin('users', 'locations.user_id', '=', 'users.id')
+                ->leftJoin('aspects', 'locations.aspect_id', '=', 'aspects.id')
+                ->leftJoin('sub_aspects', 'locations.sub_aspect_id', '=', 'sub_aspects.id')
+                ->leftJoin('categories', 'locations.category_id', '=', 'categories.id')
+                ->select([
+                    'locations.*',
+                    'users.layer as joined_user_layer',
+                    'aspects.name as joined_aspect_name',
+                    'sub_aspects.name as joined_sub_aspect_name',
+                    'categories.name as joined_category_name',
+                ])
+                ->with(['images', 'references', 'locatable'])
+                ->whereIn('locations.id', $pageIds)
+                ->get()
+                ->keyBy('id');
+
+            foreach ($pageIds as $locId) {
+                $location = $locationsById->get($locId);
+                if (!$location) {
+                    continue;
+                }
+
+                $q = $bestQ[$locId];
+                $r = $bestR[$locId];
+                $hexId = "hex_q{$q}_r{$r}";
+                $gridHex = $hexagons[$hexId] ?? null;
+
+                $hexInfo = $gridHex !== null ? [
+                    'hex_id' => $gridHex['hex_id'],
+                    'q' => $gridHex['q'],
+                    'r' => $gridHex['r'],
+                    's' => $gridHex['s'],
+                    'ring' => $gridHex['ring'],
+                    'center' => $gridHex['center'],
+                ] : [
+                    'hex_id' => $hexId,
+                    'q' => $q,
+                    'r' => $r,
+                    's' => -$q - $r,
+                    'ring' => $bestRings[$locId],
+                    'center' => $this->hexToLatLng($q, $r, $originLat, $originLng, $hexSizeKm),
+                ];
+
+                $paginatedItems->push([
+                    'id' => $location->id,
+                    'name' => $location->name,
+                    'description' => $location->description,
+                    'aspect_id' => $location->aspect_id,
+                    'aspect' => $location->joined_aspect_name ?? 'unknown',
+                    'sub_aspect_id' => $location->sub_aspect_id,
+                    'sub_aspect' => $location->joined_sub_aspect_name ?? 'unknown',
+                    'category_id' => $location->category_id,
+                    'category' => $location->joined_category_name ?? 'unknown',
+                    'user_id' => $location->user_id,
+                    'user_layer' => $location->joined_user_layer ?? 'unknown',
+                    'locatable_type' => $location->locatable_type,
+                    'locatable' => $location->locatable,
+                    'images' => $location->images,
+                    'references' => $location->references,
+                    'representative_point' => [
+                        'latitude' => $bestLat[$locId],
+                        'longitude' => $bestLng[$locId],
+                    ],
+                    'distance_km' => $bestDists[$locId],
+                    'hexagon' => $hexInfo,
+                    'created_at' => $location->created_at,
+                    'updated_at' => $location->updated_at,
+                ]);
+            }
+        }
+
         $paginator = new LengthAwarePaginator(
             $paginatedItems,
-            $sortedLocations->count(),
+            $totalMatched,
             $perPage,
             $page,
             [
@@ -187,7 +278,7 @@ class HexagonalGridService
                 'hex_size_km' => $hexSizeKm,
                 'rings' => $rings,
                 'total_hexagons_in_grid' => count($hexagons),
-                'occupied_hexagons_count' => collect($hexagons)->where('markers_count', '>', 0)->count(),
+                'occupied_hexagons_count' => $occupiedHexagonsCount,
                 'center_hexagon' => $hexagons[$this->formatHexId(0, 0)] ?? null,
                 'hexagons' => array_values($hexagons),
             ],
@@ -203,6 +294,98 @@ class HexagonalGridService
             ],
             'locations' => $paginatorArray,
         ];
+    }
+
+    /**
+     * Build an index-driven lightweight spatial candidate query across requested locatable geometry tables.
+     */
+    private function buildSpatialCandidateQuery(
+        array $validated,
+        float $minLat,
+        float $maxLat,
+        float $minLng,
+        float $maxLng
+    ): Builder {
+        $requestedType = !empty($validated['type']) ? strtolower($validated['type']) : null;
+
+        $applyFilters = function (Builder $query) use ($validated): void {
+            if (!empty($validated['aspect_id'])) {
+                $query->where('l.aspect_id', (int) $validated['aspect_id']);
+            }
+            if (!empty($validated['sub_aspect_id'])) {
+                $query->where('l.sub_aspect_id', (int) $validated['sub_aspect_id']);
+            }
+            if (!empty($validated['category_id'])) {
+                $query->where('l.category_id', (int) $validated['category_id']);
+            }
+        };
+
+        $branches = [];
+
+        if ($requestedType === null || $requestedType === 'point') {
+            $pointMorph = (new LocationPoint())->getMorphClass();
+            $q = DB::table('location_points as lp')
+                ->join('locations as l', function ($join) use ($pointMorph) {
+                    $join->on('l.locatable_id', '=', 'lp.id')
+                        ->where('l.locatable_type', '=', $pointMorph);
+                })
+                ->whereBetween('lp.latitude', [$minLat, $maxLat])
+                ->whereBetween('lp.longitude', [$minLng, $maxLng])
+                ->selectRaw('l.id as location_id, lp.latitude as lat, lp.longitude as lng, 0 as pt_order');
+            $applyFilters($q);
+            $branches[] = $q;
+        }
+
+        if ($requestedType === null || $requestedType === 'space') {
+            $spaceMorph = (new LocationSpace())->getMorphClass();
+            $q = DB::table('location_spaces as ls')
+                ->join('locations as l', function ($join) use ($spaceMorph) {
+                    $join->on('l.locatable_id', '=', 'ls.id')
+                        ->where('l.locatable_type', '=', $spaceMorph);
+                })
+                ->whereBetween('ls.latitude', [$minLat, $maxLat])
+                ->whereBetween('ls.longitude', [$minLng, $maxLng])
+                ->selectRaw('l.id as location_id, ls.latitude as lat, ls.longitude as lng, 0 as pt_order');
+            $applyFilters($q);
+            $branches[] = $q;
+        }
+
+        if ($requestedType === null || $requestedType === 'path') {
+            $pathMorph = (new LocationPath())->getMorphClass();
+            $q = DB::table('location_path_points as lpp')
+                ->join('location_paths as lpth', 'lpth.id', '=', 'lpp.location_path_id')
+                ->join('locations as l', function ($join) use ($pathMorph) {
+                    $join->on('l.locatable_id', '=', 'lpth.id')
+                        ->where('l.locatable_type', '=', $pathMorph);
+                })
+                ->whereBetween('lpp.latitude', [$minLat, $maxLat])
+                ->whereBetween('lpp.longitude', [$minLng, $maxLng])
+                ->selectRaw('l.id as location_id, lpp.latitude as lat, lpp.longitude as lng, lpp.id as pt_order');
+            $applyFilters($q);
+            $branches[] = $q;
+        }
+
+        if ($requestedType === null || $requestedType === 'polygon') {
+            $polygonMorph = (new LocationPolygon())->getMorphClass();
+            $q = DB::table('location_polygon_points as lpolyp')
+                ->join('location_polygons as lpoly', 'lpoly.id', '=', 'lpolyp.location_polygon_id')
+                ->join('locations as l', function ($join) use ($polygonMorph) {
+                    $join->on('l.locatable_id', '=', 'lpoly.id')
+                        ->where('l.locatable_type', '=', $polygonMorph);
+                })
+                ->whereBetween('lpolyp.latitude', [$minLat, $maxLat])
+                ->whereBetween('lpolyp.longitude', [$minLng, $maxLng])
+                ->selectRaw('l.id as location_id, lpolyp.latitude as lat, lpolyp.longitude as lng, lpolyp.id as pt_order');
+            $applyFilters($q);
+            $branches[] = $q;
+        }
+
+        $combined = array_shift($branches);
+        foreach ($branches as $branch) {
+            $combined->unionAll($branch);
+        }
+
+        return $combined;
     }
 
     /**
@@ -300,16 +483,38 @@ class HexagonalGridService
         float $hexSizeKm = 1.0,
         int $rings = 1
     ): array {
+        $kmPerDegLng = $this->getKmPerDegLng($originLat);
+        $sqrt3 = sqrt(3.0);
+
+        $vertexOffsetsKm = [];
+        for ($i = 0; $i < 6; $i++) {
+            $angleRad = deg2rad(60 * $i);
+            $vertexOffsetsKm[] = [
+                $hexSizeKm * cos($angleRad),
+                $hexSizeKm * sin($angleRad),
+            ];
+        }
+
         $hexagons = [];
 
         for ($q = -$rings; $q <= $rings; $q++) {
             $rMin = max(-$rings, -$q - $rings);
             $rMax = min($rings, -$q + $rings);
+            $xCenterKm = $hexSizeKm * 1.5 * $q;
 
             for ($r = $rMin; $r <= $rMax; $r++) {
                 $s = -$q - $r;
-                $ring = $this->hexDistance($q, $r, 0, 0);
-                $hexId = $this->formatHexId($q, $r);
+                $ring = max(abs($q), abs($r), abs($s));
+                $hexId = "hex_q{$q}_r{$r}";
+                $yCenterKm = $hexSizeKm * $sqrt3 * ($r + 0.5 * $q);
+
+                $vertices = [];
+                foreach ($vertexOffsetsKm as [$dxKm, $dyKm]) {
+                    $vertices[] = [
+                        'latitude' => round($originLat + (($yCenterKm + $dyKm) / self::KM_PER_DEG_LAT), 7),
+                        'longitude' => round($originLng + (($xCenterKm + $dxKm) / $kmPerDegLng), 7),
+                    ];
+                }
 
                 $hexagons[$hexId] = [
                     'hex_id' => $hexId,
@@ -317,8 +522,11 @@ class HexagonalGridService
                     'r' => $r,
                     's' => $s,
                     'ring' => $ring,
-                    'center' => $this->hexToLatLng($q, $r, $originLat, $originLng, $hexSizeKm),
-                    'vertices' => $this->getHexVertices($q, $r, $originLat, $originLng, $hexSizeKm),
+                    'center' => [
+                        'latitude' => round($originLat + ($yCenterKm / self::KM_PER_DEG_LAT), 7),
+                        'longitude' => round($originLng + ($xCenterKm / $kmPerDegLng), 7),
+                    ],
+                    'vertices' => $vertices,
                     'markers_count' => 0,
                 ];
             }
