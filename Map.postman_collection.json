@@ -1578,53 +1578,7 @@
           "response": []
         },
         {
-          "name": "Nearby Locations Hexagonal Grid (Public POST)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"latitude\": 33.5138,\n    \"longitude\": 36.2765,\n    \"hex_size_km\": 1,\n    \"rings\": 1,\n    \"per_page\": 15,\n    \"page\": 1\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/public/locations/nearby-hex",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "public",
-                "locations",
-                "nearby-hex"
-              ]
-            },
-            "description": "POST version for spatial hexagonal grid search with coordinates and filters in JSON body."
-          },
-          "response": []
-        },
-        {
-          "name": "Nearby Locations Hexagonal Grid (Protected GET/POST)",
+          "name": "Nearby Locations Hexagonal Grid (Protected GET)",
           "request": {
             "auth": {
               "type": "bearer",

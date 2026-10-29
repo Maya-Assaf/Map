@@ -167,7 +167,7 @@ class NearbyHexagonLocationsTest extends TestCase
         $this->assertSame(1, $page2Data[1]['hexagon']['ring']);
     }
 
-    public function test_authenticated_nearby_hex_endpoint_works_and_supports_post_and_filters(): void
+    public function test_authenticated_nearby_hex_endpoint_works_with_get_and_supports_filters(): void
     {
         $originLat = 33.5138;
         $originLng = 36.2765;
@@ -181,23 +181,23 @@ class NearbyHexagonLocationsTest extends TestCase
         $this->createPointLocation('Central School', 33.5141, 36.2767, $otherCategory);
 
         // Unauthenticated request to protected route should return 401
-        $unauthResponse = $this->postJson('/api/locations/nearby-hex', [
+        $unauthResponse = $this->getJson('/api/locations/nearby-hex?' . http_build_query([
             'latitude' => $originLat,
             'longitude' => $originLng,
-        ]);
+        ]));
         $unauthResponse->assertStatus(401);
 
-        // Authenticated request with category_id filter
+        // Authenticated request with category_id filter via GET
         Sanctum::actingAs($this->user);
 
-        $authResponse = $this->postJson('/api/locations/nearby-hex', [
+        $authResponse = $this->getJson('/api/locations/nearby-hex?' . http_build_query([
             'latitude' => $originLat,
             'longitude' => $originLng,
             'hex_size_km' => 1.0,
             'rings' => 0,
             'category_id' => $this->category->id,
             'per_page' => 10,
-        ]);
+        ]));
 
         $authResponse->assertStatus(200)
             ->assertJsonPath('success', true)
@@ -208,4 +208,23 @@ class NearbyHexagonLocationsTest extends TestCase
         $this->assertCount(1, $items);
         $this->assertSame($hospitalLoc->id, $items[0]['id']);
     }
+
+    public function test_post_method_is_not_allowed_for_nearby_hex_endpoints(): void
+    {
+        // Public endpoint rejects POST with 405 Method Not Allowed
+        $publicPost = $this->postJson('/api/public/locations/nearby-hex', [
+            'latitude' => 33.5138,
+            'longitude' => 36.2765,
+        ]);
+        $publicPost->assertStatus(405);
+
+        // Protected endpoint rejects POST with 405 Method Not Allowed
+        Sanctum::actingAs($this->user);
+        $protectedPost = $this->postJson('/api/locations/nearby-hex', [
+            'latitude' => 33.5138,
+            'longitude' => 36.2765,
+        ]);
+        $protectedPost->assertStatus(405);
+    }
 }
+
