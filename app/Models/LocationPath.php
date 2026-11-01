@@ -10,7 +10,7 @@ class LocationPath extends Model
 
     public function points()
     {
-        return $this->hasMany(LocationPathPoint::class);
+        return $this->hasMany(LocationPathPoint::class)->orderBy('id');
     }
 
     public function locatable()

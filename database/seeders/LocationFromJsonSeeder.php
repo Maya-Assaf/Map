@@ -140,17 +140,32 @@ class LocationFromJsonSeeder extends Seeder
                         $polygonPoints = $this->parseGeoJsonPolygon($item['polygon']);
                     }
 
+                    $centerLat = round((float)($item['_geometry']['coordinates'][1] ?? $item['lat'] ?? 0), 7);
+                    $centerLon = round((float)($item['_geometry']['coordinates'][0] ?? $item['lon'] ?? 0), 7);
+
                     $isPolygon = count($polygonPoints) >= 3;
                     if ($isPolygon) {
                         $fingerprint = 'poly_' . $name . '_' . $polygonPoints[0]['latitude'] . '_' . $polygonPoints[0]['longitude'];
                     } else {
-                        $lat = round((float)($item['_geometry']['coordinates'][1] ?? $item['lat'] ?? 0), 7);
-                        $lon = round((float)($item['_geometry']['coordinates'][0] ?? $item['lon'] ?? 0), 7);
+                        $lat = $centerLat;
+                        $lon = $centerLon;
                         $fingerprint = 'pt_' . $name . '_' . $lat . '_' . $lon;
                     }
 
-                    // إذا كان الموقع موجوداً بالفعل في قاعدة البيانات، نتخطاه لمنع التكرار
-                    if (isset($existingLocations[$fingerprint])) {
+                    $itemTypeStr = strtolower((string)($item['type'] ?? ''));
+                    $isLinearFeature = !empty($item['waterway'])
+                        || !empty($item['highway'])
+                        || str_starts_with($itemTypeStr, 'waterway_')
+                        || str_starts_with($itemTypeStr, 'highway_');
+
+                    // إذا كان الموقع موجوداً بالفعل في قاعدة البيانات (كنقطة أو مضلع أو ضمن مسار)، نتخطاه لمنع التكرار
+                    if (
+                        isset($existingLocations[$fingerprint])
+                        || ($isLinearFeature && (
+                            isset($existingLocations['path_coord_' . $centerLat . '_' . $centerLon])
+                            || isset($existingLocations['pt_coord_' . $centerLat . '_' . $centerLon])
+                        ))
+                    ) {
                         $totalSkipped++;
                         continue;
                     }
@@ -270,6 +285,9 @@ class LocationFromJsonSeeder extends Seeder
 
                     // إضافة البصمة للذاكرة لمنع تكرارها ضمن نفس الملفات
                     $existingLocations[$fingerprint] = true;
+                    if ($isLinearFeature) {
+                        $existingLocations['pt_coord_' . $centerLat . '_' . $centerLon] = true;
+                    }
                     $totalLocationsInserted++;
                 }
 
@@ -291,6 +309,9 @@ class LocationFromJsonSeeder extends Seeder
 
         // دمج أي Aspects إضافية واردة من ملفات JSON ضمن الـ 10 الأساسية وحذف الزائدة تلقائياً
         $this->call(ConsolidateCoreAspectsSeeder::class);
+
+        // ترتيب رؤوس المضلعات والمسارات، وتجميع الأنهار والشوارع كمسارات، ومزامنة الفئات مع أنواع الرسم
+        $this->call(FixImportedLocationsGeometrySeeder::class);
     }
 
     /**
@@ -310,8 +331,10 @@ class LocationFromJsonSeeder extends Seeder
             ->get();
 
         foreach ($points as $pt) {
-            $key = 'pt_' . $pt->name . '_' . round((float)$pt->latitude, 7) . '_' . round((float)$pt->longitude, 7);
-            $existing[$key] = true;
+            $lat = round((float)$pt->latitude, 7);
+            $lon = round((float)$pt->longitude, 7);
+            $existing['pt_' . $pt->name . '_' . $lat . '_' . $lon] = true;
+            $existing['pt_coord_' . $lat . '_' . $lon] = true;
         }
 
         // 2. بصمات المضلعات
@@ -326,6 +349,15 @@ class LocationFromJsonSeeder extends Seeder
         foreach ($polygons as $poly) {
             $key = 'poly_' . $poly->name . '_' . round((float)$poly->latitude, 7) . '_' . round((float)$poly->longitude, 7);
             $existing[$key] = true;
+        }
+
+        // 3. بصمات نقاط المسارات (الأنهار والشوارع المجمعة)
+        $pathPoints = DB::table('location_path_points')
+            ->select('latitude', 'longitude')
+            ->get();
+
+        foreach ($pathPoints as $pp) {
+            $existing['path_coord_' . round((float)$pp->latitude, 7) . '_' . round((float)$pp->longitude, 7)] = true;
         }
 
         return $existing;
@@ -348,7 +380,7 @@ class LocationFromJsonSeeder extends Seeder
     }
 
     /**
-     * استخراج نقاط المضلع من نص WKT: POLYGON((lon lat, lon lat, ...))
+     * استخراج وتنظيم نقاط المضلع من نص WKT: POLYGON((lon lat, lon lat, ...))
      */
     private function parseWktPolygon(string $wkt): array
     {
@@ -366,11 +398,11 @@ class LocationFromJsonSeeder extends Seeder
                 ];
             }
         }
-        return $points;
+        return $this->toEloquentPolygonPoints($points);
     }
 
     /**
-     * استخراج نقاط المضلع من كائن مضلع GeoJSON
+     * استخراج وتنظيم نقاط المضلع من كائن مضلع GeoJSON
      */
     private function parseGeoJsonPolygon(array $polygonObj): array
     {
@@ -386,6 +418,19 @@ class LocationFromJsonSeeder extends Seeder
                 ];
             }
         }
-        return $points;
+        return $this->toEloquentPolygonPoints($points);
+    }
+
+    private function toEloquentPolygonPoints(array $rawPoints): array
+    {
+        $normalized = FixImportedLocationsGeometrySeeder::normalizePolygonVertices($rawPoints);
+        $formatted = [];
+        foreach ($normalized as $pt) {
+            $formatted[] = [
+                'latitude' => $pt['lat'],
+                'longitude' => $pt['lon'],
+            ];
+        }
+        return $formatted;
     }
 }

@@ -10,7 +10,7 @@ class LocationPolygon extends Model
 
     public function points()
     {
-        return $this->hasMany(LocationPolygonPoint::class);
+        return $this->hasMany(LocationPolygonPoint::class)->orderBy('id');
     }
 
     public function locatable()
