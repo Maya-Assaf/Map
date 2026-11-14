@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Mail\ResetPasswordCodeMail;
+use App\Mail\PasswordResetLinkMail;
 
 
 class ResetPasswordController extends Controller
@@ -49,9 +51,7 @@ class ResetPasswordController extends Controller
 
         $resetUrl = config('app.frontend_url') . "/reset-password?token=$token&email={$request->email}";
 
-        Mail::raw("Reset your password: $resetUrl", function ($message) use ($request) {
-            $message->to($request->email)->subject('Reset Password');
-        });
+        Mail::to($request->email)->send(new PasswordResetLinkMail($resetUrl));
 
         return response()->json(['message' => 'Reset link sent']);
     }
@@ -65,22 +65,32 @@ class ResetPasswordController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
+        $user = User::where('email', $request->email)->first();
+
         $record = DB::table('password_resets')
             ->where('email', $request->email)
             ->where('token', $request->token)
             ->where('created_at', '>', now()->subMinutes(60))
             ->first();
 
-        if (!$record) {
+        $cachedCode = Cache::get('reset_password_code_' . $user->id) ?? Cache::get('reset_password_code_' . $request->email);
+        $isCodeValid = $cachedCode && ((string) $cachedCode === (string) $request->token);
+
+        if (!$record && !$isCodeValid) {
             return response()->json(['message' => 'Invalid or expired token'], 400);
         }
 
-        $user = User::where('email', $request->email)->first();
         $user->password = Hash::make($request->password);
+        $user->rest_password = false;
         $user->save();
 
-        // حذف التوكن بعد الاستخدام
-        DB::table('password_resets')->where('email', $request->email)->delete();
+        if ($record) {
+            DB::table('password_resets')->where('email', $request->email)->delete();
+        }
+        if ($isCodeValid) {
+            Cache::forget('reset_password_code_' . $user->id);
+            Cache::forget('reset_password_code_' . $user->email);
+        }
 
         return response()->json(['message' => 'Password updated']);
     }
@@ -93,16 +103,13 @@ class ResetPasswordController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        $newCode = (string) rand(100000, 999999);
 
-        $newCode = rand(100000, 999999);
+        // Store the new code in the cache with a 15 minutes expiration time
+        Cache::put('reset_password_code_' . $user->id, $newCode, now()->addMinutes(15));
+        Cache::put('reset_password_code_' . $user->email, $newCode, now()->addMinutes(15));
 
-        // Store the new code in the cache with a new expiration time
-        Cache::put('reset_password_code_' . $user->id, $newCode, 60); // 1 minutes expiration
-
-        Mail::raw('Your new reset password code is: ' . $newCode, function ($message) use ($user) {
-            $message->to($user->email)
-                ->subject('Send reset password Code');
-        });
+        Mail::to($user->email)->send(new ResetPasswordCodeMail($newCode, $user->name));
 
         return response()->json(['message' => 'A reset password code has been sent to your email.'], 200);
     }
@@ -125,40 +132,29 @@ class ResetPasswordController extends Controller
         // Find the user by email
         $user = User::where('email', $request->email)->first();
 
-//        $cachedCode = Cache::get('reset_password_code_' . $user->id);
-//
-//         // Check if the verification code matches
-//         if ($cachedCode && $cachedCode == $request->reset_password_code) {
-//             $user->rest_password = true;
-//             $user->save();
-//
-//             Cache::forget('reset_password_code_' . $user->id);
-//
-//             $token = $user->createToken('auth_token')->plainTextToken;
-//
-//
-//             return response()->json([
-//                 'message' => 'Verification successful!',
-//                 'access_token' => $token,
-//                 'user' => $user
-//             ], 200); // Success
-//         }
-//
-//         // If verification fails
-//         return response()->json([
-//             'message' => 'Invalid verification code.'
-//         ], 400); // Bad request
+        $cachedCode = Cache::get('reset_password_code_' . $user->id) ?? Cache::get('reset_password_code_' . $user->email);
 
-        $user->rest_password = true;
-        $user->save();
+        // Check if the verification code matches
+        if ($cachedCode && (string) $cachedCode === (string) $request->reset_password_code) {
+            $user->rest_password = true;
+            $user->save();
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+            Cache::forget('reset_password_code_' . $user->id);
+            Cache::forget('reset_password_code_' . $user->email);
 
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Verification successful!',
+                'access_token' => $token,
+                'user' => $user
+            ], 200); // Success
+        }
+
+        // If verification fails
         return response()->json([
-            'message' => 'Verification successful!',
-            'access_token' => $token,
-            'user' => $user
-        ], 200); // Success
+            'message' => 'Invalid verification code.'
+        ], 400); // Bad request
     }
 }
 

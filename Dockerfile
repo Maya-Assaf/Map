@@ -1,7 +1,7 @@
 # استخدام نسخة PHP 8.2 مع Apache المدمج
 FROM php:8.2-apache
 
-# 1. تثبيت الاعتمادات النظامية والمكتبات المطلوبة لـ Laravel و Excel
+# 1. تثبيت الاعتمادات النظامية والمكتبات المطلوبة لـ Laravel و Excel و Supervisor
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     libxml2-dev \
-    wget
+    wget \
+    supervisor
 
 # تنظيف الكاش لتقليل حجم الحاوية
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -37,7 +38,7 @@ RUN echo "memory_limit = 1024M" > /usr/local/etc/php/conf.d/custom-php.ini \
 RUN a2enmod rewrite
 
 # 5. تغيير مسار الـ DocumentRoot الخاص بـ Apache ليشير إلى مجلد public
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
@@ -48,18 +49,25 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# 8. تثبيت مكتبات Composer (بدون سكربتات لتجنب الأخطاء)
+# إزالة كاش الـ bootstrap القديم إن وُجد قبل التثبيت
+RUN rm -f /var/www/html/bootstrap/cache/*.php
+
+# 8. تثبيت مكتبات Composer
 RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
-# --- [ الإضافة الجديدة لحل مشكلة الصلاحيات والكاش ] ---
-# إنشاء المجلدات الفرعية المطلوبة بشكل مسبق للتأكد من وجودها قبل تطبيق الصلاحيات
+# 9. إعداد Supervisor و Entrypoint
+RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
+
+# --- [ ضبط الصلاحيات والمجلدات ] ---
 RUN mkdir -p /var/www/html/storage/framework/cache/data \
     && mkdir -p /var/www/html/storage/framework/views \
     && mkdir -p /var/www/html/storage/framework/sessions \
     && mkdir -p /var/www/html/storage/logs \
     && mkdir -p /var/www/html/bootstrap/cache
 
-# 9. ضبط الملكية والصلاحيات للمجلدات بشكل صحيح
 RUN chown -R www-data:www-data /var/www/html \
     && find /var/www/html/storage -type d -exec chmod 775 {} \; \
     && find /var/www/html/bootstrap/cache -type d -exec chmod 775 {} \; \
@@ -76,5 +84,5 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
 # المنفذ الافتراضي لـ Apache
 EXPOSE 80
 
-# تشغيل Apache
-CMD ["apache2-foreground"]
+# تشغيل Supervisor عبر Entrypoint ليدير Apache و Laravel Queue Worker معاً
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

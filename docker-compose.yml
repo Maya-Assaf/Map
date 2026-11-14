@@ -1,5 +1,3 @@
-# version: '3.9'
-
 services:
   app:
     build:
@@ -14,6 +12,7 @@ services:
       - db
     volumes:
       - .:/var/www/html
+      - /var/www/html/vendor
     networks:
       - laravel
 
@@ -23,9 +22,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: map_database
       MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
+      MYSQL_PASSWORD: secretpassword
     ports:
       - "3307:3306"
     volumes:

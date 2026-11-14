@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PreRegisteredUser;
+use App\Mail\EmailVerificationMail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,7 @@ class AuthController extends Controller
 
         Log::info('Voulnteer found in datasheet', ['email' => $request->email, 'data' => $employeeData]);
 
-        $verificationCode = rand(100000, 999999); // 6-digit random code
+        $verificationCode = (string) rand(100000, 999999); // 6-digit random code
 
         $user = User::create([
             'name' => $request->name,
@@ -71,15 +72,12 @@ class AuthController extends Controller
             'is_verified' => false,
         ]);
 
-        // Store verification code in cache with 10 minutes expiration
-        Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
+        // Store verification code in cache with 15 minutes expiration
+        Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(15));
+        Cache::put('verification_code_' . $user->email, $verificationCode, now()->addMinutes(15));
 
-
-        // Send email
-        Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
-            $message->to($user->email)
-                ->subject('Verify Your Email');
-        });
+        // Send queued email
+        Mail::to($user->email)->send(new EmailVerificationMail($verificationCode, $user->name));
 
         Log::info('User Registered Successfully:', ['user' => $user]);
 
@@ -140,35 +138,28 @@ class AuthController extends Controller
         // Find the user by email
         $user = User::where('email', $request->email)->first();
 
-        // // Retrieve the verification code from cache
-        // $cachedCode = Cache::get('verification_code_' . $user->id);
+        // Retrieve the verification code from cache
+        $cachedCode = Cache::get('verification_code_' . $user->id) ?? Cache::get('verification_code_' . $user->email);
 
-        // // Check if the verification code matches
-        // if ($cachedCode && $cachedCode == $request->verification_code) {
-        //     // Code is valid, mark the user as verified
-        //     $user->is_verified = true;
-        //     $user->save();
+        // Check if the verification code matches
+        if ($cachedCode && (string) $cachedCode === (string) $request->verification_code) {
+            $user->is_verified = true;
+            $user->email_verified_at = now();
+            $user->save();
 
-        //     // Remove the verification code from cache
-        //     Cache::forget('verification_code_' . $user->id);
+            // Remove the verification code from cache
+            Cache::forget('verification_code_' . $user->id);
+            Cache::forget('verification_code_' . $user->email);
 
-        //     return response()->json([
-        //         'message' => 'Verification successful!'
-        //     ], 200); // Success
-        // }
+            return response()->json([
+                'message' => 'Verification successful!'
+            ], 200); // Success
+        }
 
-        // // If verification fails
-        // return response()->json([
-        //     'message' => 'Invalid verification code.'
-        // ], 400); // Bad request
-
-        $user->is_verified = true;
-        //$user->email_verified_at_ = now();
-        $user->save();
-
+        // If verification fails
         return response()->json([
-            'message' => 'Verification successful!'
-        ], 200); // Success
+            'message' => 'Invalid verification code.'
+        ], 400); // Bad request
     }
 
     public function resendCode(Request $request)
@@ -183,15 +174,13 @@ class AuthController extends Controller
             return response()->json(['message' => 'User already verified.'], 400);
         }
 
-        $newCode = rand(100000, 999999);
+        $newCode = (string) rand(100000, 999999);
 
-        // Store the new code in the cache with a new expiration time
-        Cache::put('verification_code_' . $user->id, $newCode, 60); // 1 minutes expiration
+        // Store the new code in the cache with a 15 minutes expiration time
+        Cache::put('verification_code_' . $user->id, $newCode, now()->addMinutes(15));
+        Cache::put('verification_code_' . $user->email, $newCode, now()->addMinutes(15));
 
-        Mail::raw('Your new verification code is: ' . $newCode, function ($message) use ($user) {
-            $message->to($user->email)
-                ->subject('Send Verification Code');
-        });
+        Mail::to($user->email)->send(new EmailVerificationMail($newCode, $user->name));
 
         return response()->json(['message' => 'A verification code has been sent to your email.'], 200);
     }
@@ -255,16 +244,13 @@ class AuthController extends Controller
             // The password must be changed.
             $user->rest_password = true;
             $user->save();
-            $verificationCode = rand(100000, 999999); // 6-digit random code
-            // Store verification code in cache with 10 minutes expiration
-            Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(10));
+            $verificationCode = (string) rand(100000, 999999); // 6-digit random code
+            // Store verification code in cache with 15 minutes expiration
+            Cache::put('verification_code_' . $user->id, $verificationCode, now()->addMinutes(15));
+            Cache::put('verification_code_' . $user->email, $verificationCode, now()->addMinutes(15));
 
-
-            // Send email
-            Mail::raw('Your verification code is: ' . $verificationCode, function ($message) use ($user) {
-                $message->to($user->email)
-                    ->subject('Verify Your Email');
-            });
+            // Send queued email
+            Mail::to($user->email)->send(new EmailVerificationMail($verificationCode, $user->name));
             return response()->json([
                 'message' => 'The email has been changed and the confirmation code has been sent.',
             ]);

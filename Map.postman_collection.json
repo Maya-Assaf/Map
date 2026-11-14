@@ -64,7 +64,42 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Register Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "name", "value": "Batoul", "type": "text" },
+                    { "key": "email", "value": "batouljdid25@gmail.com", "type": "text" },
+                    { "key": "password", "value": "12345678", "type": "text" },
+                    { "key": "password_confirmation", "value": "12345678", "type": "text" }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/register",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"User registered successfully. Please verify your email to activate your account.\",\n    \"next_step\": \"verify_email\",\n    \"user_data\": {\n        \"position\": \"Volunteer\",\n        \"department\": \"IT & AI DEPARTMENT\",\n        \"layer\": \"technology and infrastructure\"\n    }\n}"
+            }
+          ]
         },
         {
           "name": "send code",
@@ -96,7 +131,32 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Resend Code Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"batouljdid25@gmail.com\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/resend-code",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "resend-code"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"A verification code has been sent to your email.\"\n}"
+            }
+          ]
         },
         {
           "name": "forgot password for mob",
@@ -128,7 +188,32 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Forgot Password Code Sent",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"batouljdid25@gmail.com\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/forgot-password-for-mob",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "forgot-password-for-mob"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"A reset password code has been sent to your email.\"\n}"
+            }
+          ]
         },
         {
           "name": "Verify Email",
@@ -175,7 +260,60 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Verify Email Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "email", "value": "batouljdid25@gmail.com", "type": "text" },
+                    { "key": "verification_code", "value": "872129", "type": "text" }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/verify-code",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "verify-code"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"Verification successful!\"\n}"
+            },
+            {
+              "name": "Verify Email Invalid Code",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "email", "value": "batouljdid25@gmail.com", "type": "text" },
+                    { "key": "verification_code", "value": "000000", "type": "text" }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/verify-code",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "verify-code"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"Invalid verification code.\"\n}"
+            }
+          ]
         },
         {
           "name": "verify reset code for mob",
@@ -222,7 +360,60 @@
               ]
             }
           },
-          "response": [],
+          "response": [
+            {
+              "name": "Verify Reset Code Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "email", "value": "batouljdid25@gmail.com", "type": "text" },
+                    { "key": "reset_password_code", "value": "590693", "type": "text" }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/verify-reset-code-for-mob",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "verify-reset-code-for-mob"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"Verification successful!\",\n    \"access_token\": \"1|abcdef...\",\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"Batoul\",\n        \"email\": \"batouljdid25@gmail.com\",\n        \"is_verified\": true,\n        \"rest_password\": true\n    }\n}"
+            },
+            {
+              "name": "Verify Reset Code Invalid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "email", "value": "batouljdid25@gmail.com", "type": "text" },
+                    { "key": "reset_password_code", "value": "000000", "type": "text" }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/verify-reset-code-for-mob",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "8000",
+                  "path": ["api", "verify-reset-code-for-mob"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"message\": \"Invalid verification code.\"\n}"
+            }
+          ],
           "event": [
             {
               "listen": "test",
